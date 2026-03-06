@@ -1,0 +1,24 @@
+package com.example.harmonyhub.navigation.auth_nav
+
+import androidx.navigation.NavGraphBuilder
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.composable
+import androidx.navigation.navigation
+import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.features.music_player.presentation.screens.MusicPlayer
+import com.example.harmonyhub.navigation.bottom_bar_nav.BottomBarNavGraph
+import com.example.harmonyhub.navigation.root_nav.RootNavRoutes
+
+fun NavGraphBuilder.authNavGraph(navController: NavHostController,authViewModel: AuthViewModel) {
+    navigation<RootNavRoutes.AuthenticatedRoutes>(
+        startDestination = AuthNavRoutes.BottomNav
+    ) {
+        composable<AuthNavRoutes.BottomNav> {
+            BottomBarNavGraph(navController,authViewModel)
+        }
+        composable<AuthNavRoutes.MusicPlayer> {
+            MusicPlayer()
+
+        }
+    }
+}
