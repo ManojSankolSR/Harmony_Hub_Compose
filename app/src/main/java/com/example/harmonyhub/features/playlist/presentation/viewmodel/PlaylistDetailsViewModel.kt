@@ -22,23 +22,22 @@ class PlaylistDetailsViewModel(private val repository: PlaylistRepository) : Vie
     val state = _uisState.asStateFlow();
 
     fun getPlaylistDetails(id: String) {
-        try {
-            viewModelScope.launch {
-                _uisState.update {
-                    PlaylistDetailsUiState.Loading
-                }
+        viewModelScope.launch {
+            _uisState.update {
+                PlaylistDetailsUiState.Loading
+            }
+            try {
                 val data = repository.getPlaylistDetails(id)
                 Log.d("PlaylistDetailsViewModel", "getPlaylistDetails: $data")
                 _uisState.update {
                     PlaylistDetailsUiState.Success(data)
                 }
-            }
-        } catch (e: Exception) {
-            _uisState.update {
-                PlaylistDetailsUiState.Error(e.message ?: "Some Error Occured")
+            } catch (e: Exception) {
+                _uisState.update {
+                    PlaylistDetailsUiState.Error(e.message ?: "Some Error Occurred")
+                }
             }
         }
-
     }
 }
 

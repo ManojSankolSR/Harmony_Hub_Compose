@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
 import com.example.harmonyhub.features.settings.presentation.screens.SettingsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.BottomNavRoutes
@@ -17,8 +18,9 @@ import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
 fun NavGraphBuilder.settingsNavGraph(
     navController: NavHostController,
     paddingValues: PaddingValues,
-    authViewModel: AuthViewModel
-    ) {
+    authViewModel: AuthViewModel,
+    musicPlayerViewModel: MusicPlayerViewModel
+) {
     navigation<BottomNavRoutes.Settings>(
         startDestination = SettingsNavRoutes.SettingsScreen
     ){
@@ -27,7 +29,7 @@ fun NavGraphBuilder.settingsNavGraph(
         }
         composable<PlaylistDetailScreen>{
             val data=it.toRoute<PlaylistDetailScreen>()
-            PlaylistScreen(navController,data)
+            PlaylistScreen(navController, data, musicPlayerViewModel)
         }
 
     }

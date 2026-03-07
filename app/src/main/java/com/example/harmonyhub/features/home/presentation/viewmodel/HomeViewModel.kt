@@ -26,9 +26,15 @@ class HomeViewModel(private val repository: HomeRepository) : ViewModel() {
             _uiState.update {
                 HomeUiState.Loading
             }
-            val homeData=repository.getHomeData();
-            _uiState.update {
-                HomeUiState.Success(homeData)
+            try {
+                val homeData=repository.getHomeData();
+                _uiState.update {
+                    HomeUiState.Success(homeData)
+                }
+            } catch (e: Exception) {
+                _uiState.update {
+                    HomeUiState.Error(e.message ?: "An unexpected error occurred")
+                }
             }
         }
     }
@@ -47,4 +53,3 @@ class HomeViewModelFactory(
         throw IllegalArgumentException("Unknown ViewModel")
     }
 }
-

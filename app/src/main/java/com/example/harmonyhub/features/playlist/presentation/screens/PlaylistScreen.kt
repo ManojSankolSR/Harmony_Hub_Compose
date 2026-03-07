@@ -5,11 +5,10 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.FilledTonalIconButton
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,8 +25,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.HarmonyHub
+import com.example.harmonyhub.core.presentation.components.ErrorView
 import com.example.harmonyhub.core.presentation.components.Loader
-import com.example.harmonyhub.features.home.data.remote.models.MusicItemType
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.playlist.presentation.components.PlaylistHeader
 import com.example.harmonyhub.features.playlist.presentation.components.SongsListItem
 import com.example.harmonyhub.features.playlist.presentation.state.PlaylistDetailsUiState
@@ -37,7 +38,11 @@ import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PlaylistScreen(navController: NavHostController, data: PlaylistDetailScreen) {
+fun PlaylistScreen(
+    navController: NavHostController,
+    data: PlaylistDetailScreen,
+    musicPlayerViewModel: MusicPlayerViewModel
+) {
 
     val app = LocalContext.current.applicationContext as HarmonyHub;
 
@@ -49,8 +54,15 @@ fun PlaylistScreen(navController: NavHostController, data: PlaylistDetailScreen)
 
     val state = viewModel.state.collectAsState().value;
 
+
+
     LaunchedEffect(data.id) {
         viewModel.getPlaylistDetails(data.id)
+    }
+
+
+    val onClick: (songs: List<Song>, index: Int) -> Unit = { songs, index ->
+        musicPlayerViewModel.play(songs = songs, index)
     }
 
     Scaffold(
@@ -99,15 +111,25 @@ fun PlaylistScreen(navController: NavHostController, data: PlaylistDetailScreen)
                                 modifier = Modifier.padding(8.dp)
                             )
                         }
-                        items(items = playlistData.songs ?: emptyList()) { song ->
-                            SongsListItem(song)
+                        itemsIndexed(items = playlistData.songs ?: emptyList()) { index, song ->
+                            SongsListItem(
+                                song,
+                                onClick = { onClick(playlistData.songs!!, index) },
+                                viewModel = musicPlayerViewModel,
+
+                            )
                         }
                     }
 
                 }
 
                 is PlaylistDetailsUiState.Error -> {
-                    Text("Failure")
+                    val message = state.message
+                    ErrorView(
+                        onRefresh = { viewModel.getPlaylistDetails(data.id) },
+                        message,
+                        paddingValues = PaddingValues(bottom = 100.dp)
+                    )
 
                 }
             }

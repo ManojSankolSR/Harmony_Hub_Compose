@@ -24,16 +24,18 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.R
+import com.example.harmonyhub.core.presentation.components.ErrorView
 import com.example.harmonyhub.core.presentation.components.Loader
 import com.example.harmonyhub.features.home.presentation.components.HomeList
 import com.example.harmonyhub.features.home.presentation.state.HomeUiState
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModelFactory
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.ui.theme.PermanentMarker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(parentPaddingValues: PaddingValues, navController: NavHostController) {
+fun HomeScreen(parentPaddingValues: PaddingValues, navController: NavHostController,musicPlayerViewModel: MusicPlayerViewModel) {
     val app = LocalContext.current.applicationContext as HarmonyHub;
     val homeViewModel: HomeViewModel = viewModel(
         factory = HomeViewModelFactory(app.appContainer.homeRepository)
@@ -81,11 +83,12 @@ fun HomeScreen(parentPaddingValues: PaddingValues, navController: NavHostControl
 
             is HomeUiState.Success -> {
                 val data = state.data.data
-                HomeList(data, parentPaddingValues, padding,homeViewModel,navController)
+                HomeList(data, parentPaddingValues, padding,homeViewModel,navController,musicPlayerViewModel)
             }
 
             is HomeUiState.Error -> {
-                Text(text = state.message)
+                val message = state.message
+                ErrorView(homeViewModel::fetchHomeData,message,padding)
 
             }
 

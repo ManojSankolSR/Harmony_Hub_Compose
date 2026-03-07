@@ -1,5 +1,7 @@
 package com.example.harmonyhub.navigation.auth_nav
 
+import androidx.compose.animation.AnimatedContentTransitionScope
+import androidx.compose.animation.core.tween
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
@@ -16,9 +18,21 @@ fun NavGraphBuilder.authNavGraph(navController: NavHostController,authViewModel:
         composable<AuthNavRoutes.BottomNav> {
             BottomBarNavGraph(navController,authViewModel)
         }
-        composable<AuthNavRoutes.MusicPlayer> {
-            MusicPlayer()
-
+        composable<AuthNavRoutes.MusicPlayer>(
+            enterTransition = {
+                slideIntoContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Up,
+                    tween(300)
+                )
+            },
+            exitTransition = {
+                slideOutOfContainer(
+                    AnimatedContentTransitionScope.SlideDirection.Down,
+                    tween(300)
+                )
+            }
+        ) {
+            MusicPlayer(navController)
         }
     }
 }

@@ -19,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.features.home.data.remote.models.HomeData
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -28,7 +29,8 @@ fun HomeList(
     parentPadding: PaddingValues,
     padding:PaddingValues,
     homeViewModel: HomeViewModel,
-    navController: NavHostController
+    navController: NavHostController,
+    musicPlayerViewModel: MusicPlayerViewModel
 ) {
 
     val list = data.asList();
@@ -62,8 +64,8 @@ fun HomeList(
                         ) { index, musicItem ->
                             musicItem?.let {
                                 when (colIndex) {
-                                    0 -> MusicItemCard1(it, navController)
-                                    else -> MusicItemCard2(it, navController)
+                                    0 -> MusicItemCard1(it, navController,musicPlayerViewModel)
+                                    else -> MusicItemCard2(it, navController,musicPlayerViewModel)
                                 }
                             }
                         }

@@ -23,16 +23,21 @@ import com.example.harmonyhub.core.navigation.MusicItemNavigator
 import com.example.harmonyhub.features.home.data.remote.models.MusicDataItem
 import com.example.harmonyhub.features.home.data.remote.models.MusicItemType
 import com.example.harmonyhub.features.home.data.remote.models.getImageUrl
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 
 
 @Composable
-fun MusicItemCard2(dataItem: MusicDataItem, navController: NavHostController) {
+fun MusicItemCard2(
+    dataItem: MusicDataItem,
+    navController: NavHostController,
+    musicPlayerViewModel: MusicPlayerViewModel
+) {
 
     Log.d("MusicItemCard2", "dataItem: ${dataItem.name} ${dataItem.getImageUrl()}")
 
     val onMusicItemClick: () -> Unit = {
         dataItem.type?.let { type ->
-            MusicItemNavigator.navigate(type, navController, dataItem)
+            MusicItemNavigator.navigate(type, navController, dataItem,musicPlayerViewModel)
         }
     }
 

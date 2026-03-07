@@ -105,4 +105,12 @@ dependencies {
     implementation(libs.coil.network.okhttp)
 
 
+    // Expo Player(Media 3)
+    implementation(libs.androidx.media3.exoplayer)
+    implementation(libs.androidx.media3.ui)
+    implementation(libs.androidx.media3.session)
+
+    implementation(libs.androidx.media3.ui.compose.material3)
+
+
 }

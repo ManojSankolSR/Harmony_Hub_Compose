@@ -1,5 +1,11 @@
 package com.example.harmonyhub.features.playlist.data.remote.models.playlist
 
+import android.util.Log
+import androidx.media3.common.MediaItem
+import androidx.media3.common.MediaMetadata
+import coil3.Uri
+import androidx.core.net.toUri
+
 data class Song(
     val vlink: String = "",
     val year: Int = 0,
@@ -49,6 +55,26 @@ fun Song.getImageUrl(): String? {
     }
 
     return url?.replace("http://", "https://")
+}
+
+
+fun Song.toMediaItem(): MediaItem {
+
+    val url=getImageUrl()
+
+    return MediaItem.Builder()
+        .setMediaId(id)
+        .setUri(downloadUrl?.lastOrNull()?.link)
+        .setMediaMetadata(
+        MediaMetadata.Builder()
+            .setTitle(name)
+            .setArtist(subtitle)
+            .setAlbumTitle(album)
+            .setArtworkUri(url?.toUri())
+            .build()
+    ).build()
+
+
 }
 
 

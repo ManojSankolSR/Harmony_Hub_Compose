@@ -8,12 +8,15 @@ import androidx.room.TypeConverters
 import com.example.harmonyhub.core.data.local.converter.Converters
 import com.example.harmonyhub.core.data.local.dao.UserDao
 import com.example.harmonyhub.core.data.local.entity.UserEntity
+import com.example.harmonyhub.features.music_player.data.local.dao.PlayerStateDao
+import com.example.harmonyhub.features.music_player.data.local.entities.SongEntity
 import kotlin.concurrent.Volatile
 
-@Database(entities = [UserEntity::class], version = 1)
+@Database(entities = [UserEntity::class, SongEntity::class], version = 2)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
+    abstract fun songDao(): PlayerStateDao
 
     companion object {
 

@@ -1,5 +1,7 @@
 package com.example.harmonyhub.features.playlist.presentation.components
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,6 +16,7 @@ import androidx.compose.material.icons.filled.LibraryAdd
 import androidx.compose.material.icons.filled.PlayArrow
 import androidx.compose.material.icons.filled.PlayCircle
 import androidx.compose.material.icons.outlined.Addchart
+import androidx.compose.material.icons.outlined.GraphicEq
 import androidx.compose.material.icons.outlined.LibraryAdd
 import androidx.compose.material3.ElevatedButton
 import androidx.compose.material3.FilledIconButton
@@ -30,12 +33,19 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.core.presentation.components.OutlineButton
 import com.example.harmonyhub.features.home.presentation.components.MusicItemImage
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
 
 
 @Composable
-fun SongsListItem(song: Song) {
+fun SongsListItem(
+    song: Song,
+    viewModel: MusicPlayerViewModel,
+    onClick: () -> Unit,
+    isSelected: Boolean = false
+) {
+
 
     Row(
         Modifier
@@ -43,7 +53,19 @@ fun SongsListItem(song: Song) {
             .height(70.dp)
             .padding(8.dp, vertical = 4.dp)
             .clip(RoundedCornerShape(8.dp))
-            .clickable {},
+            .then(
+                if (isSelected)
+                    Modifier.border(
+                        1.dp,
+                        MaterialTheme.colorScheme.primary,
+                        RoundedCornerShape(8.dp)
+                    ).background(MaterialTheme.colorScheme.primaryContainer)
+                else
+                    Modifier
+            )
+            .clickable {
+                onClick()
+            },
         horizontalArrangement = Arrangement.spacedBy(12.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -51,6 +73,9 @@ fun SongsListItem(song: Song) {
             song.getImageUrl(), Modifier
                 .fillMaxHeight()
                 .fillMaxWidth(0.15f)
+                .clickable(
+                    onClick = { }
+                )
         )
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
             Text(
@@ -72,6 +97,16 @@ fun SongsListItem(song: Song) {
         {
             Icon(Icons.Outlined.LibraryAdd, null)
         }
+
+        if(isSelected){
+            IconButton(onClick = {})
+            {
+                Icon(Icons.Outlined.GraphicEq, null)
+            }
+        }else{
+
+        }
+
 
     }
 
