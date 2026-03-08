@@ -1,8 +1,13 @@
-package com.example.harmonyhub.features.home.data.remote.models
+package com.example.harmonyhub.features.home.data.local.entity
 
-import com.example.harmonyhub.features.home.data.local.entity.HomeEntity
+import androidx.room.Entity
+import androidx.room.PrimaryKey
+import com.example.harmonyhub.features.home.data.remote.models.HomeData
+import com.example.harmonyhub.features.home.data.remote.models.HomeDataItem
 
-data class HomeData(
+@Entity(tableName = "home_data")
+data class HomeEntity(
+    @PrimaryKey val id: Int = 0,
     val trending: HomeDataItem?,
     val charts: HomeDataItem?,
     val albums: HomeDataItem?,
@@ -20,32 +25,9 @@ data class HomeData(
     val promo5: HomeDataItem?,
     val promo6: HomeDataItem?,
     val discover: HomeDataItem?,
-){
-
-    fun asList(): List<HomeDataItem> {
-        return listOfNotNull(
-            trending,
-            charts,
-            albums,
-            cityMod,
-            playlists,
-            radio,
-            artistRecos,
-            globalConfig,
-            mixes,
-            promo0,
-            promo1,
-            promo2,
-            promo3,
-            promo4,
-            promo5,
-            promo6,
-            discover,
-        )
-    }
-
-    fun toHomeEntity(): HomeEntity {
-        return HomeEntity(
+) {
+    fun toHomeData(): HomeData {
+        return HomeData(
             trending = trending,
             charts = charts,
             albums = albums,
@@ -65,5 +47,4 @@ data class HomeData(
             discover = discover
         )
     }
-
 }

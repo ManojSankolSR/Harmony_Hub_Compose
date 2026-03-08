@@ -1,6 +1,5 @@
 package com.example.harmonyhub.features.music_player.presentation.componentsimport
 
-import androidx.annotation.ColorRes
 import androidx.annotation.OptIn
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -27,6 +26,7 @@ import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.features.home.presentation.components.MusicItemImage
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.PlayPauseControl
+import com.example.harmonyhub.features.music_player.presentation.components.player_controls.ProgressSeekBar
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.SeekNextControl
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.SeekPrevControl
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
@@ -51,44 +51,49 @@ fun MiniMusicPlayer(
         modifier = modifier
             .fillMaxWidth()
             .height(60.dp)
-            .clickable(){
+            .clickable() {
                 togglePlayer()
             },
-        horizontalArrangement = Arrangement.spacedBy(12.dp),
+
         verticalAlignment = Alignment.CenterVertically
     ) {
         MusicItemImage(
             currentMediaItem?.getImageUrl(),
             modifier.fillMaxWidth(0.15f)
         )
-        Column(
-            modifier.weight(1f),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.Start
-        ) {
-            Text(
-                currentMediaItem?.name ?: "",
-                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W600),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                currentMediaItem?.subtitle ?: "",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
+        Column() {
+            ProgressSeekBar(musicPlayerViewModel, true)
+            Row(
+                modifier = modifier
+                    .padding(end = 12.dp, start = 8.dp)
+                    .fillMaxHeight(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Column(
+                    modifier.weight(1f),
+                    verticalArrangement = Arrangement.Center,
+                    horizontalAlignment = Alignment.Start
+                ) {
+                    Text(
+                        currentMediaItem?.name ?: "",
+                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W600),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                    Text(
+                        currentMediaItem?.subtitle ?: "",
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+                        maxLines = 1,
+                        overflow = TextOverflow.Ellipsis
+                    )
+                }
+                SeekPrevControl(musicPlayerViewModel)
+                PlayPauseControl(musicPlayerViewModel)
+                SeekNextControl(musicPlayerViewModel)
+            }
         }
-        Row(
-            modifier = modifier
-                .padding(end = 12.dp)
-                .fillMaxHeight(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            SeekPrevControl(musicPlayerViewModel)
-            PlayPauseControl(musicPlayerViewModel)
-            SeekNextControl(musicPlayerViewModel)
-        }
+
+
     }
 
 }

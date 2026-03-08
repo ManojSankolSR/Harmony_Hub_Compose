@@ -38,7 +38,7 @@ fun PlayPauseControl(viewModel: MusicPlayerViewModel, iconSize: Dp = 24.dp) {
             }
 
             PlaybackState.Paused -> {
-                viewModel.play(null)
+                viewModel.play()
             }
 
             PlaybackState.Completed-> {

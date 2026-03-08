@@ -42,7 +42,8 @@ fun QueueBottomSheet(viewModel: MusicPlayerViewModel) {
 
 
     val onClick: (songs: List<Song>, index: Int) -> Unit = { songs, index ->
-        viewModel.play(songs = songs, index)
+        viewModel.setMediaItems(songs = songs, index)
+        viewModel.play()
     }
 
     fun toggleVisiblity() {

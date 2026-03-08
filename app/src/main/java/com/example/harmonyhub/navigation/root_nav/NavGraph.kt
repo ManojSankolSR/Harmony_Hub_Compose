@@ -11,6 +11,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.data.local.db.AppDatabase
 import com.example.harmonyhub.core.data.respository.UserRepository
+import com.example.harmonyhub.core.presentation.components.Loader
 import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModelFactory
 import com.example.harmonyhub.di.AppContainer
@@ -32,6 +33,12 @@ fun RootNavGraph() {
     )
 
     val state by authViewModel.state.collectAsState();
+
+    if(state.isLoading){
+        Loader()
+        return
+    }
+
 
     NavHost(
         navController = navController,

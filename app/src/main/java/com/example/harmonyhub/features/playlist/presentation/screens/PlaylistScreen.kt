@@ -29,8 +29,10 @@ import com.example.harmonyhub.core.presentation.components.ErrorView
 import com.example.harmonyhub.core.presentation.components.Loader
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
+import com.example.harmonyhub.features.playlist.presentation.components.PlaylistContent
 import com.example.harmonyhub.features.playlist.presentation.components.PlaylistHeader
 import com.example.harmonyhub.features.playlist.presentation.components.SongsListItem
+import com.example.harmonyhub.features.playlist.presentation.components.TopBar
 import com.example.harmonyhub.features.playlist.presentation.state.PlaylistDetailsUiState
 import com.example.harmonyhub.features.playlist.presentation.viewmodel.PlaylistDetailsViewModel
 import com.example.harmonyhub.features.playlist.presentation.viewmodel.PlaylistDetailsViewModelFactory
@@ -48,93 +50,24 @@ fun PlaylistScreen(
 
     val repository = app.appContainer.playlistRepository;
 
-    val viewModel: PlaylistDetailsViewModel = viewModel(
+    val playlistDetailsViewModel: PlaylistDetailsViewModel = viewModel(
         factory = PlaylistDetailsViewModelFactory(repository)
     )
 
-    val state = viewModel.state.collectAsState().value;
-
+    val state = playlistDetailsViewModel.state.collectAsState().value;
 
 
     LaunchedEffect(data.id) {
-        viewModel.getPlaylistDetails(data.id)
+        playlistDetailsViewModel.getPlaylistDetails(data.id)
     }
 
-
-    val onClick: (songs: List<Song>, index: Int) -> Unit = { songs, index ->
-        musicPlayerViewModel.play(songs = songs, index)
-    }
-
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text("") },
-                navigationIcon = {
-                    IconButton(onClick = {
-                        navController.popBackStack()
-                    }
-                    ) {
-                        Icon(Icons.Default.ArrowBack, null)
-                    }
-                })
-        }
-    ) { padding ->
-        Box(Modifier.padding(padding)) {
-
-            when (state) {
-                is PlaylistDetailsUiState.Loading -> {
-                    Loader(padding)
-                }
-
-                is PlaylistDetailsUiState.Success -> {
-                    val playlistData = state.data.data;
-
-                    LazyColumn(
-                        verticalArrangement = Arrangement.spacedBy(4.dp),
-                        contentPadding = PaddingValues(bottom = 160.dp)
-                    ) {
-                        item {
-                            PlaylistHeader(
-                                playlistData.image,
-                                title = playlistData.name,
-                                subtitle = playlistData.headerDesc,
-                                subtitleDes = playlistData.subtitleDesc
-                            )
-                        }
-                        item {
-                            Text(
-                                "Songs",
-                                style = MaterialTheme.typography.titleLarge.copy(
-                                    fontWeight = FontWeight.W500,
-                                    color = MaterialTheme.colorScheme.primary
-                                ),
-                                modifier = Modifier.padding(8.dp)
-                            )
-                        }
-                        itemsIndexed(items = playlistData.songs ?: emptyList()) { index, song ->
-                            SongsListItem(
-                                song,
-                                onClick = { onClick(playlistData.songs!!, index) },
-                                viewModel = musicPlayerViewModel,
-
-                            )
-                        }
-                    }
-
-                }
-
-                is PlaylistDetailsUiState.Error -> {
-                    val message = state.message
-                    ErrorView(
-                        onRefresh = { viewModel.getPlaylistDetails(data.id) },
-                        message,
-                        paddingValues = PaddingValues(bottom = 100.dp)
-                    )
-
-                }
-            }
+    PlaylistContent(
+        state = state,
+        playlistDetailsViewModel = playlistDetailsViewModel,
+        musicPlayerViewModel = musicPlayerViewModel,
+        navController = navController,
+        playListId = data.id
+    )
 
 
-        }
-    }
 }

@@ -8,15 +8,23 @@ import androidx.room.TypeConverters
 import com.example.harmonyhub.core.data.local.converter.Converters
 import com.example.harmonyhub.core.data.local.dao.UserDao
 import com.example.harmonyhub.core.data.local.entity.UserEntity
+import com.example.harmonyhub.features.home.data.local.dao.HomeDao
+import com.example.harmonyhub.features.home.data.local.entity.HomeEntity
 import com.example.harmonyhub.features.music_player.data.local.dao.PlayerStateDao
 import com.example.harmonyhub.features.music_player.data.local.entities.SongEntity
+import com.example.harmonyhub.features.playlist.data.local.dao.PlaylistDao
+import com.example.harmonyhub.features.playlist.data.local.entity.PlaylistEntity
 import kotlin.concurrent.Volatile
 
-@Database(entities = [UserEntity::class, SongEntity::class], version = 2)
+@Database(entities = [UserEntity::class, SongEntity::class, HomeEntity::class, PlaylistEntity::class], version = 1)
 @TypeConverters(Converters::class)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun songDao(): PlayerStateDao
+
+    abstract fun homeDao(): HomeDao
+
+    abstract fun playlistDao(): PlaylistDao
 
     companion object {
 

@@ -13,8 +13,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
-import com.example.harmonyhub.features.music_player.presentation.components.MusicPlayer
-import com.example.harmonyhub.features.music_player.presentation.componentsimport.MiniMusicPlayer
+import com.example.harmonyhub.features.music_player.presentation.components.player.MusicPlayer
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModelFactory
 

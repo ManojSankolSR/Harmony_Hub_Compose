@@ -13,9 +13,9 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun Loader(padding: PaddingValues) {
+fun Loader(padding: PaddingValues=PaddingValues(0.dp)) {
     Column(
-        Modifier.fillMaxSize().padding( padding ?:PaddingValues(0.dp)),
+        Modifier.fillMaxSize().padding( padding ),
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {

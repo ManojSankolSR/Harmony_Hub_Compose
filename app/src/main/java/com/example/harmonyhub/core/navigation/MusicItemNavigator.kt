@@ -18,7 +18,8 @@ object MusicItemNavigator {
                 navController.navigate(PlaylistDetailScreen(data.id))
             }
             MusicItemType.SONG -> {
-                musicPlayerViewModel.play(listOf(data.toSong()))
+                musicPlayerViewModel.setMediaItems(listOf(data.toSong()))
+                musicPlayerViewModel.play()
             }
             else -> {
                 Log.d("MusicItemNavigator", "navigate: $type ${data.id}")

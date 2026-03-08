@@ -1,4 +1,4 @@
-package com.example.harmonyhub.features.music_player.presentation.components
+package com.example.harmonyhub.features.music_player.presentation.components.player
 
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
