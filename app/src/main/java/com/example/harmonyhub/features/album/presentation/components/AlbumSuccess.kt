@@ -1,4 +1,4 @@
-package com.example.harmonyhub.features.playlist.presentation.components
+package com.example.harmonyhub.features.album.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
@@ -12,12 +12,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.core.presentation.components.SongsListItem
+import com.example.harmonyhub.features.album.data.remote.models.AlbumData
+import com.example.harmonyhub.features.album.data.remote.models.getImageUrl
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistData
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 
 @Composable
-fun PlaylistSuccess(data: PlaylistData, musicPlayerViewModel: MusicPlayerViewModel) {
+fun AlbumSuccess(data: AlbumData, musicPlayerViewModel: MusicPlayerViewModel) {
 
     val onClick: (songs: List<Song>, index: Int) -> Unit = { songs, index ->
         musicPlayerViewModel.setMediaItems(songs = songs, index)
@@ -29,11 +31,12 @@ fun PlaylistSuccess(data: PlaylistData, musicPlayerViewModel: MusicPlayerViewMod
         contentPadding = PaddingValues(bottom = 160.dp)
     ) {
         item {
-            PlaylistHeader(
-                data.image,
+            AlbumHeader(
+                data.getImageUrl(),
                 title = data.name,
                 subtitle = data.headerDesc,
-                subtitleDes = data.subtitleDesc
+                subtitleDes = data.artistMap?.artists?.map { it.name }
+
             )
         }
         item {

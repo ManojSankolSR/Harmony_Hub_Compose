@@ -6,7 +6,6 @@ import com.example.harmonyhub.features.playlist.data.local.dao.PlaylistDao
 import com.example.harmonyhub.features.playlist.data.local.entity.toEntity
 import com.example.harmonyhub.features.playlist.data.local.entity.toPlaylistData
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistData
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistDetailsResponse
 
 class PlaylistRepository(private val playlistDao: PlaylistDao, private val networkService: NetworkService) {
 
@@ -18,7 +17,7 @@ class PlaylistRepository(private val playlistDao: PlaylistDao, private val netwo
             playlistDao.addPlaylist(playlistEntity)
             return playlistData;
         }else{
-            val playlistEntity= playlistDao.getPlaylistData(id) ?: throw Exception("No Local Data Found");
+            val playlistEntity= playlistDao.getPlaylist(id) ?: throw Exception("No Local Data Found");
             val playlistData= playlistEntity.toPlaylistData()
             return playlistData
         }

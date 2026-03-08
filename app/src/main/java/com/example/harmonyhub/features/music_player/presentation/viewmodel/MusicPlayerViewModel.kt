@@ -138,7 +138,7 @@ class MusicPlayerViewModel(
         viewModelScope.launch {
             val state = _playerState.value
             state.currentMediaItem?.let { song ->
-                repository.savePlayerState(state.mediaItemQueue, song.id)
+                repository.savePlayerState(state.mediaItemQueue, song.id,state.currentPosition,state.duration)
             }
         }
     }
@@ -151,6 +151,8 @@ class MusicPlayerViewModel(
                 state.mediaItemQueue,
                 state.mediaItemQueue.indexOf(state.currentMediaItem)
             )
+            seekTo(state.currentPosition)
+            player.prepare()
             updateUiState { state }
         }
 

@@ -3,6 +3,7 @@ package com.example.harmonyhub.core.data.local.converter
 import androidx.room.TypeConverter
 import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.models.Language
+import com.example.harmonyhub.features.album.data.remote.models.AlbumModules
 import com.example.harmonyhub.features.home.data.remote.models.HomeDataItem
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.ArtistMap
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.ArtistsItem
@@ -11,7 +12,9 @@ import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Modu
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Rights
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.google.gson.Gson
+import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
+import com.example.harmonyhub.features.home.data.remote.models.ArtistMap as HomeArtistMap
 
 class Converters(){
     @TypeConverter
@@ -56,6 +59,12 @@ class Converters(){
     fun toArtistMap(artistMapString: String?): ArtistMap? = Gson().fromJson(artistMapString, ArtistMap::class.java)
 
     @TypeConverter
+    fun fromHomeArtistMap(artistMap: HomeArtistMap?): String? = Gson().toJson(artistMap)
+
+    @TypeConverter
+    fun toHomeArtistMap(artistMapString: String?): HomeArtistMap? = Gson().fromJson(artistMapString, HomeArtistMap::class.java)
+
+    @TypeConverter
     fun fromHomeDataItem(item: HomeDataItem?): String? = Gson().toJson(item)
 
     @TypeConverter
@@ -86,6 +95,12 @@ class Converters(){
     fun toModules(modulesString: String?): Modules? = Gson().fromJson(modulesString, Modules::class.java)
 
     @TypeConverter
+    fun fromAlbumModules(modules: AlbumModules?): String? = Gson().toJson(modules)
+
+    @TypeConverter
+    fun toAlbumModules(modulesString: String?): AlbumModules? = Gson().fromJson(modulesString, AlbumModules::class.java)
+
+    @TypeConverter
     fun fromSongList(list: List<Song>?): String? = Gson().toJson(list)
 
     @TypeConverter
@@ -93,5 +108,11 @@ class Converters(){
         val type = object : TypeToken<List<Song>>() {}.type
         return Gson().fromJson(listString, type)
     }
+
+    @TypeConverter
+    fun fromJsonElement(jsonElement: JsonElement?): String? = Gson().toJson(jsonElement)
+
+    @TypeConverter
+    fun toJsonElement(jsonString: String?): JsonElement? = Gson().fromJson(jsonString, JsonElement::class.java)
 
 }

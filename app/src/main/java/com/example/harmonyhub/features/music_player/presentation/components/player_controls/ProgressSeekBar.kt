@@ -1,5 +1,6 @@
 package com.example.harmonyhub.features.music_player.presentation.components.player_controls
 
+import android.util.Log
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -56,6 +57,8 @@ fun ProgressSeekBar(viewModel: MusicPlayerViewModel, forMiniPlayer: Boolean = fa
         mutableFloatStateOf(0f)
     }
 
+    Log.d("duration32343234 12", "$duration")
+
 
     fun onSliderValueChange(value: Float) {
         sliderPosition = value
@@ -77,7 +80,7 @@ fun ProgressSeekBar(viewModel: MusicPlayerViewModel, forMiniPlayer: Boolean = fa
     ) {
         if (!forMiniPlayer) {
             Slider(
-                value = sliderPosition.toLong().coerceIn(0, duration.coerceAtLeast(1)).toFloat(),
+                value = currentPosition.coerceIn(0, duration.coerceAtLeast(1)).toFloat(),
                 onValueChange = ::onSliderValueChange,
                 onValueChangeFinished = ::onSliderValueChangFinished,
                 valueRange = 0f..duration.coerceAtLeast(1).toFloat(),
@@ -99,7 +102,7 @@ fun ProgressSeekBar(viewModel: MusicPlayerViewModel, forMiniPlayer: Boolean = fa
         } else {
 
             Slider(
-                value = sliderPosition.toLong().coerceIn(0, duration.coerceAtLeast(1)).toFloat(),
+                value = currentPosition.coerceIn(0, duration.coerceAtLeast(1)).toFloat(),
                 onValueChange = ::onSliderValueChange,
                 onValueChangeFinished = ::onSliderValueChangFinished,
                 modifier = Modifier
