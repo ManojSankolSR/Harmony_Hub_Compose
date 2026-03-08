@@ -28,7 +28,6 @@ class PlaylistDetailsViewModel(private val repository: PlaylistRepository) : Vie
             }
             try {
                 val data = repository.getPlaylistDetails(id)
-                Log.d("PlaylistDetailsViewModel", "getPlaylistDetails: $data")
                 _uisState.update {
                     PlaylistDetailsUiState.Success(data)
                 }

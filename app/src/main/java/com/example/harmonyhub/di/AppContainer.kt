@@ -16,9 +16,9 @@ class AppContainer(val context: Context) {
 
     val userRepository = UserRepository(db.userDao())
 
-    val homeRepository = HomeRepository();
+    val homeRepository = HomeRepository(db.homeDao(),networkService);
 
-    val playlistRepository = PlaylistRepository(networkService);
+    val playlistRepository = PlaylistRepository(db.playlistDao(),networkService=networkService );
 
 
     val playerRepository= PlayerRepository(db.songDao())

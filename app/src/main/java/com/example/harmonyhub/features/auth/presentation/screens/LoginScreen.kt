@@ -45,8 +45,6 @@ fun LoginScreen(viewModel: AuthViewModel) {
 
     val app = LocalContext.current.applicationContext as HarmonyHub;
 
-    val userRepository = app.appContainer.userRepository;
-
     var userName by remember {
         mutableStateOf<String>("")
     }
