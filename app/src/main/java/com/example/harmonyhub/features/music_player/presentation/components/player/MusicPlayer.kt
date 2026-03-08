@@ -30,9 +30,14 @@ fun MusicPlayer(
 
     var isExpanded by remember { mutableStateOf(false) }
 
-    val togglePlayer: () -> Unit = {
-        isExpanded = !isExpanded
+    val closeExpandedPlayer: () -> Unit = {
+        isExpanded = false;
     }
+
+    val expandedPlayer: () -> Unit = {
+        isExpanded = true;
+    }
+
 
     val mediaItem=musicPlayerViewModel.playerState.collectAsState().value.currentMediaItem
 
@@ -52,16 +57,17 @@ fun MusicPlayer(
         if(mediaItem==null) return;
         if (isExpanded) {
             MusicPlayerExpanded(
-                togglePlayer,
+                closeExpandedPlayer,
                 modifier,
-                musicPlayerViewModel
+                musicPlayerViewModel,
+                navController
             )
         } else {
             MiniMusicPlayer(
                 navController,
                 modifier,
                 musicPlayerViewModel,
-                togglePlayer
+                expandedPlayer
             )
         }
 

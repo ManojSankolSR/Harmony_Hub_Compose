@@ -4,8 +4,10 @@ import androidx.room.TypeConverter
 import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.models.Language
 import com.example.harmonyhub.features.album.data.remote.models.AlbumModules
+import com.example.harmonyhub.features.artist.data.remote.models.SimilarArtist
+import com.example.harmonyhub.features.artist.data.remote.models.SimilarArtistInfo
 import com.example.harmonyhub.features.home.data.remote.models.HomeDataItem
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.ArtistMap
+import com.example.harmonyhub.features.home.data.remote.models.ArtistMap
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.ArtistsItem
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.DownloadUrlItem
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Modules
@@ -14,7 +16,6 @@ import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
-import com.example.harmonyhub.features.home.data.remote.models.ArtistMap as HomeArtistMap
 
 class Converters(){
     @TypeConverter
@@ -57,12 +58,6 @@ class Converters(){
 
     @TypeConverter
     fun toArtistMap(artistMapString: String?): ArtistMap? = Gson().fromJson(artistMapString, ArtistMap::class.java)
-
-    @TypeConverter
-    fun fromHomeArtistMap(artistMap: HomeArtistMap?): String? = Gson().toJson(artistMap)
-
-    @TypeConverter
-    fun toHomeArtistMap(artistMapString: String?): HomeArtistMap? = Gson().fromJson(artistMapString, HomeArtistMap::class.java)
 
     @TypeConverter
     fun fromHomeDataItem(item: HomeDataItem?): String? = Gson().toJson(item)
@@ -114,5 +109,23 @@ class Converters(){
 
     @TypeConverter
     fun toJsonElement(jsonString: String?): JsonElement? = Gson().fromJson(jsonString, JsonElement::class.java)
+
+    @TypeConverter
+    fun fromSimilarArtistList(list: List<SimilarArtist>?): String? = Gson().toJson(list)
+
+    @TypeConverter
+    fun toSimilarArtistList(listString: String?): List<SimilarArtist>? {
+        val type = object : TypeToken<List<SimilarArtist>>() {}.type
+        return Gson().fromJson(listString, type)
+    }
+
+    @TypeConverter
+    fun fromSimilarArtistInfoList(list: List<SimilarArtistInfo>?): String? = Gson().toJson(list)
+
+    @TypeConverter
+    fun toSimilarArtistInfoList(listString: String?): List<SimilarArtistInfo>? {
+        val type = object : TypeToken<List<SimilarArtistInfo>>() {}.type
+        return Gson().fromJson(listString, type)
+    }
 
 }

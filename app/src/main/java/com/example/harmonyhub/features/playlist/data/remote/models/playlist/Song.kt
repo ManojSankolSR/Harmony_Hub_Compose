@@ -5,6 +5,7 @@ import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
 import coil3.Uri
 import androidx.core.net.toUri
+import com.example.harmonyhub.features.home.data.remote.models.ArtistMap
 
 data class Song(
     val vlink: String = "",
@@ -35,7 +36,7 @@ data class Song(
     val labelUrl: String = "",
     val explicit: Boolean = false,
     val listType: String = "",
-    val artistMap: ArtistMap,
+    val artistMap: ArtistMap? = null,
     val releaseDate: String = "",
     val subtitle: String = "",
     val name: String = "",
@@ -76,5 +77,3 @@ fun Song.toMediaItem(): MediaItem {
 
 
 }
-
-

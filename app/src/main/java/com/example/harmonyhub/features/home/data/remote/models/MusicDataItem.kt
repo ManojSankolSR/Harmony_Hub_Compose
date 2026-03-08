@@ -6,9 +6,6 @@ import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.ArtistMap as PlaylistArtistMap
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Artists as PlaylistArtist
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PrimaryArtistsItem as PlaylistPrimaryArtist
 
 data class MusicDataItem(
     val id: String = "",
@@ -61,14 +58,7 @@ fun MusicDataItem.toSong(): Song {
         albumId = album_id ?: "",
         albumUrl = album_url ?: "",
         downloadUrl = download_url,
-        artistMap = PlaylistArtistMap(
-            artists = artist_map?.artists?.map { 
-                PlaylistArtist(id = it.id, name = it.name, role = it.role, image = it.image, type = it.type, url = it.url)
-            },
-            primaryArtists = artist_map?.primary_artists?.map {
-                PlaylistPrimaryArtist(id = it.id, name = it.name, role = it.role, image = it.image, type = it.type, url = it.url)
-            }
-        ),
+        artistMap = artist_map,
         rights = Rights()
     )
 }

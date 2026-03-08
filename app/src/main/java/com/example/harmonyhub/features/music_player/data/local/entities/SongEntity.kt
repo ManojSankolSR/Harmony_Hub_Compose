@@ -2,7 +2,7 @@ package com.example.harmonyhub.features.music_player.data.local.entities
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.ArtistMap
+import com.example.harmonyhub.features.home.data.remote.models.ArtistMap
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.DownloadUrlItem
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Rights
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
@@ -126,7 +126,7 @@ fun SongEntity.toSong(): Song {
         labelUrl = labelUrl,
         explicit = explicit,
         listType = listType,
-        artistMap = artistMap ?: ArtistMap(null, null),
+        artistMap = artistMap ?: ArtistMap(null, null, null),
         releaseDate = releaseDate,
         subtitle = subtitle,
         name = name,

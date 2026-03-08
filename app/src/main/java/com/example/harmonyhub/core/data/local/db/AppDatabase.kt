@@ -10,6 +10,8 @@ import com.example.harmonyhub.core.data.local.dao.UserDao
 import com.example.harmonyhub.core.data.local.entity.UserEntity
 import com.example.harmonyhub.features.album.data.local.dao.AlbumDao
 import com.example.harmonyhub.features.album.data.local.entity.AlbumEntity
+import com.example.harmonyhub.features.artist.data.local.dao.ArtistDao
+import com.example.harmonyhub.features.artist.data.local.entity.ArtistEntity
 import com.example.harmonyhub.features.home.data.local.dao.HomeDao
 import com.example.harmonyhub.features.home.data.local.entity.HomeEntity
 import com.example.harmonyhub.features.music_player.data.local.dao.PlayerStateDao
@@ -19,7 +21,7 @@ import com.example.harmonyhub.features.playlist.data.local.entity.PlaylistEntity
 import kotlin.concurrent.Volatile
 
 @Database(
-    entities = [UserEntity::class, SongEntity::class, HomeEntity::class, PlaylistEntity::class, AlbumEntity::class],
+    entities = [UserEntity::class, SongEntity::class, HomeEntity::class, PlaylistEntity::class, AlbumEntity::class, ArtistEntity::class],
     version = 1
 )
 @TypeConverters(Converters::class)
@@ -32,6 +34,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun playlistDao(): PlaylistDao
 
     abstract fun albumDao(): AlbumDao
+
+    abstract fun artistDao(): ArtistDao
+
 
     companion object {
 

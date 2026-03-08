@@ -8,6 +8,7 @@ import com.example.harmonyhub.features.home.data.remote.models.toSong
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.navigation.auth_nav.AuthNavRoutes
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
+import com.example.harmonyhub.navigation.bottom_bar_nav.ArtistDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
 
 object MusicItemNavigator {
@@ -23,6 +24,9 @@ object MusicItemNavigator {
             MusicItemType.SONG -> {
                 musicPlayerViewModel.setMediaItems(listOf(data.toSong()))
                 musicPlayerViewModel.play()
+            }
+            MusicItemType.ARTIST -> {
+                navController.navigate(ArtistDetailsScreen(data.id))
             }
             else -> {
                 Log.d("MusicItemNavigator", "navigate: $type ${data.id}")

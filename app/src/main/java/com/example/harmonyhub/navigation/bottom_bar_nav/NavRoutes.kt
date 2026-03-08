@@ -52,3 +52,10 @@ data class PlaylistDetailScreen(
 data class AlbumDetailsScreen(
     val id: String
 )
+
+
+
+@Serializable
+data class ArtistDetailsScreen(
+    val id: String
+)

@@ -25,13 +25,17 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.navigation.NavHostController
+import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.harmonyhub.features.home.presentation.components.MusicItemImage
 import com.example.harmonyhub.features.music_player.presentation.components.QueueBottomSheet
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.PlayPauseControl
@@ -39,13 +43,14 @@ import com.example.harmonyhub.features.music_player.presentation.components.play
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.SeekNextControl
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.SeekPrevControl
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import com.example.harmonyhub.features.home.data.remote.models.ArtistMap
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MusicPlayerExpanded(
-    togglePlayer: () -> Unit, modifier: Modifier = Modifier, viewModel: MusicPlayerViewModel
+    closeExpandedPlayer: () -> Unit, modifier: Modifier = Modifier, viewModel: MusicPlayerViewModel, navController: NavHostController,
 ) {
 
     val mediaItem = viewModel.playerState.collectAsState().value.currentMediaItem
@@ -56,7 +61,7 @@ fun MusicPlayerExpanded(
         CenterAlignedTopAppBar(
             title = { Text("Now Playing") },
             navigationIcon = {
-                FilledTonalIconButton(togglePlayer) {
+                FilledTonalIconButton(closeExpandedPlayer) {
                     Icon(Icons.Default.KeyboardArrowDown, null, Modifier.size(36.dp))
                 }
             })
@@ -124,6 +129,16 @@ fun MusicPlayerExpanded(
                 }
 
             }
+
+            item {
+                ArtistList(
+                    mediaItem?.artistMap,
+                    navController = navController,
+                    musicPlayerViewModel = viewModel
+                )
+            }
+
+
         }
 
     }
