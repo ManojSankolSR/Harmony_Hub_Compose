@@ -27,6 +27,7 @@ import com.example.harmonyhub.R
 import com.example.harmonyhub.core.presentation.components.ErrorView
 import com.example.harmonyhub.core.presentation.components.Loader
 import com.example.harmonyhub.features.home.presentation.components.HomeList
+import com.example.harmonyhub.features.home.presentation.components.TopBar
 import com.example.harmonyhub.features.home.presentation.state.HomeUiState
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModelFactory
@@ -44,38 +45,9 @@ fun HomeScreen(parentPaddingValues: PaddingValues, navController: NavHostControl
 
 
     Scaffold(
-        topBar = {
-            CenterAlignedTopAppBar(
-                title = {
-
-                    Row(
-                        horizontalArrangement = Arrangement.spacedBy(
-                            12.dp,
-                        ),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        Image(
-                            modifier = Modifier.size(30.dp),
-                            painter = painterResource(R.drawable.app_icon),
-                            contentDescription = null,
-                            colorFilter = ColorFilter.tint(
-                                MaterialTheme.colorScheme.onSurface
-                            ),
-
-                            )
-                        Text(
-                            "Harmony Hub ",
-                            style = MaterialTheme.typography.headlineLarge.copy(fontFamily = PermanentMarker)
-                        )
-                    }
-                }
-            )
-        },
+        topBar = {TopBar()},
         contentWindowInsets = WindowInsets(bottom = 0),
-//        modifier = Modifier.padding(bottom = parentPaddingValues.calculateBottomPadding())
-
     ) { padding ->
-
         when (state) {
             is HomeUiState.Loading -> {
                 Loader(padding)
