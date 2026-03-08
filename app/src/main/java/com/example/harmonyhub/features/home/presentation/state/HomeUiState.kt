@@ -1,5 +1,6 @@
 package com.example.harmonyhub.features.home.presentation.state
 
+import com.example.harmonyhub.features.home.data.remote.models.HomeData
 import com.example.harmonyhub.features.home.data.remote.models.HomeResponse
 
 
@@ -11,7 +12,7 @@ sealed interface HomeUiState {
     data object Loading : HomeUiState
 
     data class Success(
-        val data: HomeResponse
+        val data: HomeData
     ) : HomeUiState
 
     data class Error(

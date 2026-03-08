@@ -54,7 +54,7 @@ fun HomeScreen(parentPaddingValues: PaddingValues, navController: NavHostControl
             }
 
             is HomeUiState.Success -> {
-                val data = state.data.data
+                val data = state.data
                 HomeList(data, parentPaddingValues, padding,homeViewModel,navController,musicPlayerViewModel)
             }
 

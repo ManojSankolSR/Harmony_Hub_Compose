@@ -5,20 +5,22 @@ import com.example.harmonyhub.core.services.NetworkService
 import com.example.harmonyhub.features.playlist.data.local.dao.PlaylistDao
 import com.example.harmonyhub.features.playlist.data.local.entity.toEntity
 import com.example.harmonyhub.features.playlist.data.local.entity.toPlaylistData
+import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistData
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistDetailsResponse
 
 class PlaylistRepository(private val playlistDao: PlaylistDao, private val networkService: NetworkService) {
 
-    suspend fun getPlaylistDetails(id: String): PlaylistDetailsResponse{
+    suspend fun getPlaylistDetails(id: String): PlaylistData{
         if(networkService.isInternetAvailable()){
-            val playlistDetailsResponse= ApiService.playlistDetailsApi.getPlaylistDetails(id);
-            val playlistEntity=  playlistDetailsResponse.data.toEntity();
+            val playlistDetailsResponse = ApiService.playlistDetailsApi.getPlaylistDetails(id);
+            val playlistData= playlistDetailsResponse.data ?: throw Exception("No Data Found");
+            val playlistEntity=  playlistData.toEntity();
             playlistDao.addPlaylist(playlistEntity)
-            return playlistDetailsResponse;
+            return playlistData;
         }else{
             val playlistEntity= playlistDao.getPlaylistData(id) ?: throw Exception("No Local Data Found");
-            val playlistDetails= playlistEntity.toPlaylistData()
-            return PlaylistDetailsResponse(playlistDetails, message = "✅ OK", status = "Success")
+            val playlistData= playlistEntity.toPlaylistData()
+            return playlistData
         }
 
     }

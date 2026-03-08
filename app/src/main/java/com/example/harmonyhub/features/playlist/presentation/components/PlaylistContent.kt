@@ -40,7 +40,7 @@ fun PlaylistContent(
                 }
 
                 is PlaylistDetailsUiState.Success -> {
-                    val playlistData = state.data.data;
+                    val playlistData = state.data;
                     PlaylistSuccess(playlistData, musicPlayerViewModel)
                 }
 
