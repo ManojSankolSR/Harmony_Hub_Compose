@@ -64,7 +64,7 @@ fun Song.toMediaItem(): MediaItem {
 
     return MediaItem.Builder()
         .setMediaId(id)
-        .setUri(downloadUrl?.lastOrNull()?.link)
+        .setUri(downloadUrl?.lastOrNull()?.link ?: "")
         .setMediaMetadata(
         MediaMetadata.Builder()
             .setTitle(name)

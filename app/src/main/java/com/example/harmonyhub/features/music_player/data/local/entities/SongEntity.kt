@@ -7,6 +7,7 @@ import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Down
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Rights
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
+import kotlin.time.Duration
 
 @Entity(tableName = "songs")
 data class SongEntity(
@@ -46,10 +47,13 @@ data class SongEntity(
     val albumId: String = "",
     val albumUrl: String = "",
     val hasLyrics: Boolean = false,
-    val isPlaying: Boolean = false
+    val isPlaying: Boolean = false,
+    val currentPosition: Long=0L,
+    val totalDuration: Long=0L
+
 )
 
-fun Song.toEntity(isPlaying: Boolean = false): SongEntity {
+fun Song.toEntity(isPlaying: Boolean = false,currentPosition: Long=0L,totalDuration: Long=0L): SongEntity {
     return SongEntity(
         id = id ?: "",
         vlink = vlink ?: "",
@@ -86,7 +90,9 @@ fun Song.toEntity(isPlaying: Boolean = false): SongEntity {
         albumId = albumId ?: "",
         albumUrl = albumUrl ?: "",
         hasLyrics = hasLyrics ?: false,
-        isPlaying = isPlaying
+        isPlaying = isPlaying,
+        currentPosition = currentPosition,
+        totalDuration=totalDuration
     )
 }
 

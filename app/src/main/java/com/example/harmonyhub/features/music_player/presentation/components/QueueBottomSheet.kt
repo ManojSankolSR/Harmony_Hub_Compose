@@ -1,10 +1,8 @@
 package com.example.harmonyhub.features.music_player.presentation.components
 
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.QueueMusic
@@ -24,7 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
-import com.example.harmonyhub.features.playlist.presentation.components.SongsListItem
+import com.example.harmonyhub.core.presentation.components.SongsListItem
 
 
 @OptIn(ExperimentalMaterial3Api::class)

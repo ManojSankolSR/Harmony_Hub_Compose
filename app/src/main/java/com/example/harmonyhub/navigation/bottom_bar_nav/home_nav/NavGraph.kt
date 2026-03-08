@@ -6,9 +6,11 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import androidx.navigation.toRoute
+import com.example.harmonyhub.features.album.presentation.screens.AlbumScreen
 import com.example.harmonyhub.features.home.presentation.screens.HomeScreen
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
+import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.BottomNavRoutes
 import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
 
@@ -30,6 +32,9 @@ fun NavGraphBuilder.homeNavGraph(
             val data=it.toRoute<PlaylistDetailScreen>()
             PlaylistScreen(navController, data, musicPlayerViewModel)
         }
-
+        composable <AlbumDetailsScreen>{
+            val data=it.toRoute<AlbumDetailsScreen>()
+            AlbumScreen(navController, data, musicPlayerViewModel)
+        }
     }
 }
