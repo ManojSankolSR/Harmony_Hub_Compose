@@ -30,13 +30,15 @@ import com.example.harmonyhub.features.music_player.presentation.viewmodel.Music
 fun MusicItemCard2(
     dataItem: MusicDataItem,
     navController: NavHostController,
-    musicPlayerViewModel: MusicPlayerViewModel
+    musicPlayerViewModel: MusicPlayerViewModel,
+    onPress:()-> Unit={}
 ) {
 
     Log.d("MusicItemCard2", "dataItem: ${dataItem.name} ${dataItem.getImageUrl()}")
 
     val onMusicItemClick: () -> Unit = {
         dataItem.type?.let { type ->
+            onPress()
             MusicItemNavigator.navigate(type, navController, dataItem,musicPlayerViewModel)
         }
     }
@@ -58,7 +60,7 @@ fun MusicItemCard2(
                 .weight(1f)
                 .fillMaxWidth()
                 .clip(
-                    if (dataItem.type == MusicItemType.RADIO_STATION || dataItem.type == MusicItemType.RADIO) CircleShape else RoundedCornerShape(
+                    if (dataItem.type == MusicItemType.RADIO_STATION || dataItem.type == MusicItemType.RADIO || dataItem.type == MusicItemType.ARTIST) CircleShape else RoundedCornerShape(
                         8.dp
                     )
                 ),

@@ -1,5 +1,7 @@
 package com.example.harmonyhub.features.artist.data.remote.models
 
+import com.example.harmonyhub.features.home.data.remote.models.MusicDataItem
+import com.example.harmonyhub.features.home.data.remote.models.MusicItemType
 import com.google.gson.JsonElement
 
 data class SimilarArtist(
@@ -21,3 +23,13 @@ data class SimilarArtist(
     val isRadioPresent: Boolean = false,
     val dominantType: String = ""
 )
+
+fun SimilarArtist.toMusicDataItem(): MusicDataItem {
+    return MusicDataItem(
+        id = id,
+        name = name,
+        url = url,
+        type = MusicItemType.ARTIST,
+        image = image
+    )
+}

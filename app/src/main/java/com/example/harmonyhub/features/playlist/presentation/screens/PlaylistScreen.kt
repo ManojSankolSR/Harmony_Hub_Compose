@@ -1,5 +1,6 @@
 package com.example.harmonyhub.features.playlist.presentation.screens
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -17,6 +18,7 @@ import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlaylistScreen(
+    parentPaddingValues: PaddingValues,
     navController: NavHostController,
     data: PlaylistDetailScreen,
     musicPlayerViewModel: MusicPlayerViewModel
@@ -42,7 +44,8 @@ fun PlaylistScreen(
         playlistDetailsViewModel = playlistDetailsViewModel,
         musicPlayerViewModel = musicPlayerViewModel,
         navController = navController,
-        playListId = data.id
+        playListId = data.id,
+        parentPaddingValues,
     )
 
 

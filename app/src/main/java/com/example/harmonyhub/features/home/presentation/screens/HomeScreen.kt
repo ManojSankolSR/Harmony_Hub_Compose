@@ -36,7 +36,11 @@ import com.example.harmonyhub.ui.theme.PermanentMarker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(parentPaddingValues: PaddingValues, navController: NavHostController,musicPlayerViewModel: MusicPlayerViewModel) {
+fun HomeScreen(
+    parentPaddingValues: PaddingValues,
+    navController: NavHostController,
+    musicPlayerViewModel: MusicPlayerViewModel
+) {
     val app = LocalContext.current.applicationContext as HarmonyHub;
     val homeViewModel: HomeViewModel = viewModel(
         factory = HomeViewModelFactory(app.appContainer.homeRepository)
@@ -45,7 +49,7 @@ fun HomeScreen(parentPaddingValues: PaddingValues, navController: NavHostControl
 
 
     Scaffold(
-        topBar = {TopBar()},
+        topBar = { TopBar() },
         contentWindowInsets = WindowInsets(bottom = 0),
     ) { padding ->
         when (state) {
@@ -55,12 +59,19 @@ fun HomeScreen(parentPaddingValues: PaddingValues, navController: NavHostControl
 
             is HomeUiState.Success -> {
                 val data = state.data
-                HomeList(data, parentPaddingValues, padding,homeViewModel,navController,musicPlayerViewModel)
+                HomeList(
+                    data,
+                    parentPaddingValues,
+                    padding,
+                    homeViewModel,
+                    navController,
+                    musicPlayerViewModel
+                )
             }
 
             is HomeUiState.Error -> {
                 val message = state.message
-                ErrorView(homeViewModel::fetchHomeData,message,padding)
+                ErrorView(homeViewModel::fetchHomeData, message, padding)
 
             }
 

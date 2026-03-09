@@ -32,16 +32,16 @@ fun NavGraphBuilder.homeNavGraph(
         }
         composable <PlaylistDetailScreen>{
             val data=it.toRoute<PlaylistDetailScreen>()
-            PlaylistScreen(navController, data, musicPlayerViewModel)
+            PlaylistScreen(paddingValues,navController, data, musicPlayerViewModel)
         }
         composable <AlbumDetailsScreen>{
             val data=it.toRoute<AlbumDetailsScreen>()
-            AlbumScreen(navController, data, musicPlayerViewModel)
+            AlbumScreen(paddingValues ,navController, data, musicPlayerViewModel)
         }
 
         composable <ArtistDetailsScreen>{
             val data=it.toRoute<ArtistDetailsScreen>()
-            ArtistScreen(navController, data, musicPlayerViewModel)
+            ArtistScreen(paddingValues,navController, data, musicPlayerViewModel)
         }
     }
 }

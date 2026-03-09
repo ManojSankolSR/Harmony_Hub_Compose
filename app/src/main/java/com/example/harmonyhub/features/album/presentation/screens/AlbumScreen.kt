@@ -1,5 +1,6 @@
 package com.example.harmonyhub.features.album.presentation.screens
 
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -13,10 +14,9 @@ import com.example.harmonyhub.features.album.presentation.viewmodel.AlbumViewMod
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
 
-import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
-
 @Composable
 fun AlbumScreen(
+    parentPaddingValues: PaddingValues,
     navController: NavHostController,
     data: AlbumDetailsScreen,
     musicPlayerViewModel: MusicPlayerViewModel
@@ -42,7 +42,8 @@ fun AlbumScreen(
         albumViewModel = albumViewModel,
         musicPlayerViewModel = musicPlayerViewModel,
         navController = navController,
-        albumId = data.id
+        albumId = data.id,
+        parentPaddingValues
     )
 
 

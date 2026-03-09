@@ -36,6 +36,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.harmonyhub.features.artist.presentation.components.SectionTitle
 import com.example.harmonyhub.features.home.presentation.components.MusicItemImage
 import com.example.harmonyhub.features.music_player.presentation.components.QueueBottomSheet
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.PlayPauseControl
@@ -79,7 +80,7 @@ fun MusicPlayerExpanded(
                 .padding(it)
                 .fillMaxSize(),
             contentPadding = PaddingValues(vertical = 24.dp,horizontal = 25.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
+//            horizontalAlignment = Alignment.CenterHorizontally,
             verticalArrangement = Arrangement.spacedBy(18.dp)
         ) {
 
@@ -131,11 +132,17 @@ fun MusicPlayerExpanded(
             }
 
             item {
+                SectionTitle("Artists")
+            }
+
+            item {
                 ArtistList(
                     mediaItem?.artistMap,
                     navController = navController,
-                    musicPlayerViewModel = viewModel
+                    musicPlayerViewModel = viewModel,
+                    onArtistClick = closeExpandedPlayer
                 )
+
             }
 
 

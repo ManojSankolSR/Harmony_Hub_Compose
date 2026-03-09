@@ -21,7 +21,8 @@ fun PlaylistContent(
     playlistDetailsViewModel: PlaylistDetailsViewModel,
     musicPlayerViewModel: MusicPlayerViewModel,
     navController: NavHostController,
-    playListId: String
+    playListId: String,
+    paddingValues: PaddingValues
 ) {
 
     fun onRefresh() {
@@ -41,7 +42,7 @@ fun PlaylistContent(
 
                 is PlaylistDetailsUiState.Success -> {
                     val playlistData = state.data;
-                    PlaylistSuccess(playlistData, musicPlayerViewModel)
+                    PlaylistSuccess(playlistData, musicPlayerViewModel,   paddingValues)
                 }
 
                 is PlaylistDetailsUiState.Error -> {
@@ -49,7 +50,7 @@ fun PlaylistContent(
                     ErrorView(
                         onRefresh = ::onRefresh,
                         message,
-                        paddingValues = PaddingValues(bottom = 100.dp)
+                        paddingValues = PaddingValues(paddingValues.calculateBottomPadding())
                     )
 
                 }

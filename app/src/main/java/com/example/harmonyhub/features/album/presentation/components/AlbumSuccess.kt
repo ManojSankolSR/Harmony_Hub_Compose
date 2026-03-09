@@ -15,11 +15,14 @@ import com.example.harmonyhub.core.presentation.components.SongsListItem
 import com.example.harmonyhub.features.album.data.remote.models.AlbumData
 import com.example.harmonyhub.features.album.data.remote.models.getImageUrl
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistData
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 
 @Composable
-fun AlbumSuccess(data: AlbumData, musicPlayerViewModel: MusicPlayerViewModel) {
+fun AlbumSuccess(
+    data: AlbumData,
+    musicPlayerViewModel: MusicPlayerViewModel,
+    parentPaddingValues: PaddingValues
+) {
 
     val onClick: (songs: List<Song>, index: Int) -> Unit = { songs, index ->
         musicPlayerViewModel.setMediaItems(songs = songs, index)
@@ -28,7 +31,7 @@ fun AlbumSuccess(data: AlbumData, musicPlayerViewModel: MusicPlayerViewModel) {
 
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(4.dp),
-        contentPadding = PaddingValues(bottom = 160.dp)
+        contentPadding = PaddingValues(bottom = parentPaddingValues.calculateBottomPadding())
     ) {
         item {
             AlbumHeader(

@@ -17,7 +17,7 @@ import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Play
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 
 @Composable
-fun PlaylistSuccess(data: PlaylistData, musicPlayerViewModel: MusicPlayerViewModel) {
+fun PlaylistSuccess(data: PlaylistData, musicPlayerViewModel: MusicPlayerViewModel,   paddingValues: PaddingValues) {
 
     val onClick: (songs: List<Song>, index: Int) -> Unit = { songs, index ->
         musicPlayerViewModel.setMediaItems(songs = songs, index)
@@ -26,7 +26,7 @@ fun PlaylistSuccess(data: PlaylistData, musicPlayerViewModel: MusicPlayerViewMod
 
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(4.dp),
-        contentPadding = PaddingValues(bottom = 160.dp)
+        contentPadding = PaddingValues(bottom = paddingValues.calculateBottomPadding())
     ) {
         item {
             PlaylistHeader(
