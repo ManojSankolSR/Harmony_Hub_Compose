@@ -3,6 +3,7 @@ package com.example.harmonyhub.features.home.data.remote.models
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.DownloadUrlItem
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Rights
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
+import com.google.gson.Gson
 import com.google.gson.JsonArray
 import com.google.gson.JsonElement
 import com.google.gson.JsonObject
@@ -25,7 +26,7 @@ data class MusicDataItem(
     val album_id: String? = "",
     val album_url: String? = "",
     val download_url: List<DownloadUrlItem>? = emptyList(),
-    val artist_map: ArtistMap? = null
+    val artist_map:JsonElement? = null
 )
 
 fun MusicDataItem.getImageUrl(): String? {
@@ -41,6 +42,11 @@ fun MusicDataItem.getImageUrl(): String? {
     }?.replace("http://", "https://")
 }
 
+fun JsonElement?.toArtistMap(): ArtistMap? {
+    if (this == null || !this.isJsonObject) return null
+    return Gson().fromJson(this, ArtistMap::class.java)
+}
+
 fun MusicDataItem.toSong(): Song {
     return Song(
         id = id,
@@ -48,7 +54,7 @@ fun MusicDataItem.toSong(): Song {
         subtitle = subtitle ?: "",
         type = type?.name?.lowercase() ?: "song",
         url = url ?: "",
-        image = getImageUrl(),
+        image = image,
         explicit = explicit ?: false,
         duration = duration ?: 0,
         playCount = play_count?.toInt() ?: 0,

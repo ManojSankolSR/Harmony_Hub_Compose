@@ -9,6 +9,7 @@ import com.example.harmonyhub.features.artist.data.repository.ArtistRepository
 import com.example.harmonyhub.features.home.data.respository.HomeRepository
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
 import com.example.harmonyhub.features.playlist.data.respository.PlaylistRepository
+import com.example.harmonyhub.features.serach.data.respository.SearchRepository
 
 class AppContainer(val context: Context) {
 
@@ -27,6 +28,9 @@ class AppContainer(val context: Context) {
     val albumRepository= AlbumRepository(db.albumDao(),networkService)
 
     val artistRepository= ArtistRepository(db.artistDao(),networkService)
+
+    val searchRepository= SearchRepository(networkService)
+
 
 
 

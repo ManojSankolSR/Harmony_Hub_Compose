@@ -5,6 +5,7 @@ import com.example.harmonyhub.features.artist.data.remote.api.ArtistApi
 import com.example.harmonyhub.features.home.data.remote.api.HomeApi
 import com.example.harmonyhub.features.playlist.data.remote.api.PlaylistDetailsApi
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistDetailsResponse
+import com.example.harmonyhub.features.serach.data.remote.api.SearchApi
 
 object ApiService {
 
@@ -23,6 +24,10 @@ object ApiService {
 
     val artistDetailsApi: ArtistApi by lazy {
         RetrofitClient.retrofit.create<ArtistApi>(ArtistApi::class.java)
+    }
+
+    val searchApi: SearchApi by lazy {
+        RetrofitClient.retrofit.create<SearchApi>(SearchApi::class.java)
     }
 
 }

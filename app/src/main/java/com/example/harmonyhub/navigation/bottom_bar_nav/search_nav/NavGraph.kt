@@ -26,7 +26,7 @@ fun NavGraphBuilder.searchNavGraph(
         startDestination = SearchNavRoutes.SearchScreen
     ){
         composable<SearchNavRoutes.SearchScreen> {
-            SearchScreen(paddingValues,navController)
+            SearchScreen(paddingValues,navController,musicPlayerViewModel)
         }
         composable<PlaylistDetailScreen>{
             val data=it.toRoute<PlaylistDetailScreen>()

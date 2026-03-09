@@ -45,6 +45,7 @@ import com.example.harmonyhub.features.music_player.presentation.components.play
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.SeekPrevControl
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.home.data.remote.models.ArtistMap
+import com.example.harmonyhub.features.home.data.remote.models.toArtistMap
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
 
 
@@ -137,7 +138,7 @@ fun MusicPlayerExpanded(
 
             item {
                 ArtistList(
-                    mediaItem?.artistMap,
+                    mediaItem?.artistMap.toArtistMap(),
                     navController = navController,
                     musicPlayerViewModel = viewModel,
                     onArtistClick = closeExpandedPlayer

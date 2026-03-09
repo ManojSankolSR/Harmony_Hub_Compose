@@ -7,6 +7,8 @@ import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Down
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Rights
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
+import com.google.gson.JsonElement
+
 import kotlin.time.Duration
 
 @Entity(tableName = "songs")
@@ -40,7 +42,7 @@ data class SongEntity(
     val labelUrl: String = "",
     val explicit: Boolean = false,
     val listType: String = "",
-    val artistMap: ArtistMap?,
+    val artistMap: JsonElement?,
     val releaseDate: String = "",
     val subtitle: String = "",
     val name: String = "",
@@ -126,7 +128,7 @@ fun SongEntity.toSong(): Song {
         labelUrl = labelUrl,
         explicit = explicit,
         listType = listType,
-        artistMap = artistMap ?: ArtistMap(null, null, null),
+        artistMap = artistMap ,
         releaseDate = releaseDate,
         subtitle = subtitle,
         name = name,

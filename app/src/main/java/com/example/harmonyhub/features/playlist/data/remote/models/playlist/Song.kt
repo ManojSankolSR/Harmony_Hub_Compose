@@ -6,6 +6,8 @@ import androidx.media3.common.MediaMetadata
 import coil3.Uri
 import androidx.core.net.toUri
 import com.example.harmonyhub.features.home.data.remote.models.ArtistMap
+import com.google.gson.JsonElement
+
 
 data class Song(
     val vlink: String = "",
@@ -36,7 +38,7 @@ data class Song(
     val labelUrl: String = "",
     val explicit: Boolean = false,
     val listType: String = "",
-    val artistMap: ArtistMap? = null,
+    val artistMap: JsonElement? = null,
     val releaseDate: String = "",
     val subtitle: String = "",
     val name: String = "",
