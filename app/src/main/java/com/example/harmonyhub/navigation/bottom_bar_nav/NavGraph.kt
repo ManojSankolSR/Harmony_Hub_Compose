@@ -13,9 +13,17 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.core.services.NetworkService
+import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
+import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
+import com.example.harmonyhub.features.music_player.data.repository.LyricsRepository
 import com.example.harmonyhub.features.music_player.presentation.components.player.MusicPlayer
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.LyricsViewModel
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.LyricsViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModelFactory
+import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewModel
+import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewModelFactory
 
 import com.example.harmonyhub.navigation.bottom_bar_nav.home_nav.homeNavGraph
 import com.example.harmonyhub.navigation.bottom_bar_nav.library_nav.libraryNavGraph
@@ -29,22 +37,38 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
 
     val navController = rememberNavController();
 
-    val app= LocalContext.current.applicationContext as HarmonyHub;
+    val context = LocalContext.current
+    val app = context.applicationContext as HarmonyHub
 
-    val playerRepository=app.appContainer.playerRepository;
+    val playerRepository = app.appContainer.playerRepository
+    val repository = app.appContainer.searchRepository
+    val localPlaylistRepository=app.appContainer.localPlaylistRepository
 
-    val musicPlayerViewModel :  MusicPlayerViewModel= viewModel(
-        factory = MusicPlayerViewModelFactory(app,playerRepository)
+    val musicPlayerViewModel: MusicPlayerViewModel = viewModel(
+        factory = MusicPlayerViewModelFactory(app, playerRepository)
+    )
+
+    val lyricsViewModel: LyricsViewModel = viewModel(
+        factory = LyricsViewModelFactory(LyricsRepository(NetworkService(context)))
+    )
+
+    val searchViewModel: SearchViewModel = viewModel(factory = SearchViewModelFactory(repository))
+
+
+    val localPlaylistViewModel: LocalPlaylistViewModel = viewModel(
+        factory = LocalPlaylistViewModelFactory(localPlaylistRepository)
     )
 
     Scaffold(
         bottomBar = {
             Column(
                 verticalArrangement = Arrangement.Bottom
-            ){
+            ) {
                 MusicPlayer(
                     navController,
-                    musicPlayerViewModel = musicPlayerViewModel
+                    musicPlayerViewModel = musicPlayerViewModel,
+                    lyricsViewModel = lyricsViewModel,
+                    localPlaylistViewModel=localPlaylistViewModel
                 )
                 BottomBar(navController)
             }
@@ -54,10 +78,10 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
             navController = navController,
             startDestination = BottomNavRoutes.Home,
         ) {
-            homeNavGraph(navController, paddingValues,musicPlayerViewModel)
-            searchNavGraph(navController, paddingValues,musicPlayerViewModel)
-            libraryNavGraph(navController, paddingValues,musicPlayerViewModel)
-            settingsNavGraph(navController, paddingValues, authViewModel,musicPlayerViewModel)
+            homeNavGraph(navController, paddingValues, musicPlayerViewModel)
+            searchNavGraph(navController, paddingValues, musicPlayerViewModel, searchViewModel)
+            libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel)
+            settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel)
         }
     }
 

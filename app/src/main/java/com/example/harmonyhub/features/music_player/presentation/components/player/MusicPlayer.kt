@@ -11,13 +11,16 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
+import com.example.harmonyhub.features.music_player.presentation.components.player.expanded.MusicPlayerExpanded
 import com.example.harmonyhub.features.music_player.presentation.componentsimport.MiniMusicPlayer
+import com.example.harmonyhub.features.music_player.presentation.viewmodel.LyricsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 
 
@@ -25,10 +28,12 @@ import com.example.harmonyhub.features.music_player.presentation.viewmodel.Music
 fun MusicPlayer(
     navController: NavHostController,
     modifier: Modifier = Modifier,
-    musicPlayerViewModel: MusicPlayerViewModel
+    musicPlayerViewModel: MusicPlayerViewModel,
+    lyricsViewModel: LyricsViewModel,
+    localPlaylistViewModel: LocalPlaylistViewModel
 ) {
 
-    var isExpanded by remember { mutableStateOf(false) }
+    var isExpanded by rememberSaveable { mutableStateOf(false) }
 
     val closeExpandedPlayer: () -> Unit = {
         isExpanded = false;
@@ -60,7 +65,9 @@ fun MusicPlayer(
                 closeExpandedPlayer,
                 modifier,
                 musicPlayerViewModel,
-                navController
+                navController,
+                lyricsViewModel,
+                localPlaylistViewModel
             )
         } else {
             MiniMusicPlayer(
@@ -74,4 +81,3 @@ fun MusicPlayer(
     }
 
 }
-

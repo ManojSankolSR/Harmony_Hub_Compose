@@ -1,7 +1,6 @@
 package com.example.harmonyhub.features.music_player.presentation.componentsimport
 
 import androidx.annotation.OptIn
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 
 import androidx.compose.foundation.layout.Arrangement
@@ -14,18 +13,15 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.media3.common.util.UnstableApi
 import androidx.navigation.NavHostController
-import androidx.navigation.compose.currentBackStackEntryAsState
 import com.example.harmonyhub.features.home.presentation.components.MusicItemImage
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.PlayPauseControl
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.ProgressSeekBar

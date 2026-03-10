@@ -26,7 +26,7 @@ data class Song(
     val rights: Rights,
     val downloadUrl: List<DownloadUrlItem>?,
     val id: String = "",
-    val image: Any?,
+    val image: JsonElement? = null,
     val isDolbyContent: Boolean = false,
     val listCount: Int = 0,
     val album: String = "",
@@ -48,12 +48,13 @@ data class Song(
 )
 
 fun Song.getImageUrl(): String? {
-    val url = when (image) {
-        is List<*> -> {
-            (image.lastOrNull() as? Map<*, *>)?.get("link") as? String
+    val url = when {
+        image?.isJsonArray == true -> {
+            image.asJsonArray.lastOrNull()?.asJsonObject?.get("link")?.asString
         }
-
-        is String -> image
+        image?.isJsonPrimitive == true && image.asJsonPrimitive.isString -> {
+            image.asString
+        }
         else -> null
     }
 

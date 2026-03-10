@@ -20,8 +20,11 @@ fun BottomBar(navController: NavHostController) {
 
     val onClick:(BottomNavRoutes)->Unit={ navItem->
         navController.navigate(navItem) {
-            popUpTo(navController.graph.startDestinationId)
+            popUpTo(navController.graph.startDestinationId){
+                saveState = true
+            }
             launchSingleTop = true
+            restoreState = true
         }
     }
 

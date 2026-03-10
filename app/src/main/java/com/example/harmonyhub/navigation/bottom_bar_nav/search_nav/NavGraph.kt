@@ -10,6 +10,7 @@ import com.example.harmonyhub.features.album.presentation.screens.AlbumScreen
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
 import com.example.harmonyhub.features.serach.presentation.screens.SearchScreen
+import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.BottomNavRoutes
 import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
@@ -20,13 +21,15 @@ fun NavGraphBuilder.searchNavGraph(
     navController: NavHostController,
     paddingValues: PaddingValues,
     musicPlayerViewModel: MusicPlayerViewModel,
+    searchViewModel: SearchViewModel,
 
     ) {
+
     navigation<BottomNavRoutes.Search>(
         startDestination = SearchNavRoutes.SearchScreen
     ){
         composable<SearchNavRoutes.SearchScreen> {
-            SearchScreen(paddingValues,navController,musicPlayerViewModel)
+            SearchScreen(paddingValues,navController,musicPlayerViewModel,searchViewModel)
         }
         composable<PlaylistDetailScreen>{
             val data=it.toRoute<PlaylistDetailScreen>()

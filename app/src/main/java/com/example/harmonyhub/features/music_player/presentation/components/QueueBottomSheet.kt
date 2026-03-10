@@ -37,18 +37,18 @@ fun QueueBottomSheet(viewModel: MusicPlayerViewModel) {
     val currentMediaItem=playerState.currentMediaItem
 
 
-
-
     val onClick: (songs: List<Song>, index: Int) -> Unit = { songs, index ->
         viewModel.setMediaItems(songs = songs, index)
         viewModel.play()
     }
 
-    fun toggleVisiblity() {
+    fun toggleVisibility() {
         visible = !visible;
     }
+
+
     FloatingActionButton(
-        onClick = { toggleVisiblity() }
+        onClick = { toggleVisibility() }
     ) {
         Icon(Icons.Default.QueueMusic, null)
     }
@@ -56,7 +56,7 @@ fun QueueBottomSheet(viewModel: MusicPlayerViewModel) {
 
     if (visible)
 
-        ModalBottomSheet(onDismissRequest = { toggleVisiblity() }) {
+        ModalBottomSheet(onDismissRequest = { toggleVisibility() }) {
             LazyColumn(
                 modifier = Modifier.fillMaxHeight(.4f)
             ) {

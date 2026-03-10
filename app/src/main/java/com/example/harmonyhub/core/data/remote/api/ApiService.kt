@@ -3,9 +3,11 @@ package com.example.harmonyhub.core.data.remote.api
 import com.example.harmonyhub.features.album.data.remote.api.AlbumApi
 import com.example.harmonyhub.features.artist.data.remote.api.ArtistApi
 import com.example.harmonyhub.features.home.data.remote.api.HomeApi
+import com.example.harmonyhub.features.music_player.data.remote.api.LyricsApi
 import com.example.harmonyhub.features.playlist.data.remote.api.PlaylistDetailsApi
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistDetailsResponse
 import com.example.harmonyhub.features.serach.data.remote.api.SearchApi
+import com.example.harmonyhub.features.serach.data.remote.api.SongApi
 
 object ApiService {
 
@@ -28,6 +30,14 @@ object ApiService {
 
     val searchApi: SearchApi by lazy {
         RetrofitClient.retrofit.create<SearchApi>(SearchApi::class.java)
+    }
+
+    val songApi: SongApi by lazy {
+        RetrofitClient.retrofit.create<SongApi>(SongApi::class.java)
+    }
+
+    val lyricsApi : LyricsApi by lazy {
+        RetrofitClient.retrofit.create<LyricsApi>(LyricsApi::class.java)
     }
 
 }

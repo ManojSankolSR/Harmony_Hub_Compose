@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.harmonyhub.features.serach.data.respository.SearchRepository
 import com.example.harmonyhub.features.serach.presentation.state.SearchUiState
 import com.example.harmonyhub.features.serach.presentation.state.TopSearchUiState
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -15,9 +16,26 @@ class SearchViewModel(private val searchRepository: SearchRepository) : ViewMode
     private val _uiSearchState = MutableStateFlow<SearchUiState>(SearchUiState.Loading)
     private val _uiTopSearchesState = MutableStateFlow<TopSearchUiState>(TopSearchUiState.Loading)
 
+
     val searchState = _uiSearchState.asStateFlow()
 
     val topSearchesState = _uiTopSearchesState.asStateFlow()
+
+
+    var _query = MutableStateFlow("")
+
+    val query = _query.asStateFlow()
+
+
+    fun updateQuery(value: String) {
+        _query.update {
+            value
+        }
+        viewModelScope.launch {
+            delay(500)
+            search(value)
+        }
+    }
 
     fun getTopSearches() {
         viewModelScope.launch {

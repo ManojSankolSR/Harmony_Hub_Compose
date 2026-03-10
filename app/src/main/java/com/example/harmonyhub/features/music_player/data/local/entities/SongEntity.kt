@@ -8,6 +8,7 @@ import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Righ
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
 import com.google.gson.JsonElement
+import com.google.gson.JsonPrimitive
 
 import kotlin.time.Duration
 
@@ -116,7 +117,7 @@ fun SongEntity.toSong(): Song {
         trillerAvailable = trillerAvailable,
         rights = rights ?: Rights(),
         downloadUrl = downloadUrl,
-        image = image,
+        image = if (image != null) JsonPrimitive(image) else null,
         isDolbyContent = isDolbyContent,
         listCount = listCount,
         album = album,
