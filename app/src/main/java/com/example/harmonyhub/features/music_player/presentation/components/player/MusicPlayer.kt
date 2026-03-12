@@ -22,6 +22,7 @@ import com.example.harmonyhub.features.music_player.presentation.components.play
 import com.example.harmonyhub.features.music_player.presentation.componentsimport.MiniMusicPlayer
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.LyricsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 
 @Composable
@@ -30,7 +31,8 @@ fun MusicPlayer(
     modifier: Modifier = Modifier,
     musicPlayerViewModel: MusicPlayerViewModel,
     lyricsViewModel: LyricsViewModel,
-    localPlaylistViewModel: LocalPlaylistViewModel
+    localPlaylistViewModel: LocalPlaylistViewModel,
+    downloadsViewModel: DownloadsViewModel,
 ) {
 
     var isExpanded by rememberSaveable { mutableStateOf(false) }
@@ -67,7 +69,8 @@ fun MusicPlayer(
                 musicPlayerViewModel,
                 navController,
                 lyricsViewModel,
-                localPlaylistViewModel
+                localPlaylistViewModel,
+                downloadsViewModel,
             )
         } else {
             MiniMusicPlayer(

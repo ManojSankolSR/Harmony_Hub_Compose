@@ -28,7 +28,6 @@ import com.example.harmonyhub.features.music_player.presentation.components.play
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.SeekNextControl
 import com.example.harmonyhub.features.music_player.presentation.components.player_controls.SeekPrevControl
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
 
 
 @OptIn(UnstableApi::class)
@@ -58,8 +57,8 @@ fun MiniMusicPlayer(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MusicItemImage(
-            currentMediaItem?.getImageUrl(),
-            modifier.fillMaxWidth(0.15f)
+            song = currentMediaItem,
+            modifier = Modifier.fillMaxWidth(0.15f)
         )
         Column() {
             ProgressSeekBar(musicPlayerViewModel, true)

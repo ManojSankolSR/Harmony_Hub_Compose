@@ -55,8 +55,8 @@ fun MusicItemCard2(
         verticalArrangement = Arrangement.spacedBy(6.dp)
     ) {
         MusicItemImage(
-            dataItem.getImageUrl(),
-            Modifier
+            imageUrl = dataItem.getImageUrl(),
+            modifier = Modifier
                 .weight(1f)
                 .fillMaxWidth()
                 .clip(

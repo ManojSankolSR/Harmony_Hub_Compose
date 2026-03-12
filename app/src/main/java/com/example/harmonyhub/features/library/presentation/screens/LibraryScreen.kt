@@ -1,5 +1,6 @@
 package com.example.harmonyhub.features.library.presentation.screens
 
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -40,7 +41,9 @@ fun LibraryScreen(
     ) { padding ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(16.dp),
+            contentPadding = PaddingValues(12.dp,bottom = paddingValues.calculateBottomPadding()),
+            verticalArrangement = Arrangement.spacedBy(12.dp),
+            horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
                 .fillMaxSize()
                 .padding(padding)
@@ -49,7 +52,12 @@ fun LibraryScreen(
                 LibraryCard(
                     title = "Playlists",
                     onClick = { navController.navigate(LibraryNavRoutes.LocalPlaylists) },
-
+                )
+            }
+            item {
+                LibraryCard(
+                    title = "Downloads",
+                    onClick = { navController.navigate(LibraryNavRoutes.DownloadedSongs) },
                 )
             }
         }

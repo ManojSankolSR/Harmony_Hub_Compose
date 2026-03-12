@@ -13,6 +13,7 @@ import com.example.harmonyhub.features.music_player.data.repository.LyricsReposi
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
 import com.example.harmonyhub.features.playlist.data.respository.PlaylistRepository
 import com.example.harmonyhub.features.serach.data.respository.SearchRepository
+import com.example.harmonyhub.features.song_download.data.repository.DownloadRepository
 
 class AppContainer(val context: Context) {
 
@@ -39,5 +40,7 @@ class AppContainer(val context: Context) {
     val lyricsRepository= LyricsRepository(networkService)
 
     val localPlaylistRepository = LocalPlaylistRepository(db.localPlaylistDao())
+
+    val downloadRepository= DownloadRepository(context,networkService)
 
 }

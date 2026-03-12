@@ -31,21 +31,21 @@ import com.example.harmonyhub.features.home.presentation.components.MusicItemIma
 @Composable
 fun ArtistHeader(artistData: ArtistData) {
     Box(
-        modifier = Modifier.Companion
+        modifier = Modifier
             .fillMaxWidth()
             .height(400.dp)
     ) {
         MusicItemImage(
             imageUrl = artistData.getImageUrl(),
-            modifier = Modifier.Companion.fillMaxSize()
+            modifier = Modifier.fillMaxSize()
         )
         Box(
-            modifier = Modifier.Companion
+            modifier = Modifier
                 .fillMaxSize()
                 .background(
-                    Brush.Companion.verticalGradient(
+                    Brush.verticalGradient(
                         colors = listOf(
-                            Color.Companion.Transparent,
+                            Color.Transparent,
                             MaterialTheme.colorScheme.surface.copy(alpha = 0.8f),
                             MaterialTheme.colorScheme.surface
                         ),
@@ -54,25 +54,25 @@ fun ArtistHeader(artistData: ArtistData) {
                 )
         )
         Column(
-            modifier = Modifier.Companion
-                .align(Alignment.Companion.BottomStart)
+            modifier = Modifier
+                .align(Alignment.BottomStart)
                 .padding(14.dp)
         ) {
-            Row(verticalAlignment = Alignment.Companion.CenterVertically) {
+            Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = artistData.name,
                     style = MaterialTheme.typography.displaySmall,
-                    fontWeight = FontWeight.Companion.Bold,
+                    fontWeight = FontWeight.Bold,
                     maxLines = 2,
-                    overflow = TextOverflow.Companion.Ellipsis
+                    overflow = TextOverflow.Ellipsis
                 )
                 if (artistData.isVerified) {
-                    Spacer(Modifier.Companion.width(8.dp))
+                    Spacer(Modifier.width(8.dp))
                     Icon(
                         Icons.Default.Verified,
                         contentDescription = "Verified",
                         tint = MaterialTheme.colorScheme.primary,
-                        modifier = Modifier.Companion.size(28.dp)
+                        modifier = Modifier.size(28.dp)
                     )
                 }
             }

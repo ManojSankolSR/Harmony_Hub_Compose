@@ -13,6 +13,8 @@ import com.example.harmonyhub.features.local_palylist.presentation.screens.Local
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
+import com.example.harmonyhub.features.song_download.presentation.screens.DownloadedSongsScreen
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.BottomNavRoutes
 import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
@@ -22,12 +24,13 @@ fun NavGraphBuilder.libraryNavGraph(
     paddingValues: PaddingValues,
     musicPlayerViewModel: MusicPlayerViewModel,
     localPlaylistViewModel: LocalPlaylistViewModel,
+    downloadsViewModel: DownloadsViewModel,
 ) {
     navigation<BottomNavRoutes.Library>(
         startDestination = LibraryNavRoutes.LibraryScreen
     ) {
         composable<LibraryNavRoutes.LibraryScreen> {
-            LibraryScreen(paddingValues, localPlaylistViewModel,navController)
+            LibraryScreen(paddingValues, localPlaylistViewModel, navController)
         }
         composable<PlaylistDetailScreen> {
             val data = it.toRoute<PlaylistDetailScreen>()
@@ -38,11 +41,10 @@ fun NavGraphBuilder.libraryNavGraph(
             AlbumScreen(paddingValues, navController, data, musicPlayerViewModel)
         }
         composable<LibraryNavRoutes.LocalPlaylists> {
-
             LocalPlaylistScreen(
                 viewModel = localPlaylistViewModel,
                 paddingValues = paddingValues,
-                navController
+                navController = navController
             )
         }
         composable<LibraryNavRoutes.LocalPlaylistDetails> {
@@ -53,7 +55,15 @@ fun NavGraphBuilder.libraryNavGraph(
                 localPlaylistViewModel = localPlaylistViewModel,
                 musicPlayerViewModel = musicPlayerViewModel,
                 paddingValues = paddingValues,
-                navController
+                navController = navController
+            )
+        }
+        composable<LibraryNavRoutes.DownloadedSongs> {
+            DownloadedSongsScreen(
+                viewModel = downloadsViewModel,
+                musicPlayerViewModel = musicPlayerViewModel,
+                onBackClick = { navController.popBackStack() },
+                paddingValues
             )
         }
     }

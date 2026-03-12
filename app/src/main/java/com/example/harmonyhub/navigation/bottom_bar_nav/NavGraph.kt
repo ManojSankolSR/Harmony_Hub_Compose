@@ -24,6 +24,8 @@ import com.example.harmonyhub.features.music_player.presentation.viewmodel.Music
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModelFactory
 import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewModel
 import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewModelFactory
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModelFactory
 
 import com.example.harmonyhub.navigation.bottom_bar_nav.home_nav.homeNavGraph
 import com.example.harmonyhub.navigation.bottom_bar_nav.library_nav.libraryNavGraph
@@ -43,6 +45,7 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
     val playerRepository = app.appContainer.playerRepository
     val repository = app.appContainer.searchRepository
     val localPlaylistRepository=app.appContainer.localPlaylistRepository
+    val downloadRepository=app.appContainer.downloadRepository;
 
     val musicPlayerViewModel: MusicPlayerViewModel = viewModel(
         factory = MusicPlayerViewModelFactory(app, playerRepository)
@@ -59,6 +62,10 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
         factory = LocalPlaylistViewModelFactory(localPlaylistRepository)
     )
 
+    val downloadsViewModel: DownloadsViewModel = viewModel(
+        factory = DownloadsViewModelFactory(app.appContainer.downloadRepository)
+    )
+
     Scaffold(
         bottomBar = {
             Column(
@@ -68,7 +75,9 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
                     navController,
                     musicPlayerViewModel = musicPlayerViewModel,
                     lyricsViewModel = lyricsViewModel,
-                    localPlaylistViewModel=localPlaylistViewModel
+                    localPlaylistViewModel=localPlaylistViewModel,
+                    downloadsViewModel=downloadsViewModel,
+
                 )
                 BottomBar(navController)
             }
@@ -80,7 +89,7 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
         ) {
             homeNavGraph(navController, paddingValues, musicPlayerViewModel)
             searchNavGraph(navController, paddingValues, musicPlayerViewModel, searchViewModel)
-            libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel)
+            libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel,downloadsViewModel)
             settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel)
         }
     }

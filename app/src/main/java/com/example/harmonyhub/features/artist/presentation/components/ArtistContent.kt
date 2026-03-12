@@ -11,10 +11,6 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
@@ -25,11 +21,9 @@ import com.example.harmonyhub.core.presentation.components.SongsListItem
 import com.example.harmonyhub.features.artist.data.remote.models.ArtistData
 import com.example.harmonyhub.features.artist.data.remote.models.toMusicDataItem
 import com.example.harmonyhub.features.home.presentation.components.MusicItemCard2
-import com.example.harmonyhub.features.local_palylist.presentation.components.AddToPlaylistBottomSheet
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 
 @Composable
 fun ArtistContent(
@@ -42,8 +36,6 @@ fun ArtistContent(
     val localPlaylistViewModel: LocalPlaylistViewModel = viewModel(
         factory = LocalPlaylistViewModelFactory(app.appContainer.localPlaylistRepository)
     )
-
-    var songToAddToPlaylist by remember { mutableStateOf<Song?>(null) }
 
     LazyColumn(
         modifier = Modifier.fillMaxSize(),
@@ -68,7 +60,7 @@ fun ArtistContent(
                             musicPlayerViewModel.setMediaItems(songs, index)
                             musicPlayerViewModel.play()
                         },
-                        onAddToPlaylist = { songToAddToPlaylist = song }
+                        localPlaylistViewModel = localPlaylistViewModel
                     )
                 }
             }
@@ -112,13 +104,5 @@ fun ArtistContent(
                 }
             }
         }
-    }
-
-    songToAddToPlaylist?.let { song ->
-        AddToPlaylistBottomSheet(
-            song = song,
-            viewModel = localPlaylistViewModel,
-            onDismiss = { songToAddToPlaylist = null }
-        )
     }
 }

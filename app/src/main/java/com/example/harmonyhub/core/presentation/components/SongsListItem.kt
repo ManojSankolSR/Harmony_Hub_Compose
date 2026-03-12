@@ -13,7 +13,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.GraphicEq
-import androidx.compose.material.icons.outlined.LibraryAdd
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
@@ -26,9 +25,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.features.home.presentation.components.MusicItemImage
+import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
 
 @Composable
 fun SongsListItem(
@@ -36,7 +35,7 @@ fun SongsListItem(
     viewModel: MusicPlayerViewModel,
     onClick: () -> Unit,
     isSelected: Boolean = false,
-    onAddToPlaylist: (() -> Unit)? = null
+    localPlaylistViewModel: LocalPlaylistViewModel? = null
 ) {
 
 
@@ -65,19 +64,20 @@ fun SongsListItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         MusicItemImage(
-            song.getImageUrl(), Modifier
+            song = song,
+            modifier = Modifier
                 .fillMaxHeight()
                 .fillMaxWidth(0.15f)
         )
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
             Text(
-                song.name,
+                song.name ?: "",
                 style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
-                song.subtitle,
+                song.subtitle ?: "",
                 style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -85,11 +85,9 @@ fun SongsListItem(
 
 
         }
-        if (onAddToPlaylist != null) {
-            IconButton(onClick = onAddToPlaylist)
-            {
-                Icon(Icons.Outlined.LibraryAdd, null)
-            }
+
+        localPlaylistViewModel?.let {
+            AddToPlaylistButton(song = song, localPlaylistViewModel = it, iconSize = 24.dp)
         }
 
         if (isSelected) {

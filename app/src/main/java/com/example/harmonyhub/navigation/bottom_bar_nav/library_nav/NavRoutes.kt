@@ -12,4 +12,7 @@ sealed class LibraryNavRoutes {
 
     @Serializable
     data class LocalPlaylistDetails(val id: Int, val name: String) : LibraryNavRoutes()
+
+    @Serializable
+    data object DownloadedSongs : LibraryNavRoutes()
 }

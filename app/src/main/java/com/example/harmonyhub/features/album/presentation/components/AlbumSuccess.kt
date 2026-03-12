@@ -8,10 +8,6 @@ import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.font.FontWeight
@@ -21,7 +17,6 @@ import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.presentation.components.SongsListItem
 import com.example.harmonyhub.features.album.data.remote.models.AlbumData
 import com.example.harmonyhub.features.album.data.remote.models.getImageUrl
-import com.example.harmonyhub.features.local_palylist.presentation.components.AddToPlaylistBottomSheet
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
@@ -37,8 +32,6 @@ fun AlbumSuccess(
     val localPlaylistViewModel: LocalPlaylistViewModel = viewModel(
         factory = LocalPlaylistViewModelFactory(app.appContainer.localPlaylistRepository)
     )
-
-    var songToAddToPlaylist by remember { mutableStateOf<Song?>(null) }
 
     val onClick: (songs: List<Song>, index: Int) -> Unit = { songs, index ->
         musicPlayerViewModel.setMediaItems(songs = songs, index)
@@ -69,16 +62,8 @@ fun AlbumSuccess(
                 song,
                 onClick = { onClick(data.songs!!, index) },
                 viewModel = musicPlayerViewModel,
-                onAddToPlaylist = { songToAddToPlaylist = song }
+                localPlaylistViewModel = localPlaylistViewModel
             )
         }
-    }
-
-    songToAddToPlaylist?.let { song ->
-        AddToPlaylistBottomSheet(
-            song = song,
-            viewModel = localPlaylistViewModel,
-            onDismiss = { songToAddToPlaylist = null }
-        )
     }
 }

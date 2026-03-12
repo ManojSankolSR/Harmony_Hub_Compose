@@ -13,11 +13,9 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.presentation.components.SongsListItem
 import com.example.harmonyhub.features.artist.presentation.components.SectionTitle
-import com.example.harmonyhub.features.local_palylist.presentation.components.AddToPlaylistBottomSheet
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
-import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.serach.data.remote.models.SongSearchItem
 import com.example.harmonyhub.features.serach.data.remote.models.toSong
 import kotlinx.coroutines.launch
@@ -49,8 +47,6 @@ private fun SongResultItem(
         factory = LocalPlaylistViewModelFactory(app.appContainer.localPlaylistRepository)
     )
 
-    var songToAddToPlaylist by remember { mutableStateOf<Song?>(null) }
-
     val mappedSong = songItem.toSong()
 
     fun onClick() {
@@ -67,14 +63,6 @@ private fun SongResultItem(
         song = mappedSong,
         viewModel = musicPlayerViewModel,
         onClick = ::onClick,
-        onAddToPlaylist = { songToAddToPlaylist = mappedSong }
+        localPlaylistViewModel = localPlaylistViewModel
     )
-
-    songToAddToPlaylist?.let { song ->
-        AddToPlaylistBottomSheet(
-            song = song,
-            viewModel = localPlaylistViewModel,
-            onDismiss = { songToAddToPlaylist = null }
-        )
-    }
 }

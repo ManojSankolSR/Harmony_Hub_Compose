@@ -112,5 +112,9 @@ dependencies {
 
     implementation(libs.androidx.media3.ui.compose.material3)
 
+    // for ID3 Tags
+    implementation(libs.jaudiotagger)
+
+
 
 }

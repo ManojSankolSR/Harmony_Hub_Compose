@@ -1,5 +1,6 @@
 package com.example.harmonyhub.features.playlist.data.remote.models.playlist
 
+import android.graphics.Bitmap
 import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
@@ -10,7 +11,7 @@ import com.google.gson.JsonElement
 
 
 data class Song(
-    val vlink: String = "",
+    val vlink: String? = null,
     val year: Int = 0,
     val origin: String = "",
     val language: String = "",
@@ -18,7 +19,7 @@ data class Song(
     val type: String = "",
     val Kbps: Boolean = false,
     val headerDesc: String = "",
-    val vcode: String = "",
+    val vcode: String? = null,
     val duration: Int = 0,
     val music: String = "",
     val starred: Boolean = false,
@@ -44,7 +45,8 @@ data class Song(
     val name: String = "",
     val albumId: String = "",
     val albumUrl: String = "",
-    val hasLyrics: Boolean = false
+    val hasLyrics: Boolean = false,
+    val imageBitmap: Bitmap? = null
 )
 
 fun Song.getImageUrl(): String? {
