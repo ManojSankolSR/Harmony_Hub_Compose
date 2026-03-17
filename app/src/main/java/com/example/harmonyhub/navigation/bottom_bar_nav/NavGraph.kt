@@ -53,7 +53,7 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
     val downloadRepository=app.appContainer.downloadRepository;
 
     val musicPlayerViewModel: MusicPlayerViewModel = viewModel(
-        factory = MusicPlayerViewModelFactory(app, playerRepository)
+        factory = MusicPlayerViewModelFactory(app, playerRepository,userRepository)
     )
 
     val homeViewModel: HomeViewModel = viewModel(

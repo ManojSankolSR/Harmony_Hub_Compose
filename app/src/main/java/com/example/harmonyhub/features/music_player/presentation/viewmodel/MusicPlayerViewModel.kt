@@ -2,9 +2,13 @@ package com.example.harmonyhub.features.music_player.presentation.viewmodel
 
 import com.example.harmonyhub.features.music_player.presentation.player.MediaControllerManager
 import android.app.Application
+import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.harmonyhub.core.data.respository.UserRepository
+import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
 import com.example.harmonyhub.features.music_player.player.Player
 import com.example.harmonyhub.features.music_player.presentation.player.PlayBackStateController
@@ -13,16 +17,24 @@ import com.example.harmonyhub.features.music_player.presentation.state.MusicPlay
 import com.example.harmonyhub.features.music_player.presentation.state.PlaybackState
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class MusicPlayerViewModel(
     application: Application,
-    private val repository: PlayerRepository
+    private val repository: PlayerRepository,
+    private val userRepository: UserRepository
 ) : AndroidViewModel(application) {
 
+
     val player: ExoPlayer = Player.getPlayer()
+
+    val user= userRepository.getUser().stateIn(viewModelScope, SharingStarted.Eagerly,null)
+
     private val context = application.applicationContext
     private val playBackStateController = PlayBackStateController(player, ::updateUiState)
     private val playBackListener =
@@ -80,7 +92,9 @@ class MusicPlayerViewModel(
     }
 
     fun setMediaItems(songs: List<Song>, startIndex: Int = 0) {
-        playBackStateController.setMediaItems(songs, startIndex)
+        val quality=user.value?.preferredAudioQuality!!;
+        Log.d("MusicPlayerViewModel", "setMediaItems: ${user.value}")
+        playBackStateController.setMediaItems(songs, startIndex,quality)
     }
 
     fun pause() {
@@ -109,8 +123,9 @@ class MusicPlayerViewModel(
     }
 
     fun shuffle(){
+        val quality=user.value?.preferredAudioQuality!!;
         val currentQueue=playerState.value.mediaItemQueue;
-        playBackStateController.shuffle(currentQueue)
+        playBackStateController.shuffle(currentQueue,quality)
     }
 
 
@@ -145,11 +160,15 @@ class MusicPlayerViewModel(
 
 
     private fun getPlayerStateFromLocal() {
+
+        val quality=user.value?.preferredAudioQuality ?: AudioQuality.medium;
+
         viewModelScope.launch {
             val state = repository.getPlayerState()
             playBackStateController.setMediaItems(
                 state.mediaItemQueue,
-                state.mediaItemQueue.indexOf(state.currentMediaItem)
+                state.mediaItemQueue.indexOf(state.currentMediaItem),
+                quality
             )
             seekTo(state.currentPosition)
             player.prepare()

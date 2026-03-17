@@ -27,4 +27,5 @@ interface UserDao {
 
     @Delete
     suspend fun deleteUser(user: UserEntity)
+
 }

@@ -4,9 +4,8 @@ import android.graphics.Bitmap
 import android.util.Log
 import androidx.media3.common.MediaItem
 import androidx.media3.common.MediaMetadata
-import coil3.Uri
 import androidx.core.net.toUri
-import com.example.harmonyhub.features.home.data.remote.models.ArtistMap
+import com.example.harmonyhub.core.models.AudioQuality
 import com.google.gson.JsonElement
 
 
@@ -63,14 +62,24 @@ fun Song.getImageUrl(): String? {
     return url?.replace("http://", "https://")
 }
 
+fun Song.getDownloadLinkFromAudioQuality(quality: AudioQuality): String{
+    if(!downloadUrl.isNullOrEmpty()){
+        return downloadUrl.find { it.quality == quality.kbps }?.link ?: downloadUrl.last().link
+    }else{
+        throw Exception("No Download Url Found")
+    }
+}
 
-fun Song.toMediaItem(): MediaItem {
+
+fun Song.toMediaItem(quality: AudioQuality): MediaItem {
 
     val url=getImageUrl()
+    val downloadUrl=getDownloadLinkFromAudioQuality(quality)
+    Log.d("toMediaItem", "toMediaItem: $downloadUrl $quality")
 
     return MediaItem.Builder()
         .setMediaId(id)
-        .setUri(downloadUrl?.lastOrNull()?.link ?: "")
+        .setUri(downloadUrl)
         .setMediaMetadata(
         MediaMetadata.Builder()
             .setTitle(name)

@@ -1,6 +1,7 @@
 package com.example.harmonyhub.features.music_player.presentation.player
 
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.features.music_player.presentation.state.MusicPlayerUiState
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.toMediaItem
@@ -11,8 +12,8 @@ class PlayBackStateController(
     val updateUiState: (MusicPlayerUiState.() -> MusicPlayerUiState) -> Unit
 ) {
 
-    fun setMediaItems(songs: List<Song>, startIndex: Int = 0) {
-        val mediaItems = songs.map { it.toMediaItem() }
+    fun setMediaItems(songs: List<Song>, startIndex: Int = 0, quality: AudioQuality) {
+        val mediaItems = songs.map { it.toMediaItem(quality) }
         player.setMediaItems(mediaItems)
         player.seekTo(startIndex, 0L)
         updateUiState() {
@@ -73,9 +74,9 @@ class PlayBackStateController(
 
     }
 
-    fun shuffle(currentQueue: List<Song>) {
+    fun shuffle(currentQueue: List<Song>, quality: AudioQuality) {
         val shuffledQueue = currentQueue.shuffled()
-        setMediaItems(shuffledQueue)
+        setMediaItems(shuffledQueue, quality = quality)
     }
 
     suspend fun addDurationListener(){
