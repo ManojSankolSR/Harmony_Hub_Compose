@@ -86,7 +86,7 @@ fun AudioQualitySelector(audioQuality: AudioQuality, setAudioQuality: (AudioQual
                                 if (isSelected)
                                     MaterialTheme.colorScheme.primaryContainer
                                 else
-                                    Color.White
+                                    MaterialTheme.colorScheme.surfaceContainerLow
                         ),
                         modifier = Modifier
                             .fillMaxWidth()

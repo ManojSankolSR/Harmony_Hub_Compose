@@ -12,7 +12,7 @@ data class UserEntity (
     val id: Int=0,
     val name:String,
     val preferredAudioQuality: AudioQuality,
-    val preferredLanguage: Language,
+    val preferredLanguage: List<Language>,
 
 ){
 

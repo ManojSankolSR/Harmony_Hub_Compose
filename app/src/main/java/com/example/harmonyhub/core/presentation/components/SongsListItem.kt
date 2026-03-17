@@ -42,7 +42,7 @@ fun SongsListItem(
     Row(
         Modifier
             .fillMaxWidth()
-            .height(70.dp)
+            .height(60.dp)
             .padding(8.dp, vertical = 4.dp)
             .clip(RoundedCornerShape(8.dp))
             .then(
@@ -67,18 +67,18 @@ fun SongsListItem(
             song = song,
             modifier = Modifier
                 .fillMaxHeight()
-                .fillMaxWidth(0.15f)
+                .fillMaxWidth(0.13f)
         )
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
             Text(
                 song.name ?: "",
-                style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W600),
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 song.subtitle ?: "",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W400),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

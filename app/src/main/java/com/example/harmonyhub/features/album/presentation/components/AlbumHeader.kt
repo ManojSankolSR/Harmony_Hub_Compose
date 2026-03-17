@@ -28,7 +28,7 @@ fun AlbumHeader(image: String?, title: String, subtitle: String, subtitleDes: Li
     Box(
         modifier = Modifier
             .fillMaxWidth()
-            .height(180.dp)
+            .height(160.dp)
     ) {
         Row(
             Modifier
@@ -40,7 +40,7 @@ fun AlbumHeader(image: String?, title: String, subtitle: String, subtitleDes: Li
                 imageUrl = image,
                 modifier = Modifier
                     .fillMaxHeight()
-                    .fillMaxWidth(0.4f)
+                    .fillMaxWidth(0.35f)
                     .clip(RoundedCornerShape(8.dp))
 
             )

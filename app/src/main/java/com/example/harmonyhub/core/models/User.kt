@@ -9,7 +9,7 @@ data class User(
     val id: Int,
     val name: String,
     val preferredAudioQuality: AudioQuality,
-    val preferredLanguage: Language,
+    val preferredLanguage: List<Language>,
 ){
     companion object{
         fun User.toEntity(): UserEntity{

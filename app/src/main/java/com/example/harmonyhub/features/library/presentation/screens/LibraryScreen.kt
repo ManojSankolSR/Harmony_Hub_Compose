@@ -1,5 +1,6 @@
 package com.example.harmonyhub.features.library.presentation.screens
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,12 +14,14 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.features.library.presentation.components.LibraryCard
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.library_nav.LibraryNavRoutes
+import com.example.harmonyhub.ui.theme.PermanentMarker
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,7 +36,7 @@ fun LibraryScreen(
                 title = {
                     Text(
                         "Library",
-                        style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Bold)
+                        style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold, fontFamily = PermanentMarker)
                     )
                 }
             )
@@ -41,12 +44,12 @@ fun LibraryScreen(
     ) { padding ->
         LazyVerticalGrid(
             columns = GridCells.Fixed(2),
-            contentPadding = PaddingValues(12.dp,bottom = paddingValues.calculateBottomPadding()),
+            contentPadding = PaddingValues(bottom = paddingValues.calculateBottomPadding(), start = 12.dp, end = 12.dp, top = 12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             modifier = Modifier
                 .fillMaxSize()
-                .padding(padding)
+                .padding( padding)
         ) {
             item {
                 LibraryCard(

@@ -1,14 +1,11 @@
 package com.example.harmonyhub.core.presentation.viewmodel
 
-import android.app.Application
-import android.util.Log
-import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
 import com.example.harmonyhub.core.data.respository.UserRepository
+import com.example.harmonyhub.core.models.AudioQuality
+import com.example.harmonyhub.core.models.Language
 import com.example.harmonyhub.core.models.User
-import com.example.harmonyhub.core.models.User.Companion.toEntity
 import com.example.harmonyhub.core.presentation.state.AuthUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -45,18 +42,43 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
     }
 
     fun addOrUpdateUser(user: User){
-        try {
-            viewModelScope.launch {
+        viewModelScope.launch {
+            try {
                 _uiState.update {
                     it.copy(isLoading = true)
                 }
                 repository.createOrUpdateUser(user);
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(isLoading = false, error = e.message)
+                }
             }
-        }catch (e:Exception){
-            _uiState.update {
-                it.copy(isLoading = false, error = e.message)
-            }
+        }
+    }
 
+    fun updateAudioQuality(quality: AudioQuality) {
+        val user = _uiState.value.user ?: return
+        viewModelScope.launch {
+            try {
+                repository.updateAudioQuality(user.id, quality)
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(error = e.message)
+                }
+            }
+        }
+    }
+
+    fun updatePreferredLanguage(languages: List<Language>) {
+        val user = _uiState.value.user ?: return
+        viewModelScope.launch {
+            try {
+                repository.updatePreferredLanguage(user.id, languages)
+            } catch (e: Exception) {
+                _uiState.update {
+                    it.copy(error = e.message)
+                }
+            }
         }
     }
 
@@ -65,30 +87,9 @@ class AuthViewModel(private val repository: UserRepository): ViewModel() {
              _uiState.update {
                  it.copy(isLoading = true)
              }
-             repository.deleteUser(_uiState.value.user!!);
+             _uiState.value.user?.let {
+                 repository.deleteUser(it)
+             }
          }
-    }
-
-
-
-
-
-
-
-
-}
-
-
-class AuthViewModelFactory(
-    private val repository: UserRepository
-) : ViewModelProvider.Factory {
-
-    override fun <T : ViewModel> create(modelClass: Class<T>): T {
-
-        if (modelClass.isAssignableFrom(AuthViewModel::class.java)) {
-            return AuthViewModel(repository) as T
-        }
-
-        throw IllegalArgumentException("Unknown ViewModel")
     }
 }

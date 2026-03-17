@@ -45,7 +45,7 @@ fun MusicItemCard1(
 
     ElevatedCard(
         Modifier
-            .height(145.dp)
+            .height(130.dp)
             .width(360.dp)
             .padding(horizontal = 8.dp, vertical = 12.dp)
             .clickable {
@@ -70,13 +70,13 @@ fun MusicItemCard1(
             ) {
                 Text(
                     data.name ?: "",
-                    style = MaterialTheme.typography.titleMedium,
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     data.subtitle ?: "",
-                    style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W400),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

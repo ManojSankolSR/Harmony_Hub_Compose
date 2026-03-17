@@ -18,7 +18,6 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.AssistChip
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ElevatedSuggestionChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -33,13 +32,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.models.Language
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LanguageSelector(language: Language, setLanguage: (Language) -> Unit) {
+fun LanguageSelector(languages: List<Language>, setLanguages: (List<Language>) -> Unit) {
 
     var isVisible by remember {
         mutableStateOf(false)
@@ -54,7 +52,13 @@ fun LanguageSelector(language: Language, setLanguage: (Language) -> Unit) {
     }
 
     AssistChip(
-        label = { Text(language.name.replaceFirstChar { it.uppercaseChar() }) },
+        label = {
+            Text(
+                if (languages.isEmpty()) "Select Languages"
+                else if (languages.size == 1) languages.first().name.replaceFirstChar { it.uppercaseChar() }
+                else "${languages.size} Languages"
+            )
+        },
         onClick = ::openBottomSheet,
         trailingIcon = { Icon(Icons.Default.ArrowDropDown, contentDescription = "") }
     )
@@ -72,7 +76,7 @@ fun LanguageSelector(language: Language, setLanguage: (Language) -> Unit) {
                     .verticalScroll(rememberScrollState())
             ) {
                 Text(
-                    text = "Audio Quality",
+                    text = "Select Preferred Languages",
                     style = MaterialTheme.typography.titleLarge.copy(
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.W500
@@ -80,20 +84,24 @@ fun LanguageSelector(language: Language, setLanguage: (Language) -> Unit) {
                     modifier = Modifier.padding(16.dp)
                 )
                 Language.entries.forEach { currLanguage ->
-                    val isSelected = language == currLanguage;
+                    val isSelected = languages.contains(currLanguage)
                     ElevatedCard(
                         colors = CardDefaults.cardColors(
                             containerColor =
-                                if (isSelected)
-                                    MaterialTheme.colorScheme.primaryContainer
-                                else
-                                    Color.White
+                            if (isSelected)
+                                MaterialTheme.colorScheme.primaryContainer
+                            else
+                                MaterialTheme.colorScheme.surfaceContainerLow
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
                             .clickable {
-                                setLanguage(currLanguage)
-                                closeBottomSheet()
+                                val newList = if (isSelected) {
+                                    languages.filter { it != currLanguage }
+                                } else {
+                                    languages + currLanguage
+                                }
+                                setLanguages(newList)
                             }
                             .padding(horizontal = 16.dp, vertical = 8.dp)
                             .border(
@@ -109,7 +117,7 @@ fun LanguageSelector(language: Language, setLanguage: (Language) -> Unit) {
                                 .fillMaxWidth()
                         ) {
                             Text(currLanguage.name.replaceFirstChar { it.uppercaseChar() })
-                            if (language == currLanguage) {
+                            if (isSelected) {
                                 Icon(
                                     Icons.Default.Check,
                                     contentDescription = "Selected"

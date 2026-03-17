@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -37,6 +38,7 @@ fun LibraryCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
+            .aspectRatio(1f)
             .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
 
@@ -47,7 +49,7 @@ fun LibraryCard(
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .aspectRatio(1f)
+                    .weight(1f)
                     .clip(RoundedCornerShape(12.dp))
                     .background(MaterialTheme.colorScheme.background),
                 contentAlignment = Alignment.Center
@@ -55,7 +57,7 @@ fun LibraryCard(
                 Icon(
                     imageVector = Icons.Default.LibraryMusic,
                     contentDescription = null,
-                    modifier = Modifier.size(88.dp),
+                    modifier = Modifier.size(48.dp),
                     tint = MaterialTheme.colorScheme.onSurface
                 )
             }

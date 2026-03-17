@@ -58,7 +58,7 @@ fun MiniMusicPlayer(
     ) {
         MusicItemImage(
             song = currentMediaItem,
-            modifier = Modifier.fillMaxWidth(0.15f)
+            modifier = Modifier.fillMaxWidth(0.14f)
         )
         Column() {
             ProgressSeekBar(musicPlayerViewModel, true)
@@ -75,13 +75,13 @@ fun MiniMusicPlayer(
                 ) {
                     Text(
                         currentMediaItem?.name ?: "",
-                        style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W600),
+                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
                     Text(
                         currentMediaItem?.subtitle ?: "",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+                        style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W400),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

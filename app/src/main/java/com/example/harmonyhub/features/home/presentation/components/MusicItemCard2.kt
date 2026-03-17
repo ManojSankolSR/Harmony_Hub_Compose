@@ -45,8 +45,8 @@ fun MusicItemCard2(
 
     Column(
         Modifier
-            .width(155.dp)
-            .height(200.dp)
+            .width(135.dp)
+            .height(180.dp)
             .clip(RoundedCornerShape(8.dp))
             .clickable {
                 onMusicItemClick()
@@ -68,13 +68,13 @@ fun MusicItemCard2(
         Column(Modifier.padding(horizontal = 4.dp)) {
             Text(
                 dataItem.name ?: "",
-                style = MaterialTheme.typography.titleMedium,
+                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
             Text(
                 text = (dataItem.subtitle ?: "").ifEmpty { dataItem.type?.name?.replaceFirstChar { it.uppercaseChar() } ?: "" },
-                style = MaterialTheme.typography.titleSmall.copy(fontWeight = FontWeight.W400),
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W400),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

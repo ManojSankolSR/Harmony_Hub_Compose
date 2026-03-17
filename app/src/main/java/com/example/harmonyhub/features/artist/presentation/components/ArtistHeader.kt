@@ -61,7 +61,7 @@ fun ArtistHeader(artistData: ArtistData) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Text(
                     text = artistData.name,
-                    style = MaterialTheme.typography.displaySmall,
+                    style = MaterialTheme.typography.headlineLarge,
                     fontWeight = FontWeight.Bold,
                     maxLines = 2,
                     overflow = TextOverflow.Ellipsis

@@ -42,6 +42,15 @@ class Converters(){
     }
 
     @TypeConverter
+    fun fromLanguageList(languages: List<Language>?): String? = Gson().toJson(languages)
+
+    @TypeConverter
+    fun toLanguageList(languagesString: String?): List<Language>? {
+        val type = object : TypeToken<List<Language>>() {}.type
+        return Gson().fromJson(languagesString, type)
+    }
+
+    @TypeConverter
     fun fromRights(rights: Rights?): String? = Gson().toJson(rights)
 
     @TypeConverter

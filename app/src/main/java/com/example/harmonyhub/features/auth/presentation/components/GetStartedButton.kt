@@ -22,7 +22,7 @@ import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
 
 
 @Composable
-fun GetStartedButton(userName: String,audioQuality: AudioQuality,language: Language,viewModel: AuthViewModel){
+fun GetStartedButton(userName: String,audioQuality: AudioQuality,languages: List<Language>,viewModel: AuthViewModel){
 
     val state by viewModel.state.collectAsState()
 
@@ -32,7 +32,7 @@ fun GetStartedButton(userName: String,audioQuality: AudioQuality,language: Langu
         val user= User(
             id = 0,
             name = userName,
-            preferredLanguage = language,
+            preferredLanguage = languages,
             preferredAudioQuality = audioQuality
         )
 

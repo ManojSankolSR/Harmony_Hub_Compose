@@ -1,10 +1,9 @@
 package com.example.harmonyhub.core.data.respository
 
-import android.content.Context
 import com.example.harmonyhub.core.data.local.dao.UserDao
-import com.example.harmonyhub.core.data.local.db.AppDatabase
-import com.example.harmonyhub.core.data.local.entity.UserEntity
 import com.example.harmonyhub.core.data.local.entity.UserEntity.Companion.toUser
+import com.example.harmonyhub.core.models.AudioQuality
+import com.example.harmonyhub.core.models.Language
 import com.example.harmonyhub.core.models.User
 import com.example.harmonyhub.core.models.User.Companion.toEntity
 import kotlinx.coroutines.flow.Flow
@@ -20,6 +19,14 @@ class UserRepository(private val dao: UserDao) {
 
     suspend fun createOrUpdateUser(user: User) {
         dao.addOrUpdateUser(user.toEntity())
+    }
+
+    suspend fun updateAudioQuality(id: Int, quality: AudioQuality) {
+        dao.updateAudioQuality(id, quality)
+    }
+
+    suspend fun updatePreferredLanguage(id: Int, languages: List<Language>) {
+        dao.updatePreferredLanguage(id, languages)
     }
 
     suspend fun deleteUser(user: User){

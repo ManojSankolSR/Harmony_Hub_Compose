@@ -6,15 +6,11 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.navigation
 import androidx.navigation.compose.rememberNavController
 import com.example.harmonyhub.HarmonyHub
-import com.example.harmonyhub.core.data.local.db.AppDatabase
-import com.example.harmonyhub.core.data.respository.UserRepository
 import com.example.harmonyhub.core.presentation.components.Loader
 import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModelFactory
-import com.example.harmonyhub.di.AppContainer
 import com.example.harmonyhub.navigation.auth_nav.authNavGraph
 import com.example.harmonyhub.navigation.un_auth_nav.unAuthNavGraph
 
