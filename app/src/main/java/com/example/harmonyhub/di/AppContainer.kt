@@ -41,6 +41,6 @@ class AppContainer(val context: Context) {
 
     val localPlaylistRepository = LocalPlaylistRepository(db.localPlaylistDao())
 
-    val downloadRepository= DownloadRepository(context,networkService)
+    val downloadRepository= DownloadRepository(context, networkService)
 
 }

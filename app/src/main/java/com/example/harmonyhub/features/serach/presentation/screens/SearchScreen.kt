@@ -29,9 +29,6 @@ fun SearchScreen(
 
     val focusManager = LocalFocusManager.current
 
-    LaunchedEffect(Unit) {
-        searchViewModel.getTopSearches()
-    }
 
     Scaffold(
         modifier = Modifier.padding(top = parentPaddingValues.calculateTopPadding()),

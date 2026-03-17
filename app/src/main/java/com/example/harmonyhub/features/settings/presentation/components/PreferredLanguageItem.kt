@@ -1,4 +1,4 @@
-package com.example.harmonyhub.features.settings.presentation.com
+package com.example.harmonyhub.features.settings.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons
@@ -53,7 +53,7 @@ fun PreferredLanguageItem(
         },
         supportingContent = {
             Text(
-                "Content will be recommended in ${langs.joinToString(", ") { it.name.replaceFirstChar { char -> char.uppercase() } }}",
+                "Content will be recommended in :- ${langs.joinToString(", ") { it.name.replaceFirstChar { char -> char.uppercase() } }}",
                 style = MaterialTheme.typography.labelLarge
             )
         }

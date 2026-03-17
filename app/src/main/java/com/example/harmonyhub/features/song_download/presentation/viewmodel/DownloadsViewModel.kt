@@ -2,6 +2,7 @@ package com.example.harmonyhub.features.song_download.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.song_download.data.repository.DownloadRepository
 import com.example.harmonyhub.features.song_download.presentation.state.DownloadedSongsUiState
@@ -39,15 +40,26 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
         }
     }
 
-    fun downloadSong(song: Song) {
+    fun downloadSong(song: Song, quality: AudioQuality) {
         viewModelScope.launch {
             try {
                 _uiStateSongsDownload.update { SongsDownloadUIState.Downloading(0.0) }
-                downloadRepository.downloadSong(song)
+                downloadRepository.downloadSong(song, quality)
                 _uiStateSongsDownload.update { SongsDownloadUIState.Success }
                 getDownloadedSongs() // Refresh list
             } catch (e: Exception) {
                 _uiStateSongsDownload.update { SongsDownloadUIState.Error(e.message ?: "Download failed") }
+            }
+        }
+    }
+
+    fun deleteSong(song: Song) {
+        viewModelScope.launch {
+            try {
+                downloadRepository.deleteSong(song)
+                getDownloadedSongs() // Refresh list
+            } catch (e: Exception) {
+                // Handle error if needed
             }
         }
     }

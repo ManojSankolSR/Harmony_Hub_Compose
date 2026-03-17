@@ -26,6 +26,10 @@ class SearchViewModel(private val searchRepository: SearchRepository) : ViewMode
 
     val query = _query.asStateFlow()
 
+    init {
+        getTopSearches()
+    }
+
 
     fun updateQuery(value: String) {
         _query.update {

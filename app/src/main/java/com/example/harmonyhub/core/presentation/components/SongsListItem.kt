@@ -45,6 +45,7 @@ fun SongsListItem(
             .height(60.dp)
             .padding(8.dp, vertical = 4.dp)
             .clip(RoundedCornerShape(8.dp))
+            .background(MaterialTheme.colorScheme.background)
             .then(
                 if (isSelected)
                     Modifier

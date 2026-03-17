@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import android.util.Log
 import com.example.harmonyhub.core.data.remote.api.ApiService
+import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.services.NetworkService
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.DownloadUrlItem
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Rights
@@ -14,11 +15,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import org.jaudiotagger.audio.AudioFileIO
 import org.jaudiotagger.tag.FieldKey
-import org.jaudiotagger.tag.Tag
 import org.jaudiotagger.tag.TagOptionSingleton
 import org.jaudiotagger.tag.images.ArtworkFactory
-import org.jaudiotagger.tag.mp4.Mp4Tag
-import org.jaudiotagger.tag.mp4.field.Mp4TagReverseDnsField
 import java.io.File
 import java.io.FileOutputStream
 
@@ -78,13 +76,14 @@ class DownloadRepository(
         }
 
 
-    suspend fun downloadSong(song: Song) =
+    suspend fun downloadSong(song: Song, quality: AudioQuality) =
         withContext(Dispatchers.IO) {
             if (!networkService.isInternetAvailable()) {
                 throw Exception("No internet connection")
             }
 
-            val link = song.downloadUrl?.lastOrNull()?.link
+            val link = song.downloadUrl?.find { it.quality == quality.kbps }?.link
+                    ?: song.downloadUrl?.lastOrNull()?.link
                     ?: throw Exception("Download link not found")
 
             val file = createFile(song.name)
@@ -101,6 +100,14 @@ class DownloadRepository(
             }
             writeMetadata(song, file)
         }
+
+    suspend fun deleteSong(song: Song) = withContext(Dispatchers.IO) {
+        val filePath = song.downloadUrl?.firstOrNull()?.link ?: return@withContext
+        val file = File(filePath)
+        if (file.exists()) {
+            file.delete()
+        }
+    }
 
     suspend fun getDownloadedSongs(): List<Song> = withContext(Dispatchers.IO) {
         val dir = context.getExternalFilesDir(Environment.DIRECTORY_MUSIC) ?: return@withContext emptyList()
@@ -135,4 +142,3 @@ class DownloadRepository(
         }
     }
 }
-

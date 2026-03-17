@@ -87,12 +87,12 @@ fun ProgressSeekBar(viewModel: MusicPlayerViewModel, forMiniPlayer: Boolean = fa
                 modifier = Modifier.fillMaxWidth(),
                 track = { sliderState ->
                     SliderDefaults.Track(
-                        sliderState = sliderState, modifier = Modifier.height(10.dp) // thinner track
+                        sliderState = sliderState, modifier = Modifier.height(6.dp) // thinner track
                     )
                 },
                 thumb = {
                     SliderDefaults.Thumb(
-                        thumbSize = DpSize(6.dp,26.dp),
+                        thumbSize = DpSize(6.dp,24.dp),
                         interactionSource = MutableInteractionSource()
                     )
 
@@ -128,7 +128,7 @@ fun ProgressSeekBar(viewModel: MusicPlayerViewModel, forMiniPlayer: Boolean = fa
             ) {
                 Text(
                     formatTime(currentPosition),
-                    style = MaterialTheme.typography.bodyLarge.copy(fontWeight = FontWeight.W600),
+                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

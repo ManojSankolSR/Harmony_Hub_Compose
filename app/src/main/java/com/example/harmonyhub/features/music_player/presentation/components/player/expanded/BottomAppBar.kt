@@ -35,7 +35,7 @@ fun BottomAppBar(
     downloadsViewModel: DownloadsViewModel,
 ) {
 
-    val iconSize = 32.dp;
+    val iconSize = 26.dp;
 
     fun skipPrev(milliseconds: Long = -10_000) {
         viewModel.skip(milliseconds)
@@ -77,13 +77,7 @@ fun BottomAppBar(
             DownloadSongButton(
                 viewModel = downloadsViewModel, song = song, iconSize = iconSize
             )
-
         }
-
-
-
     }
-
-
 }
 

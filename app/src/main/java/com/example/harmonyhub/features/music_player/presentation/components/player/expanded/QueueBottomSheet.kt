@@ -1,4 +1,4 @@
-package com.example.harmonyhub.features.music_player.presentation.components
+package com.example.harmonyhub.features.music_player.presentation.components.player.expanded
 
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
