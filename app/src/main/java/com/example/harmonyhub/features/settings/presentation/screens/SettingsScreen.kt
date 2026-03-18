@@ -9,10 +9,11 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
-import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.features.settings.presentation.components.PreferredLanguageItem
 import com.example.harmonyhub.features.settings.presentation.components.AudioQualityItem
 import com.example.harmonyhub.features.settings.presentation.components.LogoutItem
+import com.example.harmonyhub.features.settings.presentation.components.StorageInfoItem
 import com.example.harmonyhub.features.settings.presentation.components.TopBar
 
 
@@ -38,9 +39,14 @@ fun SettingsScreen(
                 authViewModel
             )
 
+            StorageInfoItem(
+                navController
+            )
+
             LogoutItem(
                 authViewModel
             )
+
         }
     }
 }

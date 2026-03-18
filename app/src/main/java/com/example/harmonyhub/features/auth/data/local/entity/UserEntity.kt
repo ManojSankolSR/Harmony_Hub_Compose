@@ -1,10 +1,10 @@
-package com.example.harmonyhub.core.data.local.entity
+package com.example.harmonyhub.features.auth.data.local.entity
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.models.Language
-import com.example.harmonyhub.core.models.User
+import com.example.harmonyhub.features.auth.data.remote.models.User
 
 @Entity(tableName = "user")
 data class UserEntity (
@@ -14,13 +14,13 @@ data class UserEntity (
     val preferredAudioQuality: AudioQuality,
     val preferredLanguage: List<Language>,
 
-){
+    ){
 
     companion object{
-        fun UserEntity.toUser(): User{
+        fun UserEntity.toUser(): User {
             return User(
                 id = id,
-                name =name,
+                name = name,
                 preferredAudioQuality = preferredAudioQuality,
                 preferredLanguage = preferredLanguage
             )

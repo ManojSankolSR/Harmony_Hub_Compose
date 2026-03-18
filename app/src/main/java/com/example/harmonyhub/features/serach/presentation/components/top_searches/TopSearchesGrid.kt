@@ -56,7 +56,7 @@ fun TopSearchesGrid(
                 )
                 Text(
                     text = "Trending Now",
-                    style = MaterialTheme.typography.headlineSmall,
+                    style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.ExtraBold
                 )
             }

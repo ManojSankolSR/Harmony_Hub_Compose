@@ -18,8 +18,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
+import com.example.harmonyhub.R
 import com.example.harmonyhub.features.music_player.data.local.entities.SongEntity
 
 @Composable
@@ -100,7 +102,8 @@ private fun PlaylistImageItem(
         model = imageUrl,
         contentDescription = null,
         modifier = modifier.fillMaxSize(),
-        contentScale = ContentScale.Crop
-
+        contentScale = ContentScale.Crop,
+        error = painterResource(R.drawable.placeholder),
+        placeholder = painterResource(R.drawable.placeholder),
     )
 }

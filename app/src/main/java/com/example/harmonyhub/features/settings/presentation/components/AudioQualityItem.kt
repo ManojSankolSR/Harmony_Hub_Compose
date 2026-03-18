@@ -11,8 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import com.example.harmonyhub.core.models.AudioQuality
-import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.features.auth.presentation.components.AudioQualitySelector
 
 @Composable
@@ -41,13 +42,14 @@ fun AudioQualityItem(authViewModel: AuthViewModel ){
         headlineContent = {
             Text(
                 "Audio Quality",
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleSmall
             )
         },
         supportingContent = {
             Text(
-                "Higher quality (${quality.displayName}) provides better sound but consumes more data",
-                style = MaterialTheme.typography.labelLarge
+                "Higher quality provides better sound but consumes more data",
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.W400
             )
         }
     )

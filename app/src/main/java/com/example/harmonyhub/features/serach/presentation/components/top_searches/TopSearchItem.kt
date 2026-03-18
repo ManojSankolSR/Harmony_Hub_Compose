@@ -62,12 +62,15 @@ fun TopSearchItem(
                     fetchAndPlaySong()
                 }
                 else -> {
-                    MusicItemNavigator.navigate(
-                        type,
-                        navController,
-                        dataItem,
-                        musicPlayerViewModel
-                    )
+                    coroutineScope.launch {
+                        MusicItemNavigator.navigate(
+                            type,
+                            navController,
+                            dataItem,
+                            musicPlayerViewModel
+                        )
+                    }
+
                 }
             }
 
@@ -99,7 +102,7 @@ fun TopSearchItem(
         Column {
             Text(
                 text = dataItem.name ?: "",
-                style = MaterialTheme.typography.bodyLarge,
+                style = MaterialTheme.typography.bodyMedium,
                 fontWeight = FontWeight.SemiBold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis

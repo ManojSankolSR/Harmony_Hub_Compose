@@ -70,7 +70,7 @@ fun DownloadedSongItem(
                     Icons.Default.Delete,
                     contentDescription = "Delete Icon",
                     modifier = Modifier.scale(scale),
-                    tint = Color.White
+                    tint = MaterialTheme.colorScheme.onSurface
                 )
             }
         },

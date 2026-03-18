@@ -1,8 +1,8 @@
-package com.example.harmonyhub.core.presentation.viewmodel
+package com.example.harmonyhub.features.auth.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.harmonyhub.core.data.respository.UserRepository
+import com.example.harmonyhub.features.auth.data.respository.UserRepository
 
 class AuthViewModelFactory(
     private val repository: UserRepository

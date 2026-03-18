@@ -3,6 +3,7 @@ package com.example.harmonyhub.features.local_palylist.presentation.components.p
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.Text
@@ -29,13 +30,13 @@ fun PlaylistDetailsSuccess(
     }
 
     if (songs.isEmpty()) {
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+        Box(Modifier.fillMaxSize().padding(paddingValues), contentAlignment = Alignment.Center) {
             Text("No songs in this playlist.")
         }
     } else {
         LazyColumn(
             modifier = Modifier.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = paddingValues.calculateBottomPadding())
+            contentPadding = paddingValues
         ) {
             item {
                 PlaylistDetailsHeader(songs, title)

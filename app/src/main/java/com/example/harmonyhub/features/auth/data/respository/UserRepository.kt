@@ -1,11 +1,11 @@
-package com.example.harmonyhub.core.data.respository
+package com.example.harmonyhub.features.auth.data.respository
 
-import com.example.harmonyhub.core.data.local.dao.UserDao
-import com.example.harmonyhub.core.data.local.entity.UserEntity.Companion.toUser
 import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.models.Language
-import com.example.harmonyhub.core.models.User
-import com.example.harmonyhub.core.models.User.Companion.toEntity
+import com.example.harmonyhub.features.auth.data.local.dao.UserDao
+import com.example.harmonyhub.features.auth.data.local.entity.UserEntity.Companion.toUser
+import com.example.harmonyhub.features.auth.data.remote.models.User
+import com.example.harmonyhub.features.auth.data.remote.models.User.Companion.toEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 

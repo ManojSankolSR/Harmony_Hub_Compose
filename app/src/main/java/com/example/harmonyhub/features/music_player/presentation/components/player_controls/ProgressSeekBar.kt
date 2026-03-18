@@ -1,12 +1,14 @@
 package com.example.harmonyhub.features.music_player.presentation.components.player_controls
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.LinearProgressIndicator
@@ -31,6 +33,10 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.drawscope.DrawScope
 import androidx.compose.ui.unit.DpSize
+import com.example.harmonyhub.features.music_player.presentation.state.PlaybackState
+import com.galaxygoldfish.waveslider.DiamondThumb
+import com.galaxygoldfish.waveslider.WaveSlider
+import com.galaxygoldfish.waveslider.WaveSliderDefaults
 
 fun formatTime(ms: Long): String {
 
@@ -49,62 +55,78 @@ fun ProgressSeekBar(viewModel: MusicPlayerViewModel, forMiniPlayer: Boolean = fa
 
     val playerState by viewModel.playerState.collectAsState()
 
+    val playBackState=playerState.playbackState
+
+    val enabled = playBackState != PlaybackState.Loading
+
     val currentPosition = playerState.currentPosition
 
     val duration = playerState.duration
+
 
     var sliderPosition by remember {
         mutableFloatStateOf(0f)
     }
 
-    Log.d("duration32343234 12", "$duration")
-
 
     fun onSliderValueChange(value: Float) {
         sliderPosition = value
-
     }
 
     fun onSliderValueChangFinished() {
-        viewModel.seekTo(sliderPosition.toLong())
-
+        val seekPosition = (sliderPosition * duration).toLong()
+        viewModel.seekTo(seekPosition)
     }
 
     LaunchedEffect(currentPosition) {
-        sliderPosition = currentPosition.toFloat()
+        sliderPosition = currentPosition / duration.toFloat()
     }
 
+    fun getAptitude():Float{
+        return  if(playBackState== PlaybackState.Playing){
+            10F
+        }
+        else{
+            0F
+        }
+    }
 
     Column(
-        verticalArrangement = Arrangement.spacedBy(6.dp)
+        verticalArrangement = Arrangement.spacedBy(4.dp),
     ) {
         if (!forMiniPlayer) {
-            Slider(
-                value = currentPosition.coerceIn(0, duration.coerceAtLeast(1)).toFloat(),
-                onValueChange = ::onSliderValueChange,
-                onValueChangeFinished = ::onSliderValueChangFinished,
-                valueRange = 0f..duration.coerceAtLeast(1).toFloat(),
-                modifier = Modifier.fillMaxWidth(),
-                track = { sliderState ->
-                    SliderDefaults.Track(
-                        sliderState = sliderState, modifier = Modifier.height(6.dp) // thinner track
-                    )
-                },
-                thumb = {
-                    SliderDefaults.Thumb(
-                        thumbSize = DpSize(6.dp,24.dp),
-                        interactionSource = MutableInteractionSource()
-                    )
 
-                }
+            WaveSlider(
+                value = sliderPosition,
+                onValueChange = ::onSliderValueChange,
+                onValueChangeFinished = {
+                    onSliderValueChangFinished()
+                },
+                animationOptions = WaveSliderDefaults.animationOptions(
+                    reverseDirection = false,
+                    flatlineOnDrag = true,
+                    animateWave = true,
+                    reverseFlatline = false
+                ),
+                enabled = enabled,
+                thumb = { DiamondThumb() },
+//                colors = WaveSliderDefaults.colors(
+//                    thumbColor = MaterialTheme.colorScheme.primary,
+//                    activeTrackColor = MaterialTheme.colorScheme.primary
+//                ),
+                waveOptions = WaveSliderDefaults.waveOptions(
+                    amplitude = getAptitude(),
+                    frequency = 0.07F,
+                ),
 
                 )
+
         } else {
 
             Slider(
                 value = currentPosition.coerceIn(0, duration.coerceAtLeast(1)).toFloat(),
-                onValueChange = ::onSliderValueChange,
-                onValueChangeFinished = ::onSliderValueChangFinished,
+                onValueChange = {},
+                onValueChangeFinished = {},
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(3.dp)
@@ -128,13 +150,13 @@ fun ProgressSeekBar(viewModel: MusicPlayerViewModel, forMiniPlayer: Boolean = fa
             ) {
                 Text(
                     formatTime(currentPosition),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
                 Text(
                     formatTime(duration),
-                    style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W400),
+                    style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W400),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )

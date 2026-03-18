@@ -2,6 +2,8 @@
 agp = "9.0.1"
 coilCompose = "3.4.0"
 coilNetworkOkhttp = "3.4.0"
+composeCharts = "0.2.5"
+composeStackedSnackbar = "1.0.4"
 converterGson = "3.0.0"
 coreKtx = "1.17.0"
 jaudiotagger = "3.0.1"
@@ -22,8 +24,10 @@ media3UiComposeMaterial3 = "1.9.2"
 mp3agic = "0.9.1"
 navigationCompose = "2.9.7"
 okhttp = "5.3.2"
+paletteKtx = "1.0.0"
 retrofit = "3.0.0"
 roomRuntime = "2.8.4"
+waveslider = "0.0.4"
 
 [libraries]
 androidx-compose-material-icons-extended = { module = "androidx.compose.material:material-icons-extended" }
@@ -38,12 +42,15 @@ androidx-media3-session = { module = "androidx.media3:media3-session", version.r
 androidx-media3-ui = { module = "androidx.media3:media3-ui", version.ref = "media3Ui" }
 androidx-media3-ui-compose-material3 = { module = "androidx.media3:media3-ui-compose-material3", version.ref = "media3UiComposeMaterial3" }
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "navigationCompose" }
+androidx-palette-ktx = { module = "androidx.palette:palette-ktx", version.ref = "paletteKtx" }
 androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "roomRuntime" }
 androidx-room-guava = { module = "androidx.room:room-guava", version.ref = "roomRuntime" }
 androidx-room-ktx = { module = "androidx.room:room-ktx", version.ref = "roomRuntime" }
 androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "roomRuntime" }
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilNetworkOkhttp" }
+compose-charts = { module = "io.github.ehsannarmani:compose-charts", version.ref = "composeCharts" }
+compose-stacked-snackbar = { module = "io.github.rizmaulana:compose-stacked-snackbar", version.ref = "composeStackedSnackbar" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 jaudiotagger = { module = "net.jthink:jaudiotagger", version.ref = "jaudiotagger" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
@@ -65,6 +72,7 @@ logging-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", ver
 mp3agic = { module = "com.mpatric:mp3agic", version.ref = "mp3agic" }
 okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okhttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
+waveslider = { module = "com.github.galaxygoldfish:waveslider", version.ref = "waveslider" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

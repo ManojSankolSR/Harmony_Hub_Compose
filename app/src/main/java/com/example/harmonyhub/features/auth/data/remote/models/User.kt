@@ -1,8 +1,9 @@
-package com.example.harmonyhub.core.models
+package com.example.harmonyhub.features.auth.data.remote.models
 
-import com.example.harmonyhub.core.data.local.entity.UserEntity
+import com.example.harmonyhub.core.models.AudioQuality
+import com.example.harmonyhub.core.models.Language
+import com.example.harmonyhub.features.auth.data.local.entity.UserEntity
 import kotlinx.serialization.Serializable
-
 
 @Serializable
 data class User(
@@ -12,7 +13,7 @@ data class User(
     val preferredLanguage: List<Language>,
 ){
     companion object{
-        fun User.toEntity(): UserEntity{
+        fun User.toEntity(): UserEntity {
             return UserEntity(
                 id = id,
                 name = name,

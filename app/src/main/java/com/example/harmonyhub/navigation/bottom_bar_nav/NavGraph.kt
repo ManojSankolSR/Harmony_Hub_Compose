@@ -1,7 +1,6 @@
 package com.example.harmonyhub.navigation.bottom_bar_nav
 
 import android.annotation.SuppressLint
-import android.util.Log
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -13,7 +12,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.example.harmonyhub.HarmonyHub
-import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.core.services.NetworkService
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModelFactory
@@ -29,6 +28,8 @@ import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewM
 import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewModelFactory
 import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModelFactory
+import com.example.harmonyhub.features.storage.presentation.viewmodel.StorageViewModel
+import com.example.harmonyhub.features.storage.presentation.viewmodel.StorageViewModelFactory
 
 import com.example.harmonyhub.navigation.bottom_bar_nav.home_nav.homeNavGraph
 import com.example.harmonyhub.navigation.bottom_bar_nav.library_nav.libraryNavGraph
@@ -51,6 +52,8 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
     val repository = app.appContainer.searchRepository
     val localPlaylistRepository=app.appContainer.localPlaylistRepository
     val downloadRepository=app.appContainer.downloadRepository;
+    val storageRepository=app.appContainer.storageRepository;
+
 
     val musicPlayerViewModel: MusicPlayerViewModel = viewModel(
         factory = MusicPlayerViewModelFactory(app, playerRepository,userRepository)
@@ -73,6 +76,10 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
 
     val downloadsViewModel: DownloadsViewModel = viewModel(
         factory = DownloadsViewModelFactory(app.appContainer.downloadRepository)
+    )
+
+    val storageViewModel: StorageViewModel = viewModel(
+        factory = StorageViewModelFactory(storageRepository)
     )
 
 
@@ -100,7 +107,7 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
             homeNavGraph(navController, paddingValues, musicPlayerViewModel,authViewModel,homeViewModel)
             searchNavGraph(navController, paddingValues, musicPlayerViewModel, searchViewModel)
             libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel,downloadsViewModel)
-            settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel)
+            settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel,storageViewModel)
         }
     }
 

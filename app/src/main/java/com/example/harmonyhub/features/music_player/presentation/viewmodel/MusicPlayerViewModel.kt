@@ -7,7 +7,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.exoplayer.ExoPlayer
-import com.example.harmonyhub.core.data.respository.UserRepository
+import com.example.harmonyhub.features.auth.data.respository.UserRepository
 import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
 import com.example.harmonyhub.features.music_player.player.Player

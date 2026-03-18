@@ -26,7 +26,7 @@ fun PlayerControls(
             .fillMaxWidth()
             .padding(paddingHorizontal),
         horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.spacedBy(0.dp)
+        verticalArrangement = Arrangement.spacedBy(12.dp)
     ) {
         ProgressSeekBar(viewModel)
         Row(

@@ -6,11 +6,9 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.getValue
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.core.presentation.components.ErrorView
 import com.example.harmonyhub.core.presentation.components.Loader
-import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.features.home.presentation.components.HomeList
 import com.example.harmonyhub.features.home.presentation.components.TopBar
 import com.example.harmonyhub.features.home.presentation.state.HomeUiState
@@ -38,7 +36,12 @@ fun HomeScreen(
     ) { padding ->
         when (state) {
             is HomeUiState.Loading -> {
-                Loader(padding)
+                Loader(
+                    padding = PaddingValues(
+                        bottom = parentPaddingValues.calculateBottomPadding(),
+                        top=padding.calculateTopPadding()
+                    )
+                )
             }
 
             is HomeUiState.Success -> {
@@ -55,7 +58,10 @@ fun HomeScreen(
 
             is HomeUiState.Error -> {
                 val message = state.message
-                ErrorView(::onRefresh, message, padding)
+                ErrorView(::onRefresh, message,  PaddingValues(
+                    bottom = parentPaddingValues.calculateBottomPadding(),
+                    top=padding.calculateTopPadding()
+                ))
 
             }
 

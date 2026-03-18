@@ -17,7 +17,7 @@ fun WelcomeTexts() {
         Text(
             "Harmony",
             style = TextStyle(
-                fontSize = 80.sp,
+                fontSize = 60.sp,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )
@@ -25,7 +25,7 @@ fun WelcomeTexts() {
         Text(
             "Hub",
             style = TextStyle(
-                fontSize = 80.sp,
+                fontSize = 60.sp,
                 color = MaterialTheme.colorScheme.primary,
                 fontWeight = FontWeight.Bold
             )
@@ -33,7 +33,7 @@ fun WelcomeTexts() {
         Text(
             "Music .",
             style = TextStyle(
-                fontSize = 80.sp,
+                fontSize = 60.sp,
                 fontWeight = FontWeight.Bold,
 
                 )

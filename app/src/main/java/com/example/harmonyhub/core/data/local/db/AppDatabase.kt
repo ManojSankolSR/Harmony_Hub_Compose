@@ -6,8 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
 import com.example.harmonyhub.core.data.local.converter.Converters
-import com.example.harmonyhub.core.data.local.dao.UserDao
-import com.example.harmonyhub.core.data.local.entity.UserEntity
+import com.example.harmonyhub.features.auth.data.local.dao.UserDao
+import com.example.harmonyhub.features.auth.data.local.entity.UserEntity
 import com.example.harmonyhub.features.album.data.local.dao.AlbumDao
 import com.example.harmonyhub.features.album.data.local.entity.AlbumEntity
 import com.example.harmonyhub.features.artist.data.local.dao.ArtistDao

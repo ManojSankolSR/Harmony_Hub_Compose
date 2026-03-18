@@ -18,6 +18,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +29,7 @@ import com.example.harmonyhub.core.navigation.MusicItemNavigator
 import com.example.harmonyhub.features.home.data.remote.models.MusicDataItem
 import com.example.harmonyhub.features.home.data.remote.models.getImageUrl
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -37,9 +39,14 @@ fun MusicItemCard1(
     musicPlayerViewModel: MusicPlayerViewModel
 ) {
 
+    val scope= rememberCoroutineScope()
+
     val onMusicItemClick: () -> Unit = {
         data.type?.let { type ->
-            MusicItemNavigator.navigate(type, navController, data,musicPlayerViewModel)
+            scope.launch {
+                MusicItemNavigator.navigate(type, navController, data,musicPlayerViewModel)
+            }
+
         }
     }
 

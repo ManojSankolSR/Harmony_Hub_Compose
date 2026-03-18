@@ -46,6 +46,7 @@ fun DownloadSongButton (
 ){
 
     val songsState = viewModel.uiStateDownloadedSongs.collectAsState().value
+    val downloadState=viewModel.uiStateSongsDownload.collectAsState().value
     var showQualitySelector by remember { mutableStateOf(false) }
     var selectedQuality by remember { mutableStateOf(AudioQuality.high) }
 
@@ -56,6 +57,47 @@ fun DownloadSongButton (
 
     fun onRefresh(){
         viewModel.getDownloadedSongs()
+    }
+
+
+    if (downloadState.containsKey(song.id)){
+        IconButton(onClick = ::onRefresh){
+            CircularProgressIndicator(modifier.size(iconSize))
+        }
+    }else{
+        when(songsState){
+            is DownloadedSongsUiState.Loading -> {
+                IconButton(onClick = ::onRefresh){
+                    CircularProgressIndicator(modifier.size(iconSize))
+                }
+            }
+            is DownloadedSongsUiState.Error -> {
+                IconButton(onClick = ::onRefresh){
+                    Icon(Icons.Default.ErrorOutline,null)
+                }
+            }
+            is DownloadedSongsUiState.Success -> {
+
+                val isDownloaded = songsState.songs.any { it.id == song.id }
+
+                IconButton(
+                    onClick = {
+                        if (!isDownloaded) {
+                            showQualitySelector = true
+                        }
+                    },
+                    enabled = !isDownloaded
+                ) {
+                    Icon(
+                        if (isDownloaded) {
+                            Icons.Rounded.DownloadDone
+                        } else {
+                            Icons.Outlined.ArrowDownward
+                        }, null, modifier = modifier.size(iconSize)
+                    )
+                }
+            }
+        }
     }
 
 
@@ -95,37 +137,5 @@ fun DownloadSongButton (
     }
 
 
-    when(songsState){
-        is DownloadedSongsUiState.Loading -> {
-            IconButton(onClick = ::onRefresh){
-                CircularProgressIndicator(modifier.size(iconSize))
-            }
-        }
-        is DownloadedSongsUiState.Error -> {
-            IconButton(onClick = ::onRefresh){
-                Icon(Icons.Default.ErrorOutline,null)
-            }
-        }
-        is DownloadedSongsUiState.Success -> {
 
-            val isDownloaded = songsState.songs.any { it.id == song.id }
-
-            IconButton(
-                onClick = {
-                    if (!isDownloaded) {
-                        showQualitySelector = true
-                    }
-                },
-                enabled = !isDownloaded
-            ) {
-                Icon(
-                    if (isDownloaded) {
-                        Icons.Rounded.DownloadDone
-                    } else {
-                        Icons.Outlined.ArrowDownward
-                    }, null, modifier = modifier.size(iconSize)
-                )
-            }
-        }
-    }
 }

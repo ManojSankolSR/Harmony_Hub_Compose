@@ -1,8 +1,6 @@
 package com.example.harmonyhub.features.local_palylist.presentation.screens
 
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -38,31 +36,50 @@ fun LocalPlaylistScreen(
     var showCreateDialog by remember { mutableStateOf(false) }
 
     Scaffold(
-        topBar = {TopBar(navController)},
+        topBar = { TopBar(navController) },
         floatingActionButton = {
-            FloatingActionButton(onClick = { showCreateDialog = true }, modifier = Modifier.padding(paddingValues)) {
+            FloatingActionButton(
+                onClick = { showCreateDialog = true },
+                modifier = Modifier.padding(paddingValues)
+            ) {
                 Icon(Icons.Default.Add, contentDescription = "Create Playlist")
             }
         }
     ) { padding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
-            when (state) {
-                is LocalPlaylistUiState.Loading -> Loader(padding)
-                is LocalPlaylistUiState.Error -> ErrorView(
-                    onRefresh = { viewModel.observePlaylistWithSongs() },
-                    message = state.message,
-                    paddingValues = paddingValues
+
+        when (state) {
+            is LocalPlaylistUiState.Loading -> Loader(
+                PaddingValues(
+                    top = padding.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
+
                 )
-                is LocalPlaylistUiState.Success -> {
-                    val data=state.data;
-                    PlaylistSuccess(data, paddingValues,navController)
-                }
+            )
+
+            is LocalPlaylistUiState.Error -> ErrorView(
+                onRefresh = { viewModel.observePlaylistWithSongs() },
+                message = state.message,
+                paddingValues = PaddingValues(
+                    top = padding.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
+
+                )
+            )
+
+            is LocalPlaylistUiState.Success -> {
+                val data = state.data;
+                PlaylistSuccess(
+                    playlists = data,
+                    paddingValues = padding,
+                    parentPaddingValues = paddingValues,
+                    navController = navController,
+                    onDelete = { playlist ->
+                        viewModel.deletePlaylist(playlist)
+                    }
+                )
             }
         }
+
     }
 
     if (showCreateDialog) {
@@ -75,4 +92,3 @@ fun LocalPlaylistScreen(
         )
     }
 }
-

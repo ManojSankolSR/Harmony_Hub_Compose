@@ -4,6 +4,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
@@ -13,6 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistEntity
 import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistWithSongs
 import com.example.harmonyhub.navigation.bottom_bar_nav.library_nav.LibraryNavRoutes
 
@@ -20,7 +22,9 @@ import com.example.harmonyhub.navigation.bottom_bar_nav.library_nav.LibraryNavRo
 fun PlaylistSuccess(
     playlists: List<PlaylistWithSongs>,
     paddingValues: PaddingValues,
-    navController: NavHostController
+    parentPaddingValues: PaddingValues,
+    navController: NavHostController,
+    onDelete: (PlaylistEntity) -> Unit
 ) {
 
     fun onClick(id: Int, name: String) {
@@ -28,7 +32,11 @@ fun PlaylistSuccess(
     }
 
     if (playlists.isEmpty()) {
-        Box(Modifier.fillMaxSize(), contentAlignment = Alignment.Companion.Center) {
+        Box(Modifier.fillMaxSize().padding( PaddingValues(
+            top = paddingValues.calculateTopPadding(),
+            bottom = parentPaddingValues.calculateBottomPadding()
+
+        )), contentAlignment = Alignment.Companion.Center) {
             Text("No playlists yet. Create one!")
         }
     } else {
@@ -38,10 +46,10 @@ fun PlaylistSuccess(
             horizontalArrangement = Arrangement.spacedBy(12.dp),
             verticalArrangement = Arrangement.spacedBy(12.dp),
             contentPadding = PaddingValues(
+                top = paddingValues.calculateTopPadding(),
+                bottom = parentPaddingValues.calculateBottomPadding(),
                 start = 12.dp,
-                end = 12.dp,
-                top = 12.dp,
-                bottom = paddingValues.calculateBottomPadding() + 12.dp
+                end = 12.dp
             )
         ) {
             items(playlists) { playlistWithSongs ->
@@ -50,6 +58,9 @@ fun PlaylistSuccess(
                     playlistWithSongs = playlistWithSongs,
                     onClick = {
                         onClick(data.id, data.name)
+                    },
+                    onDelete = {
+                        onDelete(data)
                     }
                 )
             }

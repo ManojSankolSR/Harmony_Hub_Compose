@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
@@ -31,6 +32,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.core.models.Language
 
@@ -56,7 +58,10 @@ fun LanguageSelector(languages: List<Language>, setLanguages: (List<Language>) -
             Text(
                 if (languages.isEmpty()) "Select Languages"
                 else if (languages.size == 1) languages.first().name.replaceFirstChar { it.uppercaseChar() }
-                else "${languages.size} Languages"
+                else "${languages.size} Languages",
+                maxLines = 1,
+                overflow = TextOverflow.Ellipsis,
+                style = MaterialTheme.typography.labelSmall
             )
         },
         onClick = ::openBottomSheet,
@@ -76,7 +81,7 @@ fun LanguageSelector(languages: List<Language>, setLanguages: (List<Language>) -
                     .verticalScroll(rememberScrollState())
             ) {
                 Text(
-                    text = "Select Preferred Languages",
+                    text = "Preferred Languages",
                     style = MaterialTheme.typography.titleLarge.copy(
                         color = MaterialTheme.colorScheme.primary,
                         fontWeight = FontWeight.W500
@@ -88,10 +93,10 @@ fun LanguageSelector(languages: List<Language>, setLanguages: (List<Language>) -
                     ElevatedCard(
                         colors = CardDefaults.cardColors(
                             containerColor =
-                            if (isSelected)
-                                MaterialTheme.colorScheme.primaryContainer
-                            else
-                                MaterialTheme.colorScheme.surfaceContainerLow
+                                if (isSelected)
+                                    MaterialTheme.colorScheme.primaryContainer
+                                else
+                                    MaterialTheme.colorScheme.surfaceContainerLow
                         ),
                         modifier = Modifier
                             .fillMaxWidth()
@@ -116,11 +121,16 @@ fun LanguageSelector(languages: List<Language>, setLanguages: (List<Language>) -
                                 .padding(16.dp)
                                 .fillMaxWidth()
                         ) {
-                            Text(currLanguage.name.replaceFirstChar { it.uppercaseChar() })
+                            Text(
+                                currLanguage.name.replaceFirstChar { it.uppercaseChar() },
+                                style = MaterialTheme.typography.bodySmall,
+                                fontWeight = FontWeight.W500
+                            )
                             if (isSelected) {
                                 Icon(
                                     Icons.Default.Check,
-                                    contentDescription = "Selected"
+                                    contentDescription = "Selected",
+                                    modifier = Modifier.size(16.dp),
                                 )
                             }
                         }

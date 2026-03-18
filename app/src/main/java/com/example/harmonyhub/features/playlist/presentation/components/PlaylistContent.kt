@@ -33,16 +33,21 @@ fun PlaylistContent(
         topBar = {
             TopBar(navController)
         }) { padding ->
-        Box(Modifier.padding(padding)) {
 
             when (state) {
                 is PlaylistDetailsUiState.Loading -> {
-                    Loader(padding)
+                    Loader(
+                        PaddingValues(
+                            top = padding.calculateTopPadding(),
+                            bottom = paddingValues.calculateBottomPadding()
+
+                        )
+                    )
                 }
 
                 is PlaylistDetailsUiState.Success -> {
                     val playlistData = state.data;
-                    PlaylistSuccess(playlistData, musicPlayerViewModel,   paddingValues)
+                    PlaylistSuccess(playlistData, musicPlayerViewModel,   padding,paddingValues)
                 }
 
                 is PlaylistDetailsUiState.Error -> {
@@ -50,13 +55,17 @@ fun PlaylistContent(
                     ErrorView(
                         onRefresh = ::onRefresh,
                         message,
-                        paddingValues = PaddingValues(paddingValues.calculateBottomPadding())
+                        paddingValues =PaddingValues(
+                            top = padding.calculateTopPadding(),
+                            bottom = paddingValues.calculateBottomPadding()
+
+                        )
                     )
 
                 }
             }
 
 
-        }
+
     }
 }

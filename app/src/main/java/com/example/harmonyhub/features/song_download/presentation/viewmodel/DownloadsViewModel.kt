@@ -1,12 +1,14 @@
 package com.example.harmonyhub.features.song_download.presentation.viewmodel
 
+import StackedSnackbarDuration
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.harmonyhub.core.models.AudioQuality
+import com.example.harmonyhub.core.models.SnackBar
+import com.example.harmonyhub.core.services.SnackBarManager
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.song_download.data.repository.DownloadRepository
 import com.example.harmonyhub.features.song_download.presentation.state.DownloadedSongsUiState
-import com.example.harmonyhub.features.song_download.presentation.state.SongsDownloadUIState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -17,7 +19,7 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
     private val _uiStateDownloadedSongs = MutableStateFlow<DownloadedSongsUiState>(DownloadedSongsUiState.Loading)
     val uiStateDownloadedSongs = _uiStateDownloadedSongs.asStateFlow()
 
-    private val _uiStateSongsDownload = MutableStateFlow<SongsDownloadUIState?>(null)
+    private val _uiStateSongsDownload = MutableStateFlow<Map<String, Double>>(emptyMap())
     val uiStateSongsDownload = _uiStateSongsDownload.asStateFlow()
 
     init {
@@ -43,12 +45,40 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
     fun downloadSong(song: Song, quality: AudioQuality) {
         viewModelScope.launch {
             try {
-                _uiStateSongsDownload.update { SongsDownloadUIState.Downloading(0.0) }
+                SnackBarManager.show(
+                    SnackBar.InfoSnackBar(
+                        title = "Download Started",
+                        description = "Downloading ${song.name}",
+                        duration = StackedSnackbarDuration.Short
+                    )
+                )
+                _uiStateSongsDownload.update { it->
+                    it+mapOf(song.id to 0.0)
+                }
                 downloadRepository.downloadSong(song, quality)
-                _uiStateSongsDownload.update { SongsDownloadUIState.Success }
-                getDownloadedSongs() // Refresh list
+                _uiStateSongsDownload.update {
+                    it-song.id
+                }
+                getDownloadedSongs()
+                SnackBarManager.show(
+                    SnackBar.SuccessSnackBar(
+                        title = "Download Complete",
+                        description = "${song.name} downloaded successfully",
+                        duration = StackedSnackbarDuration.Short
+                    )
+                )
             } catch (e: Exception) {
-                _uiStateSongsDownload.update { SongsDownloadUIState.Error(e.message ?: "Download failed") }
+                SnackBarManager.show(
+                    SnackBar.ErrorSnackBar(
+                        title = "Download Failed",
+                        description = e.message ?: "Could not download ${song.name}",
+                        duration = StackedSnackbarDuration.Short
+                    )
+                )
+            }finally {
+                _uiStateSongsDownload.update {
+                    it-song.id
+                }
             }
         }
     }
@@ -58,8 +88,21 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
             try {
                 downloadRepository.deleteSong(song)
                 getDownloadedSongs() // Refresh list
+                SnackBarManager.show(
+                    SnackBar.SuccessSnackBar(
+                        title = "Song Deleted",
+                        description = "${song.name} removed from downloads",
+                        duration = StackedSnackbarDuration.Short
+                    )
+                )
             } catch (e: Exception) {
-                // Handle error if needed
+                SnackBarManager.show(
+                    SnackBar.ErrorSnackBar(
+                        title = "Delete Failed",
+                        description = e.message ?: "Could not delete ${song.name}",
+                        duration = StackedSnackbarDuration.Short
+                    )
+                )
             }
         }
     }

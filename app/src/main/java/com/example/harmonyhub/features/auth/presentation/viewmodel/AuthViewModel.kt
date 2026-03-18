@@ -1,12 +1,12 @@
-package com.example.harmonyhub.core.presentation.viewmodel
+package com.example.harmonyhub.features.auth.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.harmonyhub.core.data.respository.UserRepository
+import com.example.harmonyhub.features.auth.data.respository.UserRepository
 import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.models.Language
-import com.example.harmonyhub.core.models.User
-import com.example.harmonyhub.core.presentation.state.AuthUiState
+import com.example.harmonyhub.features.auth.data.remote.models.User
+import com.example.harmonyhub.features.auth.presentation.state.AuthUiState
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update

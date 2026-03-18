@@ -47,7 +47,7 @@ fun ArtistScreen(
             TopAppBar(
                 title = { },
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    FilledTonalIconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
                     }
                 },
@@ -60,7 +60,10 @@ fun ArtistScreen(
     ) { paddingValues ->
         Box(modifier = Modifier.fillMaxSize()) {
             when (val state = uiState) {
-                is ArtistUiState.Loading -> Loader()
+                is ArtistUiState.Loading -> Loader(PaddingValues(
+                    top = paddingValues.calculateTopPadding(),
+                    bottom = parentPaddingValues.calculateBottomPadding()
+                ))
                 is ArtistUiState.Error -> ErrorView(
                     message = state.message,
                     onRefresh = { artistViewModel.getArtistDetails(data.id) },

@@ -33,10 +33,9 @@ fun AlbumContent(
             TopBar(navController)
         }) { padding ->
         Box(Modifier.padding(padding)) {
-
             when (state) {
                 is AlbumUiState.Loading -> {
-                    Loader(padding)
+                    Loader(parentPaddingValues)
                 }
 
                 is AlbumUiState.Success -> {

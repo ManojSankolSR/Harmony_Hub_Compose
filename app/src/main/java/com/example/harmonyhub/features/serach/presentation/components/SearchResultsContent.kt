@@ -12,17 +12,26 @@ import com.example.harmonyhub.features.serach.presentation.state.SearchUiState
 
 @Composable
 fun SearchResultsContent(
+    paddingValues: PaddingValues,
     parentPaddingValues: PaddingValues,
     state: SearchUiState,
     navController: NavHostController,
     musicPlayerViewModel: MusicPlayerViewModel
 ) {
     when (state) {
-        is SearchUiState.Loading -> Loader()
+        is SearchUiState.Loading -> Loader(
+            padding = PaddingValues(
+                top = parentPaddingValues.calculateTopPadding(),
+                bottom = parentPaddingValues.calculateBottomPadding()
+            )
+        )
         is SearchUiState.Error -> ErrorView(
             message = state.message,
             onRefresh = { },
-            paddingValues = PaddingValues(0.dp)
+            paddingValues = PaddingValues(
+                top = parentPaddingValues.calculateTopPadding(),
+                bottom = parentPaddingValues.calculateBottomPadding()
+            )
         )
 
         is SearchUiState.Success -> {

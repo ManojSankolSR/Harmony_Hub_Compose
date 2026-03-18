@@ -40,8 +40,6 @@ fun MiniMusicPlayer(
 ) {
 
 
-
-
     val playerState by musicPlayerViewModel.playerState.collectAsState()
 
     val currentMediaItem = playerState.currentMediaItem;
@@ -49,7 +47,7 @@ fun MiniMusicPlayer(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(55.dp)
             .clickable() {
                 expandedPlayer()
             },

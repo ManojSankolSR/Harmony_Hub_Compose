@@ -11,8 +11,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import com.example.harmonyhub.core.models.Language
-import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.features.auth.presentation.components.LanguageSelector
 
 @Composable
@@ -48,13 +49,14 @@ fun PreferredLanguageItem(
         headlineContent = {
             Text(
                 "Preferred Language",
-                style = MaterialTheme.typography.titleMedium
+                style = MaterialTheme.typography.titleSmall
             )
         },
         supportingContent = {
             Text(
-                "Content will be recommended in :- ${langs.joinToString(", ") { it.name.replaceFirstChar { char -> char.uppercase() } }}",
-                style = MaterialTheme.typography.labelLarge
+                "Content will be recommended in Selected Languages",
+                style = MaterialTheme.typography.labelSmall,
+                fontWeight = FontWeight.W400
             )
         }
     )

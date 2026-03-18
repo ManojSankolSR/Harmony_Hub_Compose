@@ -49,11 +49,18 @@ class PlaybackListener(
 
     override fun onIsPlayingChanged(isPlaying: Boolean) {
         savePlayerStateToLocal()
+        val state = when {
+            player.playbackState == Player.STATE_BUFFERING -> PlaybackState.Loading
+            isPlaying -> PlaybackState.Playing
+            else -> PlaybackState.Paused
+        }
+
+        updateUiState {
+            copy(playbackState = state)
+        }
         updateUiState {
             copy(
-                playbackState =
-                    if (isPlaying) PlaybackState.Playing
-                    else PlaybackState.Paused
+                playbackState =state
             )
         }
     }

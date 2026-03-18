@@ -37,26 +37,41 @@ fun LocalPlaylistDetailsScreen(
 
     Scaffold(
         topBar = {
-            TopBar(playlistName,navController)
+            TopBar(playlistName, navController)
         }
     ) { padding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-        ) {
-            when (state) {
-                is LocalSongsOfPlaylistUiState.Loading -> Loader(padding)
-                is LocalSongsOfPlaylistUiState.Error -> ErrorView(
-                    onRefresh = { localPlaylistViewModel.observeSongsOfPlaylist(playlistId) },
-                    message = state.message,
-                    paddingValues = paddingValues
+
+        when (state) {
+            is LocalSongsOfPlaylistUiState.Loading -> Loader(
+                padding = PaddingValues(
+                    top = padding.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
                 )
-                 is LocalSongsOfPlaylistUiState.Success -> {
-                     val data=state.data;
-                     PlaylistDetailsSuccess(title = playlistName,data, paddingValues, musicPlayerViewModel)
-                 }
+            )
+
+            is LocalSongsOfPlaylistUiState.Error -> ErrorView(
+                onRefresh = { localPlaylistViewModel.observeSongsOfPlaylist(playlistId) },
+                message = state.message,
+                paddingValues = PaddingValues(
+                    top = padding.calculateTopPadding(),
+                    bottom = paddingValues.calculateBottomPadding()
+                )
+            )
+
+            is LocalSongsOfPlaylistUiState.Success -> {
+                val data = state.data;
+                PlaylistDetailsSuccess(
+                    title = playlistName,
+                    data,
+                    PaddingValues(
+                        top = padding.calculateTopPadding(),
+                        bottom = paddingValues.calculateBottomPadding()
+                    ),
+                    musicPlayerViewModel
+                )
             }
         }
     }
+
 }
 

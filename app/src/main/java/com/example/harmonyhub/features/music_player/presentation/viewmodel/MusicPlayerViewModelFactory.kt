@@ -3,7 +3,7 @@ package com.example.harmonyhub.features.music_player.presentation.viewmodel
 import android.app.Application
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.harmonyhub.core.data.respository.UserRepository
+import com.example.harmonyhub.features.auth.data.respository.UserRepository
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
 
 class MusicPlayerViewModelFactory(

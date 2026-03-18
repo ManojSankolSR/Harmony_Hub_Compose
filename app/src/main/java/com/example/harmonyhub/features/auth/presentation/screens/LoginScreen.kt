@@ -21,7 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.models.Language
-import com.example.harmonyhub.core.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.features.auth.presentation.components.AudioQualitySelector
 import com.example.harmonyhub.features.auth.presentation.components.DisclaimerText
 import com.example.harmonyhub.features.auth.presentation.components.FeaturesChips

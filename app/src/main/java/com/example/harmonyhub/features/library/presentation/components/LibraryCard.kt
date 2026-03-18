@@ -38,7 +38,7 @@ fun LibraryCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .aspectRatio(1f)
+            .height(210.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
 
@@ -71,7 +71,8 @@ fun LibraryCard(
                     fontSize = 14.sp
                 ),
                 maxLines = 1,
-                overflow = TextOverflow.Ellipsis
+                overflow = TextOverflow.Ellipsis,
+                modifier= modifier.padding(start = 6.dp)
             )
         }
     }

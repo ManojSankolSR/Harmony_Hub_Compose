@@ -116,5 +116,15 @@ dependencies {
     implementation(libs.jaudiotagger)
 
 
+        implementation (libs.compose.charts)
+
+
+
+    implementation(libs.compose.stacked.snackbar)
+
+    implementation(libs.waveslider)
+
+    implementation(libs.androidx.palette.ktx)
+
 
 }

@@ -3,11 +3,13 @@ package com.example.harmonyhub.features.home.presentation.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -22,6 +24,7 @@ import com.example.harmonyhub.ui.theme.PermanentMarker
 @Composable
 fun TopBar() {
     CenterAlignedTopAppBar(
+
         title = {
             Row(
                 horizontalArrangement = Arrangement.spacedBy(
@@ -36,10 +39,11 @@ fun TopBar() {
                     colorFilter = ColorFilter.tint(
                         MaterialTheme.colorScheme.onSurface
                     ),
-                    )
+                )
+
                 Text(
                     "Harmony Hub ",
-                    style = MaterialTheme.typography.headlineLarge.copy(fontFamily = PermanentMarker)
+                    style = MaterialTheme.typography.headlineMedium.copy(fontFamily = PermanentMarker)
                 )
             }
         }

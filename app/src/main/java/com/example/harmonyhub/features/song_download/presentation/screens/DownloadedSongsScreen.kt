@@ -26,7 +26,7 @@ fun DownloadedSongsScreen(
     onBackClick: () -> Unit,
     paddingValues: PaddingValues
 ) {
-    val uiState by viewModel.uiStateDownloadedSongs.collectAsState()
+    val uiState = viewModel.uiStateDownloadedSongs.collectAsState().value
 
     fun onRefresh() {
         viewModel.getDownloadedSongs()
@@ -37,29 +37,31 @@ fun DownloadedSongsScreen(
             TopBar(onBackClick)
         }
     ) { padding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding)
-        ) {
-            when (val state = uiState) {
+
+            when (uiState) {
                 is DownloadedSongsUiState.Loading -> {
-                    Loader(padding = paddingValues)
+                    Loader(padding = PaddingValues(
+                        top = padding.calculateTopPadding(),
+                        bottom = paddingValues.calculateBottomPadding()
+                    ))
                 }
 
                 is DownloadedSongsUiState.Success -> {
-                    DownloadedSongsSuccess(state, paddingValues, musicPlayerViewModel, viewModel)
+                    DownloadedSongsSuccess(uiState, padding,paddingValues, musicPlayerViewModel, viewModel)
                 }
 
                 is DownloadedSongsUiState.Error -> {
                     ErrorView(
                         onRefresh = ::onRefresh,
-                        message = state.message,
-                        paddingValues = paddingValues
+                        message = uiState.message,
+                        paddingValues =  PaddingValues(
+                            top = padding.calculateTopPadding(),
+                            bottom = paddingValues.calculateBottomPadding()
+                        )
                     )
                 }
             }
-        }
+
     }
 }
 

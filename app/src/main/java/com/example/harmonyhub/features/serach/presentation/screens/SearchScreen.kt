@@ -42,7 +42,7 @@ fun SearchScreen(
             if (query.isEmpty()) {
                 TopSearchesContent(parentPaddingValues,topSearchesState, navController, musicPlayerViewModel)
             } else {
-                SearchResultsContent(parentPaddingValues,searchState, navController, musicPlayerViewModel)
+                SearchResultsContent(padding,parentPaddingValues,searchState, navController, musicPlayerViewModel)
             }
         }
     }

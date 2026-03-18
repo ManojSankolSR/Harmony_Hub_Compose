@@ -3,7 +3,7 @@ package com.example.harmonyhub.features.home.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.viewModelScope
-import com.example.harmonyhub.core.data.respository.UserRepository
+import com.example.harmonyhub.features.auth.data.respository.UserRepository
 import com.example.harmonyhub.core.models.Language
 import com.example.harmonyhub.features.home.data.respository.HomeRepository
 import com.example.harmonyhub.features.home.presentation.state.HomeUiState

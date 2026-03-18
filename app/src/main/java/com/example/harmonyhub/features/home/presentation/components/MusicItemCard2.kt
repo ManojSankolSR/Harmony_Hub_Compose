@@ -13,6 +13,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.text.font.FontWeight
@@ -24,6 +25,7 @@ import com.example.harmonyhub.features.home.data.remote.models.MusicDataItem
 import com.example.harmonyhub.features.home.data.remote.models.MusicItemType
 import com.example.harmonyhub.features.home.data.remote.models.getImageUrl
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -34,12 +36,17 @@ fun MusicItemCard2(
     onPress:()-> Unit={}
 ) {
 
+    val scope= rememberCoroutineScope()
+
     Log.d("MusicItemCard2", "dataItem: ${dataItem.name} ${dataItem.getImageUrl()}")
 
     val onMusicItemClick: () -> Unit = {
         dataItem.type?.let { type ->
             onPress()
-            MusicItemNavigator.navigate(type, navController, dataItem,musicPlayerViewModel)
+            scope.launch {
+                MusicItemNavigator.navigate(type, navController, dataItem,musicPlayerViewModel)
+            }
+
         }
     }
 

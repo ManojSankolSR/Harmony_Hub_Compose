@@ -25,9 +25,12 @@ import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 fun PlaylistSuccess(
     data: PlaylistData,
     musicPlayerViewModel: MusicPlayerViewModel,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    parentPaddingValues: PaddingValues
 ) {
     val app = LocalContext.current.applicationContext as HarmonyHub
+
+
     val localPlaylistViewModel: LocalPlaylistViewModel = viewModel(
         factory = LocalPlaylistViewModelFactory(app.appContainer.localPlaylistRepository)
     )
@@ -39,14 +42,15 @@ fun PlaylistSuccess(
 
     LazyColumn(
         verticalArrangement = Arrangement.spacedBy(4.dp),
-        contentPadding = PaddingValues(bottom = paddingValues.calculateBottomPadding())
+        contentPadding = PaddingValues(bottom = parentPaddingValues.calculateBottomPadding(), )
     ) {
         item {
             PlaylistHeader(
                 data.image,
                 title = data.name,
                 subtitle = data.headerDesc,
-                subtitleDes = data.subtitleDesc
+                subtitleDes = data.subtitleDesc,
+                paddingValues
             )
         }
         item {

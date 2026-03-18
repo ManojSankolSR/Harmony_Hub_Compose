@@ -1,5 +1,6 @@
 package com.example.harmonyhub.features.music_player.presentation.components.player.expanded
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
@@ -10,13 +11,20 @@ import androidx.compose.material3.FabPosition
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.LyricsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
+import com.google.android.material.color.DynamicColorsOptions
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -33,6 +41,8 @@ fun MusicPlayerExpanded(
 
     val mediaItem = viewModel.playerState.collectAsState().value.currentMediaItem
     val paddingHorizontal = PaddingValues(horizontal = 20.dp)
+
+
 
     Scaffold(
         topBar = {
@@ -53,14 +63,16 @@ fun MusicPlayerExpanded(
 
         LazyColumn(
             modifier
-                .padding(padding)
                 .fillMaxSize(),
-            contentPadding = PaddingValues(vertical = 24.dp, horizontal = 0.dp),
-            verticalArrangement = Arrangement.spacedBy(18.dp)
+
+            contentPadding = PaddingValues(
+                bottom = padding.calculateBottomPadding()
+            ),
+            verticalArrangement = Arrangement.spacedBy(12.dp)
         ) {
 
             item {
-                SongInfo(song = mediaItem, paddingHorizontal = paddingHorizontal)
+                SongInfo(song = mediaItem, padding,paddingHorizontal)
             }
 
             item {

@@ -10,6 +10,7 @@ import com.example.harmonyhub.core.services.NetworkService
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.DownloadUrlItem
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Rights
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
+import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getDownloadLinkFromAudioQuality
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.getImageUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
@@ -82,9 +83,7 @@ class DownloadRepository(
                 throw Exception("No internet connection")
             }
 
-            val link = song.downloadUrl?.find { it.quality == quality.kbps }?.link
-                    ?: song.downloadUrl?.lastOrNull()?.link
-                    ?: throw Exception("Download link not found")
+            val link = song.getDownloadLinkFromAudioQuality(quality)
 
             val file = createFile(song.name)
             val response = ApiService.downloadApi.downloadSong(link)

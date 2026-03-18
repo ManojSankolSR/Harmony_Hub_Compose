@@ -1,7 +1,10 @@
 package com.example.harmonyhub.features.local_palylist.presentation.viewmodel
 
+import StackedSnackbarDuration
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.harmonyhub.core.models.SnackBar
+import com.example.harmonyhub.core.services.SnackBarManager
 import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistEntity
 import com.example.harmonyhub.features.local_palylist.data.repository.LocalPlaylistRepository
 import com.example.harmonyhub.features.local_palylist.presentation.state.LocalPlaylistUiState
@@ -61,24 +64,52 @@ class LocalPlaylistViewModel(private val repository: LocalPlaylistRepository) : 
     fun createPlaylist(name: String) {
         viewModelScope.launch {
             repository.addPlaylist(name)
+            SnackBarManager.show(
+                SnackBar.SuccessSnackBar(
+                    title = "Playlist Created",
+                    description = "Playlist '$name' has been created successfully",
+                    duration = StackedSnackbarDuration.Short
+                )
+            )
         }
     }
 
-    fun addSongToPlaylist(playlistId: Int, song: Song) {
+    fun addSongToPlaylist(playlist: PlaylistEntity, song: Song) {
         viewModelScope.launch {
-            repository.addSongToPlaylist(playlistId, song)
+            repository.addSongToPlaylist(playlist.id, song)
+            SnackBarManager.show(
+                SnackBar.SuccessSnackBar(
+                    title = "Song Added",
+                    description = "'${song.name}' has been added to '${playlist.name}' successfully",
+                    duration = StackedSnackbarDuration.Short
+                )
+            )
         }
     }
 
     fun deletePlaylist(playlist: PlaylistEntity) {
         viewModelScope.launch {
             repository.deletePlaylist(playlist)
+            SnackBarManager.show(
+                SnackBar.SuccessSnackBar(
+                    title = "Playlist Deleted",
+                    description = "Playlist '${playlist.name}' has been deleted",
+                    duration = StackedSnackbarDuration.Short
+                )
+            )
         }
     }
 
     fun deleteSongFromPlaylist(playlistId: Int, songId: String) {
         viewModelScope.launch {
             repository.deleteSongFromPlaylist(playlistId, songId)
+            SnackBarManager.show(
+                SnackBar.SuccessSnackBar(
+                    title = "Song Removed",
+                    description = "Song removed from playlist",
+                    duration = StackedSnackbarDuration.Short
+                )
+            )
         }
     }
 }

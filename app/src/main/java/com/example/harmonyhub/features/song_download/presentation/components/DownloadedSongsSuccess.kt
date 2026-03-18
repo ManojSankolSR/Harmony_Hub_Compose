@@ -1,8 +1,10 @@
 package com.example.harmonyhub.features.song_download.presentation.components
 
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Text
@@ -14,21 +16,34 @@ import com.example.harmonyhub.features.song_download.presentation.state.Download
 import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @Composable
- fun BoxScope.DownloadedSongsSuccess(
+fun DownloadedSongsSuccess(
     state: DownloadedSongsUiState.Success,
     paddingValues: PaddingValues,
+    parentPaddingValues: PaddingValues,
     musicPlayerViewModel: MusicPlayerViewModel,
     viewModel: DownloadsViewModel
 ) {
     if (state.songs.isEmpty()) {
-        Text(
-            "No downloaded songs found",
-            modifier = Modifier.Companion.align(Alignment.Companion.Center)
-        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(
+                    PaddingValues(
+                        top = paddingValues.calculateTopPadding(),
+                        bottom = parentPaddingValues.calculateBottomPadding()
+                    ),
+                ),
+            Alignment.Center
+
+        ) {
+            Text(
+                "No downloaded songs found",
+            )
+        }
     } else {
         LazyColumn(
             modifier = Modifier.Companion.fillMaxSize(),
-            contentPadding = PaddingValues(bottom = paddingValues.calculateBottomPadding()) // Space for mini player
+            contentPadding = PaddingValues(bottom = parentPaddingValues.calculateBottomPadding(), top = paddingValues.calculateTopPadding()) // Space for mini player
         ) {
             items(
                 items = state.songs,
