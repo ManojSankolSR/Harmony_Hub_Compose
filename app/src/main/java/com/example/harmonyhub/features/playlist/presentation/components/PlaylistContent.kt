@@ -9,6 +9,7 @@ import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.state.PlaylistDetailsUiState
 import com.example.harmonyhub.features.playlist.presentation.viewmodel.PlaylistDetailsViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 
 @Composable
@@ -18,7 +19,8 @@ fun PlaylistContent(
     musicPlayerViewModel: MusicPlayerViewModel,
     navController: NavHostController,
     playListId: String,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    downloadsViewModel: DownloadsViewModel
 ) {
 
     fun onRefresh() {
@@ -30,37 +32,42 @@ fun PlaylistContent(
             TopBar(navController)
         }) { padding ->
 
-            when (state) {
-                is PlaylistDetailsUiState.Loading -> {
-                    LoaderView(
-                        PaddingValues(
-                            top = padding.calculateTopPadding(),
-                            bottom = paddingValues.calculateBottomPadding()
+        when (state) {
+            is PlaylistDetailsUiState.Loading -> {
+                LoaderView(
+                    PaddingValues(
+                        top = padding.calculateTopPadding(),
+                        bottom = paddingValues.calculateBottomPadding()
 
-                        )
                     )
-                }
-
-                is PlaylistDetailsUiState.Success -> {
-                    val playlistData = state.data;
-                    PlaylistSuccess(playlistData, musicPlayerViewModel,   padding,paddingValues)
-                }
-
-                is PlaylistDetailsUiState.Error -> {
-                    val message = state.message
-                    ErrorView(
-                        onRefresh = ::onRefresh,
-                        message,
-                        paddingValues =PaddingValues(
-                            top = padding.calculateTopPadding(),
-                            bottom = paddingValues.calculateBottomPadding()
-
-                        )
-                    )
-
-                }
+                )
             }
 
+            is PlaylistDetailsUiState.Success -> {
+                val playlistData = state.data;
+                PlaylistSuccess(
+                    playlistData,
+                    musicPlayerViewModel,
+                    padding,
+                    paddingValues,
+                    downloadsViewModel
+                )
+            }
+
+            is PlaylistDetailsUiState.Error -> {
+                val message = state.message
+                ErrorView(
+                    onRefresh = ::onRefresh,
+                    message,
+                    paddingValues = PaddingValues(
+                        top = padding.calculateTopPadding(),
+                        bottom = paddingValues.calculateBottomPadding()
+
+                    )
+                )
+
+            }
+        }
 
 
     }

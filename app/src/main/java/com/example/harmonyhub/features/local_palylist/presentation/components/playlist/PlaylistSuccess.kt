@@ -14,7 +14,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistEntity
 import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistWithSongs
 import com.example.harmonyhub.navigation.bottom_bar_nav.library_nav.LibraryNavRoutes
 
@@ -24,7 +23,6 @@ fun PlaylistSuccess(
     paddingValues: PaddingValues,
     parentPaddingValues: PaddingValues,
     navController: NavHostController,
-    onDelete: (PlaylistEntity) -> Unit
 ) {
 
     fun onClick(id: Int, name: String) {
@@ -36,7 +34,7 @@ fun PlaylistSuccess(
             top = paddingValues.calculateTopPadding(),
             bottom = parentPaddingValues.calculateBottomPadding()
 
-        )), contentAlignment = Alignment.Companion.Center) {
+        )), contentAlignment = Alignment.Center) {
             Text("No playlists yet. Create one!")
         }
     } else {
@@ -58,9 +56,6 @@ fun PlaylistSuccess(
                     playlistWithSongs = playlistWithSongs,
                     onClick = {
                         onClick(data.id, data.name)
-                    },
-                    onDelete = {
-                        onDelete(data)
                     }
                 )
             }

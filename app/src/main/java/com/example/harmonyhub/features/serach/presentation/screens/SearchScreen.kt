@@ -12,13 +12,15 @@ import com.example.harmonyhub.features.serach.presentation.components.SearchResu
 import com.example.harmonyhub.features.serach.presentation.components.TopBar
 import com.example.harmonyhub.features.serach.presentation.components.TopSearchesContent
 import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @Composable
 fun SearchScreen(
     parentPaddingValues: PaddingValues,
     navController: NavHostController,
     musicPlayerViewModel: MusicPlayerViewModel,
-    searchViewModel: SearchViewModel
+    searchViewModel: SearchViewModel,
+    downloadsViewModel: DownloadsViewModel
 ) {
 
     val query by searchViewModel.query.collectAsState()
@@ -42,7 +44,7 @@ fun SearchScreen(
             if (query.isEmpty()) {
                 TopSearchesContent(parentPaddingValues,topSearchesState, navController, musicPlayerViewModel)
             } else {
-                SearchResultsContent(padding,parentPaddingValues,searchState, navController, musicPlayerViewModel)
+                SearchResultsContent(padding,parentPaddingValues,searchState, navController, musicPlayerViewModel,downloadsViewModel)
             }
         }
     }

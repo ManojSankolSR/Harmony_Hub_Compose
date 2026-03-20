@@ -21,12 +21,14 @@ import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.Loc
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @Composable
 fun AlbumSuccess(
     data: AlbumData,
     musicPlayerViewModel: MusicPlayerViewModel,
-    parentPaddingValues: PaddingValues
+    parentPaddingValues: PaddingValues,
+    downloadsViewModel: DownloadsViewModel
 ) {
     val app = LocalContext.current.applicationContext as HarmonyHub
     val localPlaylistViewModel: LocalPlaylistViewModel = viewModel(
@@ -62,7 +64,8 @@ fun AlbumSuccess(
                 song,
                 onClick = { onClick(data.songs!!, index) },
                 viewModel = musicPlayerViewModel,
-                localPlaylistViewModel = localPlaylistViewModel
+                localPlaylistViewModel = localPlaylistViewModel,
+                downloadsViewModel=downloadsViewModel
             )
         }
     }

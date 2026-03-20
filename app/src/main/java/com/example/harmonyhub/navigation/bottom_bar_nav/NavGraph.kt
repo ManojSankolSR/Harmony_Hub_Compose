@@ -108,10 +108,10 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
             navController = navController,
             startDestination = BottomNavRoutes.Home,
         ) {
-            homeNavGraph(navController, paddingValues, musicPlayerViewModel,authViewModel,homeViewModel)
-            searchNavGraph(navController, paddingValues, musicPlayerViewModel, searchViewModel)
-            libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel,downloadsViewModel)
-            settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel,storageViewModel)
+            homeNavGraph(navController, paddingValues, musicPlayerViewModel,authViewModel,homeViewModel,downloadsViewModel)
+            searchNavGraph(navController, paddingValues, musicPlayerViewModel, searchViewModel,downloadsViewModel)
+            libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel,downloadsViewModel,downloadsViewModel)
+            settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel,storageViewModel,downloadsViewModel)
         }
     }
 

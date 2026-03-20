@@ -10,4 +10,7 @@ sealed class SettingsNavRoutes {
 
     @Serializable
     data object StorageInfoScreen: SettingsNavRoutes()
+
+    @Serializable
+    data object AboutScreen: SettingsNavRoutes()
 }

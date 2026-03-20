@@ -24,13 +24,15 @@ import com.example.harmonyhub.features.home.presentation.components.MusicItemCar
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @Composable
 fun ArtistContent(
     artistData: ArtistData,
     navController: NavHostController,
     musicPlayerViewModel: MusicPlayerViewModel,
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues,
+    downloadsViewModel: DownloadsViewModel
 ) {
     val app = LocalContext.current.applicationContext as HarmonyHub
     val localPlaylistViewModel: LocalPlaylistViewModel = viewModel(
@@ -60,7 +62,8 @@ fun ArtistContent(
                             musicPlayerViewModel.setMediaItems(songs, index)
                             musicPlayerViewModel.play()
                         },
-                        localPlaylistViewModel = localPlaylistViewModel
+                        localPlaylistViewModel = localPlaylistViewModel,
+                        downloadsViewModel=downloadsViewModel
                     )
                 }
             }

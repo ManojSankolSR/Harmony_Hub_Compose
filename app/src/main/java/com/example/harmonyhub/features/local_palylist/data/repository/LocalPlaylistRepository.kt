@@ -5,9 +5,8 @@ import com.example.harmonyhub.features.local_palylist.data.local.dao.LocalPlayli
 import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistEntity
 import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistSongCrossref
 import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistWithSongs
-import com.example.harmonyhub.features.music_player.data.local.entities.SongEntity
-import com.example.harmonyhub.features.music_player.data.local.entities.toEntity
-import com.example.harmonyhub.features.music_player.data.local.entities.toSong
+import com.example.harmonyhub.features.local_palylist.data.local.entity.toLocalEntity
+import com.example.harmonyhub.features.local_palylist.data.local.entity.toSong
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
@@ -18,10 +17,11 @@ class LocalPlaylistRepository(private val dao: LocalPlaylistDao) {
     }
 
     fun observeSongsOfPlaylist(playlistId: Int): Flow<List<Song>> {
-        val songsEntity=dao.observeSongsOfPlaylist(playlistId);
-        val songs=songsEntity.map { seList ->
-            seList.map { se-> se.toSong() } }
-        return  songs
+        val songsEntity = dao.observeSongsOfPlaylist(playlistId)
+        val songs = songsEntity.map { seList ->
+            seList.map { se -> se.toSong() }
+        }
+        return songs
     }
 
     suspend fun addPlaylist(name: String) {
@@ -35,8 +35,8 @@ class LocalPlaylistRepository(private val dao: LocalPlaylistDao) {
 
     @Transaction
     suspend fun addSongToPlaylist(playlistId: Int, song: Song) {
-        val songEntity = song.toEntity()
-        dao.insertSong(songEntity)
+        val localSongEntity = song.toLocalEntity()
+        dao.insertSong(localSongEntity)
         val crossRef = PlaylistSongCrossref(
             playlistId = playlistId,
             songId = song.id ?: ""

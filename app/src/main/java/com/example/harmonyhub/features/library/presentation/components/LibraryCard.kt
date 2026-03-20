@@ -24,6 +24,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -34,6 +35,7 @@ fun LibraryCard(
     title: String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
+    icon: ImageVector,
 ) {
     Card(
         modifier = modifier
@@ -55,7 +57,7 @@ fun LibraryCard(
                 contentAlignment = Alignment.Center
             ) {
                 Icon(
-                    imageVector = Icons.Default.LibraryMusic,
+                    imageVector = icon,
                     contentDescription = null,
                     modifier = Modifier.size(48.dp),
                     tint = MaterialTheme.colorScheme.onSurface

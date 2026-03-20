@@ -12,6 +12,7 @@ import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.album.presentation.state.AlbumUiState
 import com.example.harmonyhub.features.album.presentation.viewmodel.AlbumViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 
 @Composable
@@ -21,7 +22,8 @@ fun AlbumContent(
     musicPlayerViewModel: MusicPlayerViewModel,
     navController: NavHostController,
     albumId: String,
-    parentPaddingValues: PaddingValues
+    parentPaddingValues: PaddingValues,
+    downloadsViewModel: DownloadsViewModel
 ) {
 
     fun onRefresh() {
@@ -40,7 +42,7 @@ fun AlbumContent(
 
                 is AlbumUiState.Success -> {
                     val playlistData = state.data;
-                    AlbumSuccess(playlistData, musicPlayerViewModel,parentPaddingValues)
+                    AlbumSuccess(playlistData, musicPlayerViewModel,parentPaddingValues,downloadsViewModel)
                 }
 
                 is AlbumUiState.Error -> {

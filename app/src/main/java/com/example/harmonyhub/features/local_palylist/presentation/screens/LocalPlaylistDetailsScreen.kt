@@ -1,16 +1,24 @@
 package com.example.harmonyhub.features.local_palylist.presentation.screens
 
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.core.presentation.components.ErrorView
 import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.local_palylist.presentation.components.playlist_details.PlaylistDetailsSuccess
 import com.example.harmonyhub.features.local_palylist.presentation.components.playlist_details.TopBar
+import com.example.harmonyhub.features.local_palylist.presentation.state.LocalPlaylistUiState
 import com.example.harmonyhub.features.local_palylist.presentation.state.LocalSongsOfPlaylistUiState
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
@@ -27,13 +35,19 @@ fun LocalPlaylistDetailsScreen(
 ) {
     val state = localPlaylistViewModel.songsOfPlaylistState.collectAsState().value
 
+
     LaunchedEffect(playlistId) {
         localPlaylistViewModel.observeSongsOfPlaylist(playlistId)
     }
 
     Scaffold(
         topBar = {
-            TopBar(playlistName, navController)
+            TopBar(
+                playlistName = playlistName,
+                navController = navController,
+                playlistId = playlistId,
+                localPlaylistViewModel = localPlaylistViewModel
+            )
         }
     ) { padding ->
 
@@ -55,19 +69,19 @@ fun LocalPlaylistDetailsScreen(
             )
 
             is LocalSongsOfPlaylistUiState.Success -> {
-                val data = state.data;
                 PlaylistDetailsSuccess(
+                    playlistId = playlistId,
                     title = playlistName,
-                    data,
-                    PaddingValues(
+                    songs = state.data,
+                    paddingValues = PaddingValues(
                         top = padding.calculateTopPadding(),
                         bottom = paddingValues.calculateBottomPadding()
                     ),
-                    musicPlayerViewModel
+                    musicPlayerViewModel = musicPlayerViewModel,
+                    localPlaylistViewModel = localPlaylistViewModel
                 )
             }
         }
     }
 
 }
-

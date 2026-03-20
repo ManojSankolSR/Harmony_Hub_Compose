@@ -19,6 +19,7 @@ import com.example.harmonyhub.features.artist.presentation.state.ArtistUiState
 import com.example.harmonyhub.features.artist.presentation.viewmodel.ArtistViewModel
 import com.example.harmonyhub.features.artist.presentation.viewmodel.ArtistViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.ArtistDetailsScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -27,7 +28,8 @@ fun ArtistScreen(
     parentPaddingValues: PaddingValues,
     navController: NavHostController,
     data: ArtistDetailsScreen,
-    musicPlayerViewModel: MusicPlayerViewModel
+    musicPlayerViewModel: MusicPlayerViewModel,
+    downloadsViewModel: DownloadsViewModel
 ) {
     val app = LocalContext.current.applicationContext as HarmonyHub
     val repository = app.appContainer.artistRepository
@@ -73,7 +75,8 @@ fun ArtistScreen(
                     artistData = state.data,
                     navController = navController,
                     musicPlayerViewModel = musicPlayerViewModel,
-                    paddingValues = parentPaddingValues
+                    paddingValues = parentPaddingValues,
+                    downloadsViewModel
                 )
             }
         }

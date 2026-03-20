@@ -11,6 +11,7 @@ import com.example.harmonyhub.features.music_player.presentation.viewmodel.Music
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
 import com.example.harmonyhub.features.serach.presentation.screens.SearchScreen
 import com.example.harmonyhub.features.serach.presentation.viewmodel.SearchViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.BottomNavRoutes
 import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
@@ -22,6 +23,7 @@ fun NavGraphBuilder.searchNavGraph(
     paddingValues: PaddingValues,
     musicPlayerViewModel: MusicPlayerViewModel,
     searchViewModel: SearchViewModel,
+    downloadsViewModel: DownloadsViewModel,
 
     ) {
 
@@ -29,15 +31,27 @@ fun NavGraphBuilder.searchNavGraph(
         startDestination = SearchNavRoutes.SearchScreen
     ){
         composable<SearchNavRoutes.SearchScreen> {
-            SearchScreen(paddingValues,navController,musicPlayerViewModel,searchViewModel)
+            SearchScreen(paddingValues,navController,musicPlayerViewModel,searchViewModel,downloadsViewModel)
         }
         composable<PlaylistDetailScreen>{
             val data=it.toRoute<PlaylistDetailScreen>()
-            PlaylistScreen( paddingValues,navController,data,musicPlayerViewModel)
+            PlaylistScreen(
+                paddingValues,
+                navController,
+                data,
+                musicPlayerViewModel,
+                downloadsViewModel
+            )
         }
         composable <AlbumDetailsScreen>{
             val data=it.toRoute<AlbumDetailsScreen>()
-            AlbumScreen(paddingValues,navController, data, musicPlayerViewModel)
+            AlbumScreen(
+                paddingValues,
+                navController,
+                data,
+                musicPlayerViewModel,
+                downloadsViewModel
+            )
         }
 
     }

@@ -10,13 +10,15 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.serach.presentation.state.SearchUiState
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @Composable
 fun SearchResultsList(
     parentPaddingValues: PaddingValues,
     state: SearchUiState.Success,
     musicPlayerViewModel: MusicPlayerViewModel,
-    navController: NavHostController
+    navController: NavHostController,
+    downloadsViewModel: DownloadsViewModel
 ) {
     LazyColumn(
         modifier = Modifier.Companion.fillMaxSize(),
@@ -28,7 +30,8 @@ fun SearchResultsList(
             songsResultList(
                 songs = songs,
                 musicPlayerViewModel = musicPlayerViewModel,
-                navController
+                navController,
+                downloadsViewModel=downloadsViewModel
             )
         }
 

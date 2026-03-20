@@ -13,6 +13,7 @@ import com.example.harmonyhub.features.music_player.presentation.viewmodel.Music
 import com.example.harmonyhub.features.playlist.presentation.components.PlaylistContent
 import com.example.harmonyhub.features.playlist.presentation.viewmodel.PlaylistDetailsViewModel
 import com.example.harmonyhub.features.playlist.presentation.viewmodel.PlaylistDetailsViewModelFactory
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -21,7 +22,8 @@ fun PlaylistScreen(
     parentPaddingValues: PaddingValues,
     navController: NavHostController,
     data: PlaylistDetailScreen,
-    musicPlayerViewModel: MusicPlayerViewModel
+    musicPlayerViewModel: MusicPlayerViewModel,
+    downloadsViewModel: DownloadsViewModel
 ) {
 
     val app = LocalContext.current.applicationContext as HarmonyHub;
@@ -46,6 +48,7 @@ fun PlaylistScreen(
         navController = navController,
         playListId = data.id,
         parentPaddingValues,
+        downloadsViewModel
     )
 
 

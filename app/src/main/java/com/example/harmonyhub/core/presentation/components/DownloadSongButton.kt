@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ErrorOutline
 import androidx.compose.material.icons.outlined.ArrowDownward
+import androidx.compose.material.icons.outlined.Download
 import androidx.compose.material.icons.rounded.DownloadDone
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Button
@@ -59,7 +60,6 @@ fun DownloadSongButton (
         viewModel.getDownloadedSongs()
     }
 
-
     if (downloadState.containsKey(song.id)){
         IconButton(onClick = ::onRefresh){
             CircularProgressIndicator(modifier.size(iconSize))
@@ -92,7 +92,7 @@ fun DownloadSongButton (
                         if (isDownloaded) {
                             Icons.Rounded.DownloadDone
                         } else {
-                            Icons.Outlined.ArrowDownward
+                            Icons.Outlined.Download
                         }, null, modifier = modifier.size(iconSize)
                     )
                 }

@@ -31,7 +31,6 @@ import com.example.harmonyhub.features.local_palylist.data.local.entity.Playlist
 fun PlaylistCard(
     playlistWithSongs: PlaylistWithSongs,
     onClick: () -> Unit,
-    onDelete: () -> Unit,
     modifier: Modifier = Modifier
 ) {
     Card(
@@ -82,17 +81,7 @@ fun PlaylistCard(
                     )
                 }
 
-                IconButton(
-                    onClick = onDelete,
-                    modifier = Modifier.size(32.dp)
-                ) {
-                    Icon(
-                        imageVector = Icons.Default.Delete,
-                        contentDescription = "Delete Playlist",
-                        tint = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.size(20.dp)
-                    )
-                }
+
             }
         }
     }

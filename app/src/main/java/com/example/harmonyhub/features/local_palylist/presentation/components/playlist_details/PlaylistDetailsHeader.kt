@@ -27,6 +27,7 @@ import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.features.artist.data.remote.models.ArtistData
 import com.example.harmonyhub.features.artist.data.remote.models.getImageUrl
 import com.example.harmonyhub.features.home.presentation.components.MusicItemImage
+import com.example.harmonyhub.features.local_palylist.data.local.entity.toLocalEntity
 import com.example.harmonyhub.features.local_palylist.presentation.components.playlist.PlaylistImage
 import com.example.harmonyhub.features.music_player.data.local.entities.toEntity
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
@@ -38,7 +39,7 @@ fun PlaylistDetailsHeader(songs: List<Song>,title: String) {
             .fillMaxWidth()
             .height(400.dp)
     ) {
-        PlaylistImage(songs.map { it.toEntity() })
+        PlaylistImage(songs.map { it.toLocalEntity() })
         Box(
             modifier = Modifier.Companion
                 .fillMaxSize()

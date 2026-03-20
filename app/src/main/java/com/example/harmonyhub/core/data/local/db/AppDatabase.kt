@@ -15,6 +15,7 @@ import com.example.harmonyhub.features.artist.data.local.entity.ArtistEntity
 import com.example.harmonyhub.features.home.data.local.dao.HomeDao
 import com.example.harmonyhub.features.home.data.local.entity.HomeEntity
 import com.example.harmonyhub.features.local_palylist.data.local.dao.LocalPlaylistDao
+import com.example.harmonyhub.features.local_palylist.data.local.entity.LocalSongEntity
 import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistSongCrossref
 import com.example.harmonyhub.features.music_player.data.local.dao.PlayerStateDao
 import com.example.harmonyhub.features.music_player.data.local.entities.SongEntity
@@ -26,6 +27,7 @@ import kotlin.concurrent.Volatile
     entities = [
         UserEntity::class,
         SongEntity::class,
+        LocalSongEntity::class,
         HomeEntity::class,
         PlaylistEntity::class,
         AlbumEntity::class,

@@ -10,11 +10,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
+import com.example.harmonyhub.features.about.presentation.components.AboutItem
 import com.example.harmonyhub.features.settings.presentation.components.PreferredLanguageItem
 import com.example.harmonyhub.features.settings.presentation.components.AudioQualityItem
 import com.example.harmonyhub.features.settings.presentation.components.LogoutItem
 import com.example.harmonyhub.features.settings.presentation.components.StorageInfoItem
 import com.example.harmonyhub.features.settings.presentation.components.TopBar
+import com.example.harmonyhub.navigation.bottom_bar_nav.settings_nav.SettingsNavRoutes
 
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -43,6 +45,10 @@ fun SettingsScreen(
                 navController
             )
 
+            AboutItem {
+                navController.navigate(SettingsNavRoutes.AboutScreen)
+            }
+
             LogoutItem(
                 authViewModel
             )
@@ -50,4 +56,3 @@ fun SettingsScreen(
         }
     }
 }
-

@@ -12,6 +12,7 @@ import com.example.harmonyhub.features.album.presentation.components.AlbumConten
 import com.example.harmonyhub.features.album.presentation.viewmodel.AlbumViewModel
 import com.example.harmonyhub.features.album.presentation.viewmodel.AlbumViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
 
 @Composable
@@ -19,7 +20,8 @@ fun AlbumScreen(
     parentPaddingValues: PaddingValues,
     navController: NavHostController,
     data: AlbumDetailsScreen,
-    musicPlayerViewModel: MusicPlayerViewModel
+    musicPlayerViewModel: MusicPlayerViewModel,
+    downloadsViewModel: DownloadsViewModel
 ) {
 
     val app = LocalContext.current.applicationContext as HarmonyHub;
@@ -43,7 +45,8 @@ fun AlbumScreen(
         musicPlayerViewModel = musicPlayerViewModel,
         navController = navController,
         albumId = data.id,
-        parentPaddingValues
+        parentPaddingValues,
+        downloadsViewModel
     )
 
 

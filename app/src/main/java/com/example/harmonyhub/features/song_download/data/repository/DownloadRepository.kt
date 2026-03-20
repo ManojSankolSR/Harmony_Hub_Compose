@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.os.Environment
 import android.util.Log
 import com.example.harmonyhub.core.data.remote.api.ApiService
+import com.example.harmonyhub.core.data.respository.SongRepository
 import com.example.harmonyhub.core.models.AudioQuality
 import com.example.harmonyhub.core.services.NetworkService
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.DownloadUrlItem
@@ -23,7 +24,8 @@ import java.io.FileOutputStream
 
 class DownloadRepository(
     private val context: Context,
-    private val networkService: NetworkService
+    private val networkService: NetworkService,
+    private val songRepository: SongRepository
 ) {
 
     private fun createFile(fileName: String): File {
@@ -76,14 +78,24 @@ class DownloadRepository(
             }
         }
 
+    suspend fun getSongData(id: String): Song{
+        val song=songRepository.getSongs(id)
+        return song.firstOrNull() ?: throw Exception("No Download Url Found")
+    }
+
 
     suspend fun downloadSong(song: Song, quality: AudioQuality) =
         withContext(Dispatchers.IO) {
+
             if (!networkService.isInternetAvailable()) {
                 throw Exception("No internet connection")
             }
 
-            val link = song.getDownloadLinkFromAudioQuality(quality)
+            val link = if(song.downloadUrl.isNullOrEmpty())
+                getSongData(song.id).getDownloadLinkFromAudioQuality(quality)
+            else
+                song.getDownloadLinkFromAudioQuality(quality)
+
 
             val file = createFile(song.name)
             val response = ApiService.downloadApi.downloadSong(link)

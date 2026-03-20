@@ -13,6 +13,7 @@ import com.example.harmonyhub.features.home.presentation.screens.HomeScreen
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.ArtistDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.BottomNavRoutes
@@ -24,7 +25,8 @@ fun NavGraphBuilder.homeNavGraph(
     paddingValues: PaddingValues,
     musicPlayerViewModel: MusicPlayerViewModel,
     authViewModel: AuthViewModel,
-    homeViewModel: HomeViewModel
+    homeViewModel: HomeViewModel,
+    downloadsViewModel: DownloadsViewModel
 
 ) {
     navigation<BottomNavRoutes.Home>(
@@ -35,16 +37,22 @@ fun NavGraphBuilder.homeNavGraph(
         }
         composable<PlaylistDetailScreen> {
             val data = it.toRoute<PlaylistDetailScreen>()
-            PlaylistScreen(paddingValues, navController, data, musicPlayerViewModel)
+            PlaylistScreen(paddingValues, navController, data, musicPlayerViewModel,downloadsViewModel)
         }
         composable<AlbumDetailsScreen> {
             val data = it.toRoute<AlbumDetailsScreen>()
-            AlbumScreen(paddingValues, navController, data, musicPlayerViewModel)
+            AlbumScreen(
+                paddingValues,
+                navController,
+                data,
+                musicPlayerViewModel,
+                downloadsViewModel
+            )
         }
 
         composable<ArtistDetailsScreen> {
             val data = it.toRoute<ArtistDetailsScreen>()
-            ArtistScreen(paddingValues, navController, data, musicPlayerViewModel)
+            ArtistScreen(paddingValues, navController, data, musicPlayerViewModel,downloadsViewModel)
         }
     }
 }

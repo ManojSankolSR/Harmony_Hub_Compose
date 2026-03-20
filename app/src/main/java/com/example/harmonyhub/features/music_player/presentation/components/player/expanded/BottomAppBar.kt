@@ -8,24 +8,22 @@ import androidx.compose.material.icons.rounded.Forward10
 import androidx.compose.material.icons.rounded.Replay10
 import androidx.compose.material.icons.rounded.Shuffle
 import androidx.compose.material3.BottomAppBar
+import androidx.compose.material3.BottomAppBarScrollBehavior
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.saveable.rememberSaveable
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.core.presentation.components.AddToPlaylistButton
 import com.example.harmonyhub.core.presentation.components.DownloadSongButton
-import com.example.harmonyhub.features.local_palylist.presentation.components.AddToPlaylistBottomSheet
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
 import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BottomAppBar(
     modifier: Modifier = Modifier,
@@ -33,6 +31,7 @@ fun BottomAppBar(
     localPlaylistViewModel: LocalPlaylistViewModel,
     song: Song,
     downloadsViewModel: DownloadsViewModel,
+    scrollBehavior: BottomAppBarScrollBehavior,
 ) {
 
     val iconSize = 26.dp;
@@ -55,7 +54,8 @@ fun BottomAppBar(
 
 
     BottomAppBar(
-        modifier
+        modifier,
+        scrollBehavior = scrollBehavior
     ) {
         Row(
             horizontalArrangement = Arrangement.spacedBy(6.dp)

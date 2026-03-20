@@ -72,10 +72,7 @@ fun LocalPlaylistScreen(
                     playlists = data,
                     paddingValues = padding,
                     parentPaddingValues = paddingValues,
-                    navController = navController,
-                    onDelete = { playlist ->
-                        viewModel.deletePlaylist(playlist)
-                    }
+                    navController = navController
                 )
             }
         }

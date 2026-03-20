@@ -25,6 +25,7 @@ fun NavGraphBuilder.libraryNavGraph(
     musicPlayerViewModel: MusicPlayerViewModel,
     localPlaylistViewModel: LocalPlaylistViewModel,
     downloadsViewModel: DownloadsViewModel,
+    downloadsViewModel1: DownloadsViewModel,
 ) {
     navigation<BottomNavRoutes.Library>(
         startDestination = LibraryNavRoutes.LibraryScreen
@@ -34,11 +35,17 @@ fun NavGraphBuilder.libraryNavGraph(
         }
         composable<PlaylistDetailScreen> {
             val data = it.toRoute<PlaylistDetailScreen>()
-            PlaylistScreen(paddingValues, navController, data, musicPlayerViewModel)
+            PlaylistScreen(
+                paddingValues,
+                navController,
+                data,
+                musicPlayerViewModel,
+                downloadsViewModel
+            )
         }
         composable<AlbumDetailsScreen> {
             val data = it.toRoute<AlbumDetailsScreen>()
-            AlbumScreen(paddingValues, navController, data, musicPlayerViewModel)
+            AlbumScreen(paddingValues, navController, data, musicPlayerViewModel,downloadsViewModel)
         }
         composable<LibraryNavRoutes.LocalPlaylists> {
             LocalPlaylistScreen(

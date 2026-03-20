@@ -12,7 +12,9 @@ import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.features.album.presentation.screens.AlbumScreen
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
+import com.example.harmonyhub.features.about.presentation.screens.AboutScreen
 import com.example.harmonyhub.features.settings.presentation.screens.SettingsScreen
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.features.storage.presentation.screens.StorageInfoScreen
 import com.example.harmonyhub.features.storage.presentation.viewmodel.StorageViewModel
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
@@ -27,7 +29,8 @@ fun NavGraphBuilder.settingsNavGraph(
     paddingValues: PaddingValues,
     authViewModel: AuthViewModel,
     musicPlayerViewModel: MusicPlayerViewModel,
-    storageViewModel: StorageViewModel
+    storageViewModel: StorageViewModel,
+    downloadsViewModel: DownloadsViewModel
 ) {
     navigation<BottomNavRoutes.Settings>(
         startDestination = SettingsNavRoutes.SettingsScreen
@@ -38,13 +41,30 @@ fun NavGraphBuilder.settingsNavGraph(
         composable <SettingsNavRoutes.StorageInfoScreen>{
             StorageInfoScreen(storageViewModel,paddingValues,navController)
         }
+        composable<SettingsNavRoutes.AboutScreen> {
+            AboutScreen(paddingValues) {
+                navController.popBackStack()
+            }
+        }
         composable<PlaylistDetailScreen>{
             val data=it.toRoute<PlaylistDetailScreen>()
-            PlaylistScreen(paddingValues,navController, data, musicPlayerViewModel)
+            PlaylistScreen(
+                paddingValues,
+                navController,
+                data,
+                musicPlayerViewModel,
+                downloadsViewModel
+            )
         }
         composable <AlbumDetailsScreen>{
             val data=it.toRoute<AlbumDetailsScreen>()
-            AlbumScreen(paddingValues,navController, data, musicPlayerViewModel)
+            AlbumScreen(
+                paddingValues,
+                navController,
+                data,
+                musicPlayerViewModel,
+                downloadsViewModel
+            )
         }
 
     }

@@ -28,6 +28,7 @@ import com.example.harmonyhub.features.home.presentation.components.MusicItemIma
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @Composable
 fun SongsListItem(
@@ -35,7 +36,8 @@ fun SongsListItem(
     viewModel: MusicPlayerViewModel,
     onClick: () -> Unit,
     isSelected: Boolean = false,
-    localPlaylistViewModel: LocalPlaylistViewModel? = null
+    localPlaylistViewModel: LocalPlaylistViewModel? = null,
+    downloadsViewModel: DownloadsViewModel?=null
 ) {
 
 
@@ -89,6 +91,10 @@ fun SongsListItem(
 
         localPlaylistViewModel?.let {
             AddToPlaylistButton(song = song, localPlaylistViewModel = it, iconSize = 24.dp)
+        }
+
+        downloadsViewModel?.let {
+            DownloadSongButton(viewModel = it, song = song, iconSize = 24.dp)
         }
 
         if (isSelected) {

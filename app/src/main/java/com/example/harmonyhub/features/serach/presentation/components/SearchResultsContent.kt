@@ -8,6 +8,7 @@ import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.serach.presentation.components.results.SearchResultsList
 import com.example.harmonyhub.features.serach.presentation.state.SearchUiState
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @Composable
 fun SearchResultsContent(
@@ -15,7 +16,8 @@ fun SearchResultsContent(
     parentPaddingValues: PaddingValues,
     state: SearchUiState,
     navController: NavHostController,
-    musicPlayerViewModel: MusicPlayerViewModel
+    musicPlayerViewModel: MusicPlayerViewModel,
+    downloadsViewModel: DownloadsViewModel
 ) {
     when (state) {
         is SearchUiState.Loading -> LoaderView(
@@ -34,7 +36,7 @@ fun SearchResultsContent(
         )
 
         is SearchUiState.Success -> {
-            SearchResultsList(parentPaddingValues, state, musicPlayerViewModel, navController)
+            SearchResultsList(parentPaddingValues, state, musicPlayerViewModel, navController,downloadsViewModel)
         }
     }
 }
