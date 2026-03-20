@@ -6,6 +6,7 @@ import com.example.harmonyhub.features.home.data.remote.api.HomeApi
 import com.example.harmonyhub.features.music_player.data.remote.api.LyricsApi
 import com.example.harmonyhub.features.playlist.data.remote.api.PlaylistDetailsApi
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.PlaylistDetailsResponse
+import com.example.harmonyhub.features.radio.data.remote.api.RadioApi
 import com.example.harmonyhub.features.serach.data.remote.api.SearchApi
 import com.example.harmonyhub.features.serach.data.remote.api.SongApi
 import com.example.harmonyhub.features.song_download.data.remote.DownloadApi
@@ -43,6 +44,10 @@ object ApiService {
 
     val downloadApi: DownloadApi by lazy {
         RetrofitClient.retrofit.create<DownloadApi>(DownloadApi::class.java)
+    }
+
+    val radioApi: RadioApi by lazy {
+        RetrofitClient.retrofit.create<RadioApi>(RadioApi::class.java)
     }
 
 }

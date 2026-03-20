@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.core.presentation.components.ErrorView
-import com.example.harmonyhub.core.presentation.components.Loader
+import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.album.presentation.state.AlbumUiState
 import com.example.harmonyhub.features.album.presentation.viewmodel.AlbumViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
@@ -35,7 +35,7 @@ fun AlbumContent(
         Box(Modifier.padding(padding)) {
             when (state) {
                 is AlbumUiState.Loading -> {
-                    Loader(parentPaddingValues)
+                    LoaderView(parentPaddingValues)
                 }
 
                 is AlbumUiState.Success -> {

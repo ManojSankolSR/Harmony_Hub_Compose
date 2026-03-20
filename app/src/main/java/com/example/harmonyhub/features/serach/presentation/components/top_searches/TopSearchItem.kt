@@ -41,39 +41,16 @@ fun TopSearchItem(
 ) {
 
     val coroutineScope = rememberCoroutineScope()
-    var isLoading by remember { mutableStateOf(false) }
-    val app = LocalContext.current.applicationContext as HarmonyHub
-    val repository = app.appContainer.songRepository
 
-    fun fetchAndPlaySong() {
-        coroutineScope.launch {
-            isLoading = true
-            val songs = repository.getSongs(dataItem.id)
-            musicPlayerViewModel.setMediaItems(songs, 0)
-            musicPlayerViewModel.play()
-            isLoading = false
-        }
-    }
 
     fun onClick() {
-        dataItem.type?.let { type ->
-            when (type) {
-                MusicItemType.SONG -> {
-                    fetchAndPlaySong()
-                }
-                else -> {
-                    coroutineScope.launch {
-                        MusicItemNavigator.navigate(
-                            type,
-                            navController,
-                            dataItem,
-                            musicPlayerViewModel
-                        )
-                    }
-
-                }
-            }
-
+        coroutineScope.launch {
+            MusicItemNavigator.navigate(
+                dataItem.type!!,
+                navController,
+                dataItem,
+                musicPlayerViewModel
+            )
         }
     }
 

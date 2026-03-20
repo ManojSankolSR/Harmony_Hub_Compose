@@ -8,7 +8,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.core.presentation.components.ErrorView
-import com.example.harmonyhub.core.presentation.components.Loader
+import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.home.presentation.components.HomeList
 import com.example.harmonyhub.features.home.presentation.components.TopBar
 import com.example.harmonyhub.features.home.presentation.state.HomeUiState
@@ -36,7 +36,7 @@ fun HomeScreen(
     ) { padding ->
         when (state) {
             is HomeUiState.Loading -> {
-                Loader(
+                LoaderView(
                     padding = PaddingValues(
                         bottom = parentPaddingValues.calculateBottomPadding(),
                         top=padding.calculateTopPadding()

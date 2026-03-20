@@ -9,7 +9,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.core.presentation.components.ErrorView
-import com.example.harmonyhub.core.presentation.components.Loader
+import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.storage.presentation.components.StorageInfoSuccess
 import com.example.harmonyhub.features.storage.presentation.components.StorageTopAppBar
 import com.example.harmonyhub.features.storage.presentation.state.StorageInfoUiState
@@ -52,7 +52,7 @@ fun StorageInfoScreen(
             }
 
             StorageInfoUiState.Loading -> {
-                Loader(
+                LoaderView(
                     padding = PaddingValues(
                         top = padding.calculateTopPadding(),
                         bottom = parentPaddingValues.calculateBottomPadding()

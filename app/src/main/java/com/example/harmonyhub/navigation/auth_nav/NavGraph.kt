@@ -1,5 +1,7 @@
 package com.example.harmonyhub.navigation.auth_nav
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.navigation.NavGraphBuilder
@@ -11,7 +13,8 @@ import com.example.harmonyhub.features.music_player.presentation.screens.MusicPl
 import com.example.harmonyhub.navigation.bottom_bar_nav.BottomBarNavGraph
 import com.example.harmonyhub.navigation.root_nav.RootNavRoutes
 
-fun NavGraphBuilder.authNavGraph(navController: NavHostController,authViewModel: AuthViewModel) {
+@RequiresApi(Build.VERSION_CODES.O)
+fun NavGraphBuilder.authNavGraph(navController: NavHostController, authViewModel: AuthViewModel) {
     navigation<RootNavRoutes.AuthenticatedRoutes>(
         startDestination = AuthNavRoutes.BottomNav
     ) {

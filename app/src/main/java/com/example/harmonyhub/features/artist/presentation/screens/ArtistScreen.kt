@@ -13,7 +13,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.presentation.components.ErrorView
-import com.example.harmonyhub.core.presentation.components.Loader
+import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.artist.presentation.components.ArtistContent
 import com.example.harmonyhub.features.artist.presentation.state.ArtistUiState
 import com.example.harmonyhub.features.artist.presentation.viewmodel.ArtistViewModel
@@ -60,7 +60,7 @@ fun ArtistScreen(
     ) { paddingValues ->
         Box(modifier = Modifier.fillMaxSize()) {
             when (val state = uiState) {
-                is ArtistUiState.Loading -> Loader(PaddingValues(
+                is ArtistUiState.Loading -> LoaderView(PaddingValues(
                     top = paddingValues.calculateTopPadding(),
                     bottom = parentPaddingValues.calculateBottomPadding()
                 ))

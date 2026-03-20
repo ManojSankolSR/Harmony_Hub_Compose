@@ -7,8 +7,13 @@ import androidx.compose.runtime.collectAsState
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.media3.exoplayer.ExoPlayer
+import com.example.harmonyhub.core.data.respository.SongRepository
 import com.example.harmonyhub.features.auth.data.respository.UserRepository
 import com.example.harmonyhub.core.models.AudioQuality
+import com.example.harmonyhub.core.models.SnackBar
+import com.example.harmonyhub.core.services.LoaderManager
+import com.example.harmonyhub.core.services.SnackBarManager
+import com.example.harmonyhub.features.home.data.remote.models.MusicDataItem
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
 import com.example.harmonyhub.features.music_player.player.Player
 import com.example.harmonyhub.features.music_player.presentation.player.PlayBackStateController
@@ -16,6 +21,7 @@ import com.example.harmonyhub.features.music_player.presentation.player.Playback
 import com.example.harmonyhub.features.music_player.presentation.state.MusicPlayerUiState
 import com.example.harmonyhub.features.music_player.presentation.state.PlaybackState
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
+import com.example.harmonyhub.features.radio.data.repository.RadioRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.asStateFlow
@@ -27,13 +33,15 @@ import kotlinx.coroutines.launch
 class MusicPlayerViewModel(
     application: Application,
     private val repository: PlayerRepository,
-    private val userRepository: UserRepository
+    private val userRepository: UserRepository,
+    private val radioRepository: RadioRepository,
+    private val songRepository: SongRepository,
 ) : AndroidViewModel(application) {
 
 
     val player: ExoPlayer = Player.getPlayer()
 
-    val user= userRepository.getUser().stateIn(viewModelScope, SharingStarted.Eagerly,null)
+    private val user= userRepository.getUser().stateIn(viewModelScope, SharingStarted.Eagerly,null)
 
     private val context = application.applicationContext
     private val playBackStateController = PlayBackStateController(player, ::updateUiState)
@@ -126,6 +134,44 @@ class MusicPlayerViewModel(
         val quality=user.value?.preferredAudioQuality!!;
         val currentQueue=playerState.value.mediaItemQueue;
         playBackStateController.shuffle(currentQueue,quality)
+    }
+
+    fun playRadio(item: MusicDataItem){
+        viewModelScope.launch {
+            LoaderManager.show()
+            try {
+                val songs=radioRepository.createRadioStationAndGetSongs(item)
+                setMediaItems(songs)
+                play()
+            }catch (e: Exception){
+                SnackBarManager.show(SnackBar.ErrorSnackBar(
+                    title = "Error",
+                    description = e.message ?: "Something went wrong",
+                    duration = StackedSnackbarDuration.Short
+                ))
+            }finally {
+                LoaderManager.hide()
+            }
+        }
+    }
+
+    fun fetchAndPlaySongs(id: String) {
+        viewModelScope.launch {
+            LoaderManager.show()
+            try {
+                val songs=songRepository.getSongs(id)
+                setMediaItems(songs)
+                play()
+            }catch (e: Exception){
+                SnackBarManager.show(SnackBar.ErrorSnackBar(
+                    title = "Error",
+                    description = e.message ?: "Something went wrong",
+                    duration = StackedSnackbarDuration.Short
+                ))
+            }finally {
+                LoaderManager.hide()
+            }
+        }
     }
 
 

@@ -31,8 +31,13 @@ object MusicItemNavigator {
             }
 
             MusicItemType.SONG -> {
-                musicPlayerViewModel.setMediaItems(listOf(data.toSong()))
-                musicPlayerViewModel.play()
+                val song=data.toSong()
+                if(song.downloadUrl.isNullOrEmpty()){
+                    musicPlayerViewModel.fetchAndPlaySongs(data.id)
+                }else{
+                    musicPlayerViewModel.setMediaItems(listOf(song))
+                    musicPlayerViewModel.play()
+                }
             }
 
             MusicItemType.ARTIST -> {
@@ -40,15 +45,7 @@ object MusicItemNavigator {
             }
 
             MusicItemType.RADIO_STATION -> {
-                SnackBarManager.show(
-                    SnackBar.ErrorSnackBar(
-                        "Not Implemented",
-                        "Implementation is still in progress",
-                        null,
-                        null,
-                        StackedSnackbarDuration.Short
-                    )
-                )
+                musicPlayerViewModel.playRadio(data)
             }
 
             MusicItemType.SHOW -> {

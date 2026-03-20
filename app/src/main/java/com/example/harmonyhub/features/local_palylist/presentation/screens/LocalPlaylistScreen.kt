@@ -17,7 +17,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.core.presentation.components.ErrorView
-import com.example.harmonyhub.core.presentation.components.Loader
+import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.local_palylist.presentation.components.CreatePlaylistDialog
 import com.example.harmonyhub.features.local_palylist.presentation.components.playlist.TopBar
 import com.example.harmonyhub.features.local_palylist.presentation.state.LocalPlaylistUiState
@@ -48,7 +48,7 @@ fun LocalPlaylistScreen(
     ) { padding ->
 
         when (state) {
-            is LocalPlaylistUiState.Loading -> Loader(
+            is LocalPlaylistUiState.Loading -> LoaderView(
                 PaddingValues(
                     top = padding.calculateTopPadding(),
                     bottom = paddingValues.calculateBottomPadding()

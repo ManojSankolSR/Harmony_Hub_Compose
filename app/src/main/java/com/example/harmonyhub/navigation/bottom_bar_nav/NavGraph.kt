@@ -1,6 +1,8 @@
 package com.example.harmonyhub.navigation.bottom_bar_nav
 
 import android.annotation.SuppressLint
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -36,6 +38,7 @@ import com.example.harmonyhub.navigation.bottom_bar_nav.library_nav.libraryNavGr
 import com.example.harmonyhub.navigation.bottom_bar_nav.search_nav.searchNavGraph
 import com.example.harmonyhub.navigation.bottom_bar_nav.settings_nav.settingsNavGraph
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
@@ -51,12 +54,13 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
     val playerRepository = app.appContainer.playerRepository
     val repository = app.appContainer.searchRepository
     val localPlaylistRepository=app.appContainer.localPlaylistRepository
-    val downloadRepository=app.appContainer.downloadRepository;
     val storageRepository=app.appContainer.storageRepository;
+    val radioRepository=app.appContainer.radioRepository
+    val songRepository=app.appContainer.songRepository
 
 
     val musicPlayerViewModel: MusicPlayerViewModel = viewModel(
-        factory = MusicPlayerViewModelFactory(app, playerRepository,userRepository)
+        factory = MusicPlayerViewModelFactory(app, playerRepository,userRepository,radioRepository,songRepository)
     )
 
     val homeViewModel: HomeViewModel = viewModel(

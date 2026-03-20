@@ -27,7 +27,8 @@ fun SearchResultsList(
         state.data.songs?.data?.let { songs ->
             songsResultList(
                 songs = songs,
-                musicPlayerViewModel = musicPlayerViewModel
+                musicPlayerViewModel = musicPlayerViewModel,
+                navController
             )
         }
 

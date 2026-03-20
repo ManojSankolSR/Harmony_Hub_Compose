@@ -10,7 +10,7 @@ import com.google.gson.JsonObject
 
 data class MusicDataItem(
     val id: String = "",
-    val name: String? = "",
+    val name: String = "",
     val subtitle: String? = "",
     val type: MusicItemType? = null,
     val url: String? = "",
@@ -26,7 +26,12 @@ data class MusicDataItem(
     val album_id: String? = "",
     val album_url: String? = "",
     val download_url: List<DownloadUrlItem>? = emptyList(),
-    val artist_map:JsonElement? = null
+    val artist_map: JsonElement? = null,
+    val featured_station_type: String = "",
+    val station_display_text: String? = "",
+    val color: String? = "",
+    val description: String? = "",
+    val query: String? = ""
 )
 
 fun MusicDataItem.getImageUrl(): String? {
