@@ -55,7 +55,7 @@ fun BrandingHeader() {
             border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.2f))
         ) {
             Text(
-                text = "VERSION $versionName STABLE",
+                text = "VERSION $versionName BETA",
                 modifier = Modifier.padding(horizontal = 16.dp, vertical = 6.dp),
                 style = MaterialTheme.typography.labelSmall.copy(
                     letterSpacing = 1.2.sp,

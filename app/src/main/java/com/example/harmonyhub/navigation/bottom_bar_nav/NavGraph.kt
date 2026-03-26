@@ -18,6 +18,8 @@ import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.core.services.NetworkService
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModelFactory
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModelFactory
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
 import com.example.harmonyhub.features.music_player.data.repository.LyricsRepository
@@ -57,6 +59,7 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
     val storageRepository=app.appContainer.storageRepository;
     val radioRepository=app.appContainer.radioRepository
     val songRepository=app.appContainer.songRepository
+    val likedSongsRepository=app.appContainer.likedSongsRepository
 
 
     val musicPlayerViewModel: MusicPlayerViewModel = viewModel(
@@ -86,6 +89,10 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
         factory = StorageViewModelFactory(storageRepository)
     )
 
+    val likedSongsViewModel: LikedSongsViewModel=viewModel(
+        factory = LikedSongsViewModelFactory(likedSongsRepository)
+    )
+
 
     Scaffold(
         bottomBar = {
@@ -98,7 +105,7 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
                     lyricsViewModel = lyricsViewModel,
                     localPlaylistViewModel=localPlaylistViewModel,
                     downloadsViewModel=downloadsViewModel,
-
+                    likedSongsViewModel=likedSongsViewModel
                 )
                 BottomBar(navController)
             }
@@ -108,10 +115,10 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
             navController = navController,
             startDestination = BottomNavRoutes.Home,
         ) {
-            homeNavGraph(navController, paddingValues, musicPlayerViewModel,authViewModel,homeViewModel,downloadsViewModel)
-            searchNavGraph(navController, paddingValues, musicPlayerViewModel, searchViewModel,downloadsViewModel)
-            libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel,downloadsViewModel,downloadsViewModel)
-            settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel,storageViewModel,downloadsViewModel)
+            homeNavGraph(navController, paddingValues, musicPlayerViewModel,authViewModel,homeViewModel,downloadsViewModel,likedSongsViewModel)
+            searchNavGraph(navController, paddingValues, musicPlayerViewModel, searchViewModel,downloadsViewModel,likedSongsViewModel)
+            libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel,downloadsViewModel,likedSongsViewModel)
+            settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel,storageViewModel,downloadsViewModel,likedSongsViewModel)
         }
     }
 

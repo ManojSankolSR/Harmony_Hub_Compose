@@ -15,6 +15,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.presentation.components.SongsListItem
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
@@ -28,7 +29,8 @@ fun PlaylistSuccess(
     musicPlayerViewModel: MusicPlayerViewModel,
     paddingValues: PaddingValues,
     parentPaddingValues: PaddingValues,
-    downloadsViewModel: DownloadsViewModel
+    downloadsViewModel: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel
 ) {
     val app = LocalContext.current.applicationContext as HarmonyHub
 
@@ -68,7 +70,8 @@ fun PlaylistSuccess(
                 onClick = { onClick(data.songs!!, index) },
                 viewModel = musicPlayerViewModel,
                 localPlaylistViewModel = localPlaylistViewModel,
-                downloadsViewModel=downloadsViewModel
+                downloadsViewModel = downloadsViewModel,
+                likedSongsViewModel = likedSongsViewModel
             )
         }
     }

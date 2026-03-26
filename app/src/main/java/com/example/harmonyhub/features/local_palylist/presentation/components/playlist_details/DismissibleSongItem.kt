@@ -52,20 +52,19 @@ fun DismissibleSongItem(
         backgroundContent = {
             val color by animateColorAsState(
                 when (dismissState.targetValue) {
-                    SwipeToDismissBoxValue.Settled -> Color.Transparent
+                    SwipeToDismissBoxValue.Settled -> MaterialTheme.colorScheme.onBackground
                     SwipeToDismissBoxValue.EndToStart -> Color.Red.copy(alpha = 0.8f)
                     else -> Color.Transparent
                 }, label = "dismissBackground"
             )
             val scale by animateFloatAsState(
-                if (dismissState.targetValue == SwipeToDismissBoxValue.Settled) 0.75f else 1f,
+                if (dismissState.targetValue == SwipeToDismissBoxValue.Settled) 1f else 1.2f,
                 label = "dismissScale"
             )
 
             Box(
                 Modifier
                     .fillMaxSize()
-                    .background(color)
                     .padding(horizontal = 20.dp),
                 contentAlignment = Alignment.CenterEnd
             ) {
@@ -73,7 +72,7 @@ fun DismissibleSongItem(
                     Icons.Default.Delete,
                     contentDescription = "Delete Icon",
                     modifier = Modifier.scale(scale),
-                    tint = MaterialTheme.colorScheme.onSurface
+                    tint = color
                 )
             }
         },

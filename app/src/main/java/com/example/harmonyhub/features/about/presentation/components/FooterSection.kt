@@ -25,7 +25,7 @@ fun FooterSection() {
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.6f)
         )
         Text(
-            text = "© 2024 Harmony Hub Project",
+            text = "© 2026 Harmony Hub Project",
             style = MaterialTheme.typography.labelSmall,
             color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.4f),
             modifier = Modifier.padding(top = 4.dp)

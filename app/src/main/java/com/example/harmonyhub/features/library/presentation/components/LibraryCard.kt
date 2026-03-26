@@ -40,7 +40,7 @@ fun LibraryCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(210.dp)
+            .height(150.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
 
@@ -59,7 +59,7 @@ fun LibraryCard(
                 Icon(
                     imageVector = icon,
                     contentDescription = null,
-                    modifier = Modifier.size(48.dp),
+                    modifier = Modifier.size(38.dp),
                     tint = MaterialTheme.colorScheme.onSurface
                 )
             }

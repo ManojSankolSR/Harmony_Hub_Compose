@@ -17,6 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.components.player.expanded.MusicPlayerExpanded
 import com.example.harmonyhub.features.music_player.presentation.componentsimport.MiniMusicPlayer
@@ -33,6 +34,7 @@ fun MusicPlayer(
     lyricsViewModel: LyricsViewModel,
     localPlaylistViewModel: LocalPlaylistViewModel,
     downloadsViewModel: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel,
 ) {
 
     var isExpanded by rememberSaveable { mutableStateOf(false) }
@@ -71,6 +73,7 @@ fun MusicPlayer(
                 lyricsViewModel,
                 localPlaylistViewModel,
                 downloadsViewModel,
+                likedSongsViewModel
             )
         } else {
             MiniMusicPlayer(

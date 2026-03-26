@@ -11,6 +11,7 @@ import com.example.harmonyhub.features.album.presentation.screens.AlbumScreen
 import com.example.harmonyhub.features.artist.presentation.screens.ArtistScreen
 import com.example.harmonyhub.features.home.presentation.screens.HomeScreen
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
 import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
@@ -26,8 +27,8 @@ fun NavGraphBuilder.homeNavGraph(
     musicPlayerViewModel: MusicPlayerViewModel,
     authViewModel: AuthViewModel,
     homeViewModel: HomeViewModel,
-    downloadsViewModel: DownloadsViewModel
-
+    downloadsViewModel: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel
 ) {
     navigation<BottomNavRoutes.Home>(
         startDestination = HomeNavRoutes.HomeScreen
@@ -37,7 +38,7 @@ fun NavGraphBuilder.homeNavGraph(
         }
         composable<PlaylistDetailScreen> {
             val data = it.toRoute<PlaylistDetailScreen>()
-            PlaylistScreen(paddingValues, navController, data, musicPlayerViewModel,downloadsViewModel)
+            PlaylistScreen(paddingValues, navController, data, musicPlayerViewModel,downloadsViewModel,likedSongsViewModel)
         }
         composable<AlbumDetailsScreen> {
             val data = it.toRoute<AlbumDetailsScreen>()
@@ -46,7 +47,8 @@ fun NavGraphBuilder.homeNavGraph(
                 navController,
                 data,
                 musicPlayerViewModel,
-                downloadsViewModel
+                downloadsViewModel,
+                likedSongsViewModel
             )
         }
 

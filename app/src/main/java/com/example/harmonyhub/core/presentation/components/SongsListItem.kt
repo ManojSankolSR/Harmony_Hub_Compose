@@ -25,9 +25,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.features.home.presentation.components.MusicItemImage
+import com.example.harmonyhub.features.like.presentation.components.LikeSongsButton
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
+import com.example.harmonyhub.features.local_palylist.presentation.components.AddToPlaylistButton
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
+import com.example.harmonyhub.features.song_download.presentation.components.download.DownloadSongButton
 import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @Composable
@@ -37,7 +41,8 @@ fun SongsListItem(
     onClick: () -> Unit,
     isSelected: Boolean = false,
     localPlaylistViewModel: LocalPlaylistViewModel? = null,
-    downloadsViewModel: DownloadsViewModel?=null
+    downloadsViewModel: DownloadsViewModel? = null,
+    likedSongsViewModel: LikedSongsViewModel? = null
 ) {
 
 
@@ -89,20 +94,28 @@ fun SongsListItem(
 
         }
 
-        localPlaylistViewModel?.let {
-            AddToPlaylistButton(song = song, localPlaylistViewModel = it, iconSize = 24.dp)
-        }
+        Row(horizontalArrangement = Arrangement.spacedBy(22.dp)) {
+            likedSongsViewModel?.let {
+                LikeSongsButton(viewModel = it, song = song, iconSize = 24.dp)
+            }
 
-        downloadsViewModel?.let {
-            DownloadSongButton(viewModel = it, song = song, iconSize = 24.dp)
-        }
+            localPlaylistViewModel?.let {
+                AddToPlaylistButton(song = song, localPlaylistViewModel = it, iconSize = 24.dp)
+            }
 
-        if (isSelected) {
-            IconButton(onClick = {})
-            {
-                Icon(Icons.Outlined.GraphicEq, null)
+            downloadsViewModel?.let {
+                DownloadSongButton(viewModel = it, song = song, iconSize = 24.dp)
+            }
+
+            if (isSelected) {
+                IconButton(onClick = {})
+                {
+                    Icon(Icons.Outlined.GraphicEq, null)
+                }
             }
         }
+
+
 
 
     }

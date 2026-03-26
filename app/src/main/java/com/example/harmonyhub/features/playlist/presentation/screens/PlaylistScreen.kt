@@ -9,6 +9,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.HarmonyHub
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.components.PlaylistContent
 import com.example.harmonyhub.features.playlist.presentation.viewmodel.PlaylistDetailsViewModel
@@ -23,7 +24,8 @@ fun PlaylistScreen(
     navController: NavHostController,
     data: PlaylistDetailScreen,
     musicPlayerViewModel: MusicPlayerViewModel,
-    downloadsViewModel: DownloadsViewModel
+    downloadsViewModel: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel
 ) {
 
     val app = LocalContext.current.applicationContext as HarmonyHub;
@@ -48,7 +50,8 @@ fun PlaylistScreen(
         navController = navController,
         playListId = data.id,
         parentPaddingValues,
-        downloadsViewModel
+        downloadsViewModel,
+        likedSongsViewModel = likedSongsViewModel
     )
 
 

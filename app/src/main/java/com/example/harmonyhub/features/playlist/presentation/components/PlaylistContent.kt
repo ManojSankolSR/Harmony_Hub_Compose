@@ -6,6 +6,7 @@ import androidx.compose.runtime.Composable
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.core.presentation.components.ErrorView
 import com.example.harmonyhub.core.presentation.components.LoaderView
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.state.PlaylistDetailsUiState
 import com.example.harmonyhub.features.playlist.presentation.viewmodel.PlaylistDetailsViewModel
@@ -20,7 +21,8 @@ fun PlaylistContent(
     navController: NavHostController,
     playListId: String,
     paddingValues: PaddingValues,
-    downloadsViewModel: DownloadsViewModel
+    downloadsViewModel: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel
 ) {
 
     fun onRefresh() {
@@ -50,7 +52,8 @@ fun PlaylistContent(
                     musicPlayerViewModel,
                     padding,
                     paddingValues,
-                    downloadsViewModel
+                    downloadsViewModel,
+                    likedSongsViewModel = likedSongsViewModel
                 )
             }
 

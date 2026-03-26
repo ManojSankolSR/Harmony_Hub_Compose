@@ -14,6 +14,8 @@ import com.example.harmonyhub.features.artist.data.local.dao.ArtistDao
 import com.example.harmonyhub.features.artist.data.local.entity.ArtistEntity
 import com.example.harmonyhub.features.home.data.local.dao.HomeDao
 import com.example.harmonyhub.features.home.data.local.entity.HomeEntity
+import com.example.harmonyhub.features.like.data.local.dao.LikedSongsDao
+import com.example.harmonyhub.features.like.data.local.entities.LikedSongEntity
 import com.example.harmonyhub.features.local_palylist.data.local.dao.LocalPlaylistDao
 import com.example.harmonyhub.features.local_palylist.data.local.entity.LocalSongEntity
 import com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistSongCrossref
@@ -33,7 +35,8 @@ import kotlin.concurrent.Volatile
         AlbumEntity::class,
         ArtistEntity::class,
         com.example.harmonyhub.features.local_palylist.data.local.entity.PlaylistEntity::class,
-        PlaylistSongCrossref::class
+        PlaylistSongCrossref::class,
+        LikedSongEntity::class
     ],
     version = 1
 )
@@ -51,6 +54,9 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun artistDao(): ArtistDao
 
     abstract fun localPlaylistDao(): LocalPlaylistDao
+
+
+    abstract fun likedSongsDao(): LikedSongsDao
 
 
 

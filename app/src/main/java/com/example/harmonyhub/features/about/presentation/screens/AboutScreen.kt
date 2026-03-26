@@ -22,16 +22,28 @@ fun AboutScreen(
     onBack: () -> Unit
 ) {
     val infoItems = listOf(
-        Triple("The Experience", Icons.Rounded.AutoAwesome, "Harmony Hub is a sanctuary for music lovers. A liquid UI that moves with your rhythm, paired with high-fidelity streaming for pure audio bliss."),
-        Triple("Open Source Heart", Icons.Rounded.Favorite, "Built with transparency and love. No trackers, no bloat. A high-performance experience powered by the latest Android technologies."),
-        Triple("The Developer", Icons.Rounded.Person, "Crafted by Manoj Sankol S R, a solo developer passionate about blending high-end aesthetics with powerful open-source functionality.")
+        Triple(
+            "Modern & Fluid UI",
+            Icons.Rounded.Dashboard,
+            "A seamless experience built with Jetpack Compose. Harmony Hub features a dynamic Material 3 interface that adapts to your rhythm, ensuring a clean, bloat-free, and expressive environment."
+        ),
+        Triple(
+            "Offline Freedom",
+            Icons.Rounded.DownloadDone,
+            "Your music, anywhere. With our advanced download manager and local library system, you can access your favorite songs anytime, anywhere"
+        ),
+        Triple(
+            "The Developer",
+            Icons.Rounded.Person,
+            "Crafted by Manoj Sankol S R. Harmony Hub is a solo project born from a passion for high-end Android aesthetics and robust, open-source functionality."
+        )
     )
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { 
-                    Text("") 
+                title = {
+                    Text("")
                 },
                 navigationIcon = {
                     FilledTonalIconButton(onClick = onBack) {

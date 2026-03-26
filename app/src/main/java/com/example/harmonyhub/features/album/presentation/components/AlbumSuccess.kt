@@ -17,6 +17,7 @@ import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.presentation.components.SongsListItem
 import com.example.harmonyhub.features.album.data.remote.models.AlbumData
 import com.example.harmonyhub.features.album.data.remote.models.getImageUrl
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModelFactory
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
@@ -28,7 +29,8 @@ fun AlbumSuccess(
     data: AlbumData,
     musicPlayerViewModel: MusicPlayerViewModel,
     parentPaddingValues: PaddingValues,
-    downloadsViewModel: DownloadsViewModel
+    downloadsViewModel: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel
 ) {
     val app = LocalContext.current.applicationContext as HarmonyHub
     val localPlaylistViewModel: LocalPlaylistViewModel = viewModel(
@@ -65,7 +67,8 @@ fun AlbumSuccess(
                 onClick = { onClick(data.songs!!, index) },
                 viewModel = musicPlayerViewModel,
                 localPlaylistViewModel = localPlaylistViewModel,
-                downloadsViewModel=downloadsViewModel
+                downloadsViewModel = downloadsViewModel,
+                likedSongsViewModel = likedSongsViewModel
             )
         }
     }

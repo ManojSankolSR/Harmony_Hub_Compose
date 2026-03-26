@@ -15,8 +15,8 @@ import androidx.compose.material3.IconButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.harmonyhub.core.presentation.components.AddToPlaylistButton
-import com.example.harmonyhub.core.presentation.components.DownloadSongButton
+import com.example.harmonyhub.features.local_palylist.presentation.components.AddToPlaylistButton
+import com.example.harmonyhub.features.song_download.presentation.components.download.DownloadSongButton
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
@@ -72,12 +72,11 @@ fun BottomAppBar(
                 Icon(Icons.Rounded.Shuffle, null, modifier = modifier.size(iconSize))
             }
 
-            AddToPlaylistButton(song=song,localPlaylistViewModel=localPlaylistViewModel,iconSize=iconSize)
+            IconButton({}){AddToPlaylistButton(song=song,localPlaylistViewModel=localPlaylistViewModel,iconSize=iconSize)}
 
-            DownloadSongButton(
+            IconButton({}){DownloadSongButton(
                 viewModel = downloadsViewModel, song = song, iconSize = iconSize
-            )
+            )}
         }
     }
 }
-

@@ -68,7 +68,6 @@ fun QueueBottomSheet(viewModel: MusicPlayerViewModel) {
                     )
                 }
                 itemsIndexed(mediaItems) { index, song ->
-
                     val isSelected=currentMediaItem?.id==song.id;
                     SongsListItem(song, viewModel,{ onClick(mediaItems, index)},isSelected)
                 }

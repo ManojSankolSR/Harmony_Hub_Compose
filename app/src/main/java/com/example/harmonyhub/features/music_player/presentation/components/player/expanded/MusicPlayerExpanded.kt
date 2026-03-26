@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.LyricsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
@@ -30,6 +31,7 @@ fun MusicPlayerExpanded(
     lyricsViewModel: LyricsViewModel,
     localPlaylistViewModel: LocalPlaylistViewModel,
     downloadsViewModel: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel,
 ) {
 
     val mediaItem = viewModel.playerState.collectAsState().value.currentMediaItem
@@ -68,7 +70,7 @@ fun MusicPlayerExpanded(
         ) {
 
             item {
-                SongInfo(song = mediaItem, padding,paddingHorizontal)
+                SongInfo(song = mediaItem ?: return@item, padding,paddingHorizontal,likedSongsViewModel)
             }
 
             item {

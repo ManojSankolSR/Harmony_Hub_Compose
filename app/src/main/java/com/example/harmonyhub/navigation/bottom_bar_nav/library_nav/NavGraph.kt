@@ -8,6 +8,8 @@ import androidx.navigation.navigation
 import androidx.navigation.toRoute
 import com.example.harmonyhub.features.album.presentation.screens.AlbumScreen
 import com.example.harmonyhub.features.library.presentation.screens.LibraryScreen
+import com.example.harmonyhub.features.like.presentation.screens.LikedSongsScreen
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.local_palylist.presentation.screens.LocalPlaylistDetailsScreen
 import com.example.harmonyhub.features.local_palylist.presentation.screens.LocalPlaylistScreen
 import com.example.harmonyhub.features.local_palylist.presentation.viewmodel.LocalPlaylistViewModel
@@ -25,7 +27,7 @@ fun NavGraphBuilder.libraryNavGraph(
     musicPlayerViewModel: MusicPlayerViewModel,
     localPlaylistViewModel: LocalPlaylistViewModel,
     downloadsViewModel: DownloadsViewModel,
-    downloadsViewModel1: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel,
 ) {
     navigation<BottomNavRoutes.Library>(
         startDestination = LibraryNavRoutes.LibraryScreen
@@ -40,12 +42,13 @@ fun NavGraphBuilder.libraryNavGraph(
                 navController,
                 data,
                 musicPlayerViewModel,
-                downloadsViewModel
+                downloadsViewModel,
+                likedSongsViewModel
             )
         }
         composable<AlbumDetailsScreen> {
             val data = it.toRoute<AlbumDetailsScreen>()
-            AlbumScreen(paddingValues, navController, data, musicPlayerViewModel,downloadsViewModel)
+            AlbumScreen(paddingValues, navController, data, musicPlayerViewModel,downloadsViewModel, likedSongsViewModel)
         }
         composable<LibraryNavRoutes.LocalPlaylists> {
             LocalPlaylistScreen(
@@ -71,6 +74,15 @@ fun NavGraphBuilder.libraryNavGraph(
                 musicPlayerViewModel = musicPlayerViewModel,
                 onBackClick = { navController.popBackStack() },
                 paddingValues
+            )
+        }
+        composable<LibraryNavRoutes.LikedSongs> {
+            LikedSongsScreen(
+                viewModel = likedSongsViewModel,
+                musicPlayerViewModel = musicPlayerViewModel,
+                downloadsViewModel = downloadsViewModel,
+                onBackClick = { navController.popBackStack() },
+                paddingValues = paddingValues
             )
         }
     }

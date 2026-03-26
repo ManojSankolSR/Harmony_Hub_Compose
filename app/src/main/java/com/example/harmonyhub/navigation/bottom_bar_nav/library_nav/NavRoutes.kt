@@ -15,4 +15,7 @@ sealed class LibraryNavRoutes {
 
     @Serializable
     data object DownloadedSongs : LibraryNavRoutes()
+
+    @Serializable
+    data object LikedSongs : LibraryNavRoutes()
 }

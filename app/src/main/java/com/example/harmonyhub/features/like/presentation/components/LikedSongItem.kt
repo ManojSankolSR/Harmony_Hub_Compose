@@ -1,4 +1,4 @@
-package com.example.harmonyhub.features.song_download.presentation.components
+package com.example.harmonyhub.features.like.presentation.components
 
 import androidx.compose.animation.animateColorAsState
 import androidx.compose.animation.core.animateFloatAsState
@@ -7,7 +7,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Delete
+import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.FavoriteBorder
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -17,15 +18,18 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.core.presentation.components.SongsListItem
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.data.remote.models.playlist.Song
+import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun DownloadedSongItem(
+fun LikedSongItem(
     song: Song,
     musicPlayerViewModel: MusicPlayerViewModel,
-    onDelete: (Song) -> Unit,
+    likedSongsViewModel: LikedSongsViewModel,
+    downloadsViewModel: DownloadsViewModel,
     onClick: () -> Unit,
     modifier: Modifier = Modifier
 ) {
@@ -35,7 +39,7 @@ fun DownloadedSongItem(
         },
         confirmValueChange = {
             if (it == SwipeToDismissBoxValue.EndToStart) {
-                onDelete(song)
+                likedSongsViewModel.unLikeSong(song.id)
                 true
             } else {
                 false
@@ -49,8 +53,8 @@ fun DownloadedSongItem(
         backgroundContent = {
             val color by animateColorAsState(
                 when (dismissState.targetValue) {
-                    SwipeToDismissBoxValue.Settled -> MaterialTheme.colorScheme.onBackground
-                    SwipeToDismissBoxValue.EndToStart -> Color.Red.copy(.8f)
+                    SwipeToDismissBoxValue.Settled -> Color.Red.copy(alpha = 0.8f)
+                    SwipeToDismissBoxValue.EndToStart -> MaterialTheme.colorScheme.onSurface
                     else -> Color.Transparent
                 }, label = "dismissBackground"
             )
@@ -67,8 +71,8 @@ fun DownloadedSongItem(
                 contentAlignment = Alignment.CenterEnd
             ) {
                 Icon(
-                    Icons.Default.Delete,
-                    contentDescription = "Delete Icon",
+                    Icons.Default.Favorite,
+                    contentDescription = "Unlike Icon",
                     modifier = Modifier.scale(scale),
                     tint = color
                 )
@@ -79,7 +83,8 @@ fun DownloadedSongItem(
         SongsListItem(
             song = song,
             viewModel = musicPlayerViewModel,
-            onClick = onClick
+            onClick = onClick,
+            downloadsViewModel = downloadsViewModel,
         )
     }
 }

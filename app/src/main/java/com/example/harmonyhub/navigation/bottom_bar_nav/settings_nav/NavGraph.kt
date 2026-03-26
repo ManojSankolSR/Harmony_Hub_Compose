@@ -13,6 +13,7 @@ import com.example.harmonyhub.features.album.presentation.screens.AlbumScreen
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
 import com.example.harmonyhub.features.playlist.presentation.screens.PlaylistScreen
 import com.example.harmonyhub.features.about.presentation.screens.AboutScreen
+import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
 import com.example.harmonyhub.features.settings.presentation.screens.SettingsScreen
 import com.example.harmonyhub.features.song_download.presentation.viewmodel.DownloadsViewModel
 import com.example.harmonyhub.features.storage.presentation.screens.StorageInfoScreen
@@ -30,7 +31,8 @@ fun NavGraphBuilder.settingsNavGraph(
     authViewModel: AuthViewModel,
     musicPlayerViewModel: MusicPlayerViewModel,
     storageViewModel: StorageViewModel,
-    downloadsViewModel: DownloadsViewModel
+    downloadsViewModel: DownloadsViewModel,
+    likedSongsViewModel: LikedSongsViewModel
 ) {
     navigation<BottomNavRoutes.Settings>(
         startDestination = SettingsNavRoutes.SettingsScreen
@@ -53,7 +55,8 @@ fun NavGraphBuilder.settingsNavGraph(
                 navController,
                 data,
                 musicPlayerViewModel,
-                downloadsViewModel
+                downloadsViewModel,
+                likedSongsViewModel
             )
         }
         composable <AlbumDetailsScreen>{
@@ -63,7 +66,8 @@ fun NavGraphBuilder.settingsNavGraph(
                 navController,
                 data,
                 musicPlayerViewModel,
-                downloadsViewModel
+                downloadsViewModel,
+                likedSongsViewModel
             )
         }
 

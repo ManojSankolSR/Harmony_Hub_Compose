@@ -8,6 +8,7 @@ import com.example.harmonyhub.core.services.NetworkService
 import com.example.harmonyhub.features.album.data.repository.AlbumRepository
 import com.example.harmonyhub.features.artist.data.repository.ArtistRepository
 import com.example.harmonyhub.features.home.data.respository.HomeRepository
+import com.example.harmonyhub.features.like.data.repository.LikedSongsRepository
 import com.example.harmonyhub.features.local_palylist.data.repository.LocalPlaylistRepository
 import com.example.harmonyhub.features.music_player.data.repository.LyricsRepository
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
@@ -48,5 +49,8 @@ class AppContainer(val context: Context) {
     val storageRepository= StorageRepository(context)
 
     val radioRepository= RadioRepository(networkService)
+
+
+    val likedSongsRepository= LikedSongsRepository(db.likedSongsDao())
 
 }
