@@ -61,11 +61,10 @@ fun PlaylistContent(
                 val message = state.message
                 ErrorView(
                     onRefresh = ::onRefresh,
-                    message,
+                    message = message,
                     paddingValues = PaddingValues(
                         top = padding.calculateTopPadding(),
                         bottom = paddingValues.calculateBottomPadding()
-
                     )
                 )
 

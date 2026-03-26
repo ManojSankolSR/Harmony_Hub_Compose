@@ -12,12 +12,14 @@ object RetrofitClient {
 
     const val BASE_URL = "https://jiosaavn-api-ts-ten.vercel.app/"
 
+    const val CHECK_UPDATES_URL="https://harmonyhub-9e38d.web.app/update.json"
+
     const val CONNECT_TIMEOUT = 30L
     const val READ_TIMEOUT = 30L
 
     private val okHttpClient = OkHttpClient.Builder()
-        .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(30, TimeUnit.SECONDS)
+        .connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
+        .readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
         .build()
 
 

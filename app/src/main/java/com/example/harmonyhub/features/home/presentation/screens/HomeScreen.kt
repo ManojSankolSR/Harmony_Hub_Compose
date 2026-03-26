@@ -26,7 +26,7 @@ fun HomeScreen(
 
     val state = homeViewModel.state.collectAsState().value;
 
-    fun onRefresh(){
+    fun onRefresh() {
         homeViewModel.observeLanguageAndFetchHomeData()
     }
 
@@ -39,7 +39,7 @@ fun HomeScreen(
                 LoaderView(
                     padding = PaddingValues(
                         bottom = parentPaddingValues.calculateBottomPadding(),
-                        top=padding.calculateTopPadding()
+                        top = padding.calculateTopPadding()
                     )
                 )
             }
@@ -58,10 +58,12 @@ fun HomeScreen(
 
             is HomeUiState.Error -> {
                 val message = state.message
-                ErrorView(::onRefresh, message,  PaddingValues(
-                    bottom = parentPaddingValues.calculateBottomPadding(),
-                    top=padding.calculateTopPadding()
-                ))
+                ErrorView(
+                    onRefresh = ::onRefresh, message = message, paddingValues = PaddingValues(
+                        bottom = parentPaddingValues.calculateBottomPadding(),
+                        top = padding.calculateTopPadding()
+                    )
+                )
 
             }
 

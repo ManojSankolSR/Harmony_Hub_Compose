@@ -36,9 +36,11 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun ErrorView(
+    title: String="Harmony Interrupted",
     onRefresh: () -> Unit,
     message: String = "Something went wrong while loading your music.",
-    paddingValues: PaddingValues
+    paddingValues: PaddingValues?=null,
+    buttonText: String="Restore Music",
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "error_screen_anim")
     
@@ -65,7 +67,7 @@ fun ErrorView(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .padding(paddingValues)
+            .padding(paddingValues ?: PaddingValues())
             .background(MaterialTheme.colorScheme.surface),
         contentAlignment = Alignment.Center
     ) {
@@ -149,7 +151,7 @@ fun ErrorView(
 
             // Premium Typography Section
             Text(
-                text = "Harmony Interrupted",
+                text = title,
                 style = MaterialTheme.typography.titleLarge.copy(
                     fontWeight = FontWeight.Black,
                     letterSpacing = (-1).sp
@@ -183,7 +185,7 @@ fun ErrorView(
                 )
                 Spacer(Modifier.width(8.dp))
                 Text(
-                    text = "Restore Music",
+                    text = buttonText,
                     style = MaterialTheme.typography.titleSmall.copy(
                         fontWeight = FontWeight.Bold
                     ),

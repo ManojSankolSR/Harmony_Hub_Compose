@@ -8,18 +8,23 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
+import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpdateViewModel
 import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.features.music_player.presentation.screens.MusicPlayer
 import com.example.harmonyhub.navigation.bottom_bar_nav.BottomBarNavGraph
 import com.example.harmonyhub.navigation.root_nav.RootNavRoutes
 
 @RequiresApi(Build.VERSION_CODES.O)
-fun NavGraphBuilder.authNavGraph(navController: NavHostController, authViewModel: AuthViewModel) {
+fun NavGraphBuilder.authNavGraph(
+    navController: NavHostController,
+    authViewModel: AuthViewModel,
+    appUpdateViewModel: AppUpdateViewModel
+) {
     navigation<RootNavRoutes.AuthenticatedRoutes>(
         startDestination = AuthNavRoutes.BottomNav
     ) {
         composable<AuthNavRoutes.BottomNav> {
-            BottomBarNavGraph(navController,authViewModel)
+            BottomBarNavGraph(navController, authViewModel, appUpdateViewModel)
         }
         composable<AuthNavRoutes.MusicPlayer>(
             enterTransition = {

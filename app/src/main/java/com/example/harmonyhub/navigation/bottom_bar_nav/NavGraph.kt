@@ -16,6 +16,8 @@ import androidx.navigation.compose.rememberNavController
 import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.core.services.NetworkService
+import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpdateViewModel
+import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpdateViewModelFactory
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModelFactory
 import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
@@ -44,26 +46,37 @@ import com.example.harmonyhub.navigation.bottom_bar_nav.settings_nav.settingsNav
 @OptIn(ExperimentalMaterial3Api::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @Composable
-fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: AuthViewModel) {
+fun BottomBarNavGraph(
+    parentNavController: NavHostController,
+    authViewModel: AuthViewModel,
+    appUpdateViewModel: AppUpdateViewModel
+) {
 
     val navController = rememberNavController();
 
     val context = LocalContext.current
     val app = context.applicationContext as HarmonyHub
 
-    val homeRepository=app.appContainer.homeRepository;
-    val userRepository=app.appContainer.userRepository;
+    val homeRepository = app.appContainer.homeRepository;
+    val userRepository = app.appContainer.userRepository;
     val playerRepository = app.appContainer.playerRepository
     val repository = app.appContainer.searchRepository
-    val localPlaylistRepository=app.appContainer.localPlaylistRepository
-    val storageRepository=app.appContainer.storageRepository;
-    val radioRepository=app.appContainer.radioRepository
-    val songRepository=app.appContainer.songRepository
-    val likedSongsRepository=app.appContainer.likedSongsRepository
+    val localPlaylistRepository = app.appContainer.localPlaylistRepository
+    val storageRepository = app.appContainer.storageRepository;
+    val radioRepository = app.appContainer.radioRepository
+    val songRepository = app.appContainer.songRepository
+    val likedSongsRepository = app.appContainer.likedSongsRepository
+
 
 
     val musicPlayerViewModel: MusicPlayerViewModel = viewModel(
-        factory = MusicPlayerViewModelFactory(app, playerRepository,userRepository,radioRepository,songRepository)
+        factory = MusicPlayerViewModelFactory(
+            app,
+            playerRepository,
+            userRepository,
+            radioRepository,
+            songRepository
+        )
     )
 
     val homeViewModel: HomeViewModel = viewModel(
@@ -89,9 +102,12 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
         factory = StorageViewModelFactory(storageRepository)
     )
 
-    val likedSongsViewModel: LikedSongsViewModel=viewModel(
+    val likedSongsViewModel: LikedSongsViewModel = viewModel(
         factory = LikedSongsViewModelFactory(likedSongsRepository)
     )
+
+
+
 
 
     Scaffold(
@@ -103,9 +119,9 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
                     navController,
                     musicPlayerViewModel = musicPlayerViewModel,
                     lyricsViewModel = lyricsViewModel,
-                    localPlaylistViewModel=localPlaylistViewModel,
-                    downloadsViewModel=downloadsViewModel,
-                    likedSongsViewModel=likedSongsViewModel
+                    localPlaylistViewModel = localPlaylistViewModel,
+                    downloadsViewModel = downloadsViewModel,
+                    likedSongsViewModel = likedSongsViewModel
                 )
                 BottomBar(navController)
             }
@@ -115,10 +131,41 @@ fun BottomBarNavGraph(parentNavController: NavHostController, authViewModel: Aut
             navController = navController,
             startDestination = BottomNavRoutes.Home,
         ) {
-            homeNavGraph(navController, paddingValues, musicPlayerViewModel,authViewModel,homeViewModel,downloadsViewModel,likedSongsViewModel)
-            searchNavGraph(navController, paddingValues, musicPlayerViewModel, searchViewModel,downloadsViewModel,likedSongsViewModel)
-            libraryNavGraph(navController, paddingValues, musicPlayerViewModel,localPlaylistViewModel,downloadsViewModel,likedSongsViewModel)
-            settingsNavGraph(navController, paddingValues, authViewModel, musicPlayerViewModel,storageViewModel,downloadsViewModel,likedSongsViewModel)
+            homeNavGraph(
+                navController,
+                paddingValues,
+                musicPlayerViewModel,
+                authViewModel,
+                homeViewModel,
+                downloadsViewModel,
+                likedSongsViewModel
+            )
+            searchNavGraph(
+                navController,
+                paddingValues,
+                musicPlayerViewModel,
+                searchViewModel,
+                downloadsViewModel,
+                likedSongsViewModel
+            )
+            libraryNavGraph(
+                navController,
+                paddingValues,
+                musicPlayerViewModel,
+                localPlaylistViewModel,
+                downloadsViewModel,
+                likedSongsViewModel
+            )
+            settingsNavGraph(
+                navController,
+                paddingValues,
+                authViewModel,
+                musicPlayerViewModel,
+                storageViewModel,
+                downloadsViewModel,
+                likedSongsViewModel,
+                appUpdateViewModel
+            )
         }
     }
 

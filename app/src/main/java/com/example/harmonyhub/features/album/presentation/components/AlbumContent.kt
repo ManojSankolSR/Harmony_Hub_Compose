@@ -57,7 +57,7 @@ fun AlbumContent(
                     val message = state.message
                     ErrorView(
                         onRefresh = ::onRefresh,
-                        message,
+                        message =  message,
                         paddingValues = PaddingValues(bottom = parentPaddingValues.calculateBottomPadding())
                     )
 

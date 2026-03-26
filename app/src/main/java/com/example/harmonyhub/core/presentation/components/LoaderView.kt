@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoaderView(padding: PaddingValues = PaddingValues(0.dp)) {
+fun LoaderView(padding: PaddingValues = PaddingValues(0.dp),message: String="Setting up your musical journey...") {
     val infiniteTransition = rememberInfiniteTransition(label = "loader_view_anim")
 
     val glowAlpha by infiniteTransition.animateFloat(
@@ -128,7 +128,7 @@ fun LoaderView(padding: PaddingValues = PaddingValues(0.dp)) {
             Spacer(modifier = Modifier.height(12.dp))
 
             Text(
-                text = "Setting up your musical journey...",
+                text = message,
                 style = MaterialTheme.typography.bodyMedium.copy(
                     lineHeight = 22.sp
                 ),
@@ -136,7 +136,7 @@ fun LoaderView(padding: PaddingValues = PaddingValues(0.dp)) {
                 textAlign = TextAlign.Center
             )
             
-            Spacer(modifier = Modifier.height(40.dp))
+            Spacer(modifier = Modifier.height(30.dp))
             
             // Subtle hint
             Text(

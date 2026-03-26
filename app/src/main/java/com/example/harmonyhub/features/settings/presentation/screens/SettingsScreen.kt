@@ -11,6 +11,8 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.features.about.presentation.components.AboutItem
+import com.example.harmonyhub.features.app_update.presentation.components.AppUpdateItem
+import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpdateViewModel
 import com.example.harmonyhub.features.settings.presentation.components.PreferredLanguageItem
 import com.example.harmonyhub.features.settings.presentation.components.AudioQualityItem
 import com.example.harmonyhub.features.settings.presentation.components.LogoutItem
@@ -25,6 +27,7 @@ fun SettingsScreen(
     paddingValues: PaddingValues,
     navController: NavHostController,
     authViewModel: AuthViewModel,
+    appUpdateViewModel: AppUpdateViewModel,
 ) {
     Scaffold(
         modifier = Modifier.fillMaxSize(),
@@ -44,6 +47,10 @@ fun SettingsScreen(
             StorageInfoItem(
                 navController
             )
+
+            AppUpdateItem {
+                appUpdateViewModel.checkForUpdates()
+            }
 
             AboutItem {
                 navController.navigate(SettingsNavRoutes.AboutScreen)
