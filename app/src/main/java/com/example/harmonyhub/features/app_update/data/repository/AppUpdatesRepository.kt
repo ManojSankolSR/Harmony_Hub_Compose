@@ -6,6 +6,7 @@ import android.net.Uri
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
+import android.util.Log
 import androidx.core.content.FileProvider
 import com.example.harmonyhub.core.data.remote.api.ApiService
 import com.example.harmonyhub.core.data.remote.api.RetrofitClient
@@ -22,6 +23,8 @@ class AppUpdatesRepository(
     private val context: Context
 ) {
 
+    private var pendingApkFile: File? = null
+
     fun checkInstallPermission(): Boolean {
         return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             context.packageManager.canRequestPackageInstalls()
@@ -33,6 +36,7 @@ class AppUpdatesRepository(
     fun requestInstallPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             val intent = Intent(Settings.ACTION_MANAGE_UNKNOWN_APP_SOURCES).apply {
+                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
                 data = "package:${context.packageName}".toUri()
             }
             context.startActivity(intent)
@@ -57,62 +61,94 @@ class AppUpdatesRepository(
         return File(dir, "Harmony_Hub_${versionName}.apk")
     }
 
-    suspend fun downloadUpdateAndInstall(
+
+    private fun installApk(file: File) {
+        val uri = FileProvider.getUriForFile(
+            context,
+            "${context.packageName}.provider",
+            file
+        )
+
+        val intent = Intent(Intent.ACTION_VIEW).apply {
+            setDataAndType(uri, "application/vnd.android.package-archive")
+            addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
+            addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+        }
+
+        context.startActivity(intent)
+    }
+
+    suspend fun downloadUpdate(
         appUpdateInfo: AppUpdateInfo,
         onProgress: (Int) -> Unit
-    ) = withContext(Dispatchers.IO) {
+    ): File = withContext(Dispatchers.IO) {
+        Log.d("AppUpdatesRepository", "Starting download from: ${appUpdateInfo.apkUrl}")
         val file = createFile(appUpdateInfo.versionName)
-        val response = ApiService.appUpdateApi.downloadUpdate(appUpdateInfo.apkUrl)
-
-        val body = response.body() ?: throw Exception("Failed to download update")
-        val totalBytes = body.contentLength()
         
-        body.byteStream().use { input ->
-            FileOutputStream(file).use { output ->
-                val buffer = ByteArray(8 * 1024)
-                var bytesRead: Int
-                var totalRead = 0L
-                while (input.read(buffer).also { bytesRead = it } != -1) {
-                    output.write(buffer, 0, bytesRead)
-                    totalRead += bytesRead
-                    if (totalBytes > 0) {
-                        val progress = ((totalRead * 100) / totalBytes).toInt()
-                        onProgress(progress)
+        try {
+            val response = ApiService.appUpdateApi.downloadUpdate(appUpdateInfo.apkUrl)
+
+            if (!response.isSuccessful) {
+                val errorMsg = "Failed to download update: HTTP ${response.code()} ${response.message()}"
+                Log.e("AppUpdatesRepository", errorMsg)
+                throw Exception(errorMsg)
+            }
+
+            val body = response.body() ?: throw Exception("Failed to download update: Response body is null")
+            val totalBytes = body.contentLength()
+            Log.d("AppUpdatesRepository", "Content length: $totalBytes")
+            
+            body.byteStream().use { input ->
+                FileOutputStream(file).use { output ->
+                    val buffer = ByteArray(8 * 1024)
+                    var bytesRead: Int
+                    var totalRead = 0L
+                    while (input.read(buffer).also { bytesRead = it } != -1) {
+                        output.write(buffer, 0, bytesRead)
+                        totalRead += bytesRead
+                        if (totalBytes > 0) {
+                            val progress = ((totalRead * 100) / totalBytes).toInt()
+                            onProgress(progress)
+                        }
                     }
                 }
             }
-        }
 
-        withContext(Dispatchers.Main) {
-            updateApp(file)
+            Log.d("AppUpdatesRepository", "Download completed: ${file.absolutePath}")
+
+            return@withContext file
+        } catch (e: Exception) {
+            Log.e("AppUpdatesRepository", "Error during download", e)
+            throw e
         }
     }
 
-    suspend fun updateApp(file: File) {
+    fun installUpdate(file: File) {
 
         val hasInstallPermission=checkInstallPermission()
 
         if(hasInstallPermission){
-
-            val uri = FileProvider.getUriForFile(
-                context,
-                "${context.packageName}.provider",
-                file
-            )
-
-            val intent = Intent(Intent.ACTION_VIEW).apply {
-                setDataAndType(uri, "application/vnd.android.package-archive")
-                addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-                addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            }
-
-            context.startActivity(intent)
+            installApk(file)
 
         }else{
+            pendingApkFile = file
             requestInstallPermission()
         }
 
 
+    }
+
+
+    fun retryInstallIfPossible() {
+        if (checkInstallPermission()) {
+            pendingApkFile?.let {
+                installApk(it)
+                pendingApkFile = null
+            } ?: throw Exception("No pending APK file to install")
+
+        } else {
+            throw Exception("Install permission not granted")
+        }
     }
 
 }

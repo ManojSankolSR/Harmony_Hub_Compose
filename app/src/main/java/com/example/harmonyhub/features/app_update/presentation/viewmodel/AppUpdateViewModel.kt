@@ -1,6 +1,6 @@
 package com.example.harmonyhub.features.app_update.presentation.viewmodel
 
-import android.util.Log
+import StackedSnackbarDuration
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.harmonyhub.BuildConfig
@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import java.io.File
 
 class AppUpdateViewModel(
     private val repository: AppUpdatesRepository
@@ -26,12 +27,10 @@ class AppUpdateViewModel(
         checkForUpdatesInitial()
     }
 
-
     fun checkForUpdatesInitial() {
         viewModelScope.launch {
             try {
                 val appUpdateInfo = repository.checkForUpdates()
-                Log.d("appUpdateInfo ", "$appUpdateInfo")
                 if (appUpdateInfo.versionCode > BuildConfig.VERSION_CODE) {
                     _uiState.update {
                         UpdateState.UpdateAvailable(appUpdateInfo)
@@ -50,14 +49,12 @@ class AppUpdateViewModel(
     }
 
     fun checkForUpdates() {
-
         viewModelScope.launch {
             try {
                 _uiState.update {
                     UpdateState.CheckingForUpdates
                 }
                 val appUpdateInfo = repository.checkForUpdates()
-                Log.d("appUpdateInfo ", "$appUpdateInfo")
                 if (appUpdateInfo.versionCode > BuildConfig.VERSION_CODE) {
                     _uiState.update {
                         UpdateState.UpdateAvailable(appUpdateInfo)
@@ -75,11 +72,14 @@ class AppUpdateViewModel(
         }
     }
 
-    fun downloadUpdateAndInstall(appUpdateInfo: AppUpdateInfo) {
+    fun downloadUpdate(appUpdateInfo: AppUpdateInfo) {
         viewModelScope.launch {
             try {
-                repository.downloadUpdateAndInstall(appUpdateInfo) { progress ->
-                    _uiState.update { UpdateState.Updating(progress.toLong()) }
+                val file = repository.downloadUpdate(appUpdateInfo) { progress ->
+                    _uiState.update { UpdateState.Downloading(progress.toLong(), appUpdateInfo) }
+                }
+                _uiState.update {
+                    UpdateState.Downloaded(file, appUpdateInfo)
                 }
             } catch (e: Exception) {
                 _uiState.update {
@@ -89,9 +89,19 @@ class AppUpdateViewModel(
         }
     }
 
-    fun resetState() {
-        _uiState.update { UpdateState.Idle }
+
+    fun installUpdate(file: File) {
+        try {
+            repository.installUpdate(file)
+        } catch (e: Exception) {
+            _uiState.update {
+                UpdateState.Error(e.message ?: "Installation failed")
+            }
+        }
     }
 
 
+    fun resetState() {
+        _uiState.update { UpdateState.Idle }
+    }
 }

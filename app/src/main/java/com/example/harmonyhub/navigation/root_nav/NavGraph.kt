@@ -14,7 +14,7 @@ import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.core.presentation.components.LoaderOverlay
 import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.core.presentation.components.SnackBar
-import com.example.harmonyhub.features.app_update.presentation.components.AppUpdateDialog
+import com.example.harmonyhub.features.app_update.presentation.components.Dialog.AppUpdateDialog
 import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpdateViewModel
 import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpdateViewModelFactory
 import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
