@@ -39,7 +39,7 @@ fun AlbumContent(
         Box(Modifier.padding(padding)) {
             when (state) {
                 is AlbumUiState.Loading -> {
-                    LoaderView(parentPaddingValues)
+                    LoaderView(padding = parentPaddingValues)
                 }
 
                 is AlbumUiState.Success -> {

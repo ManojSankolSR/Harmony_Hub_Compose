@@ -62,7 +62,8 @@ fun ArtistScreen(
     ) { paddingValues ->
         Box(modifier = Modifier.fillMaxSize()) {
             when (val state = uiState) {
-                is ArtistUiState.Loading -> LoaderView(PaddingValues(
+                is ArtistUiState.Loading -> LoaderView(
+                    padding = PaddingValues(
                     top = paddingValues.calculateTopPadding(),
                     bottom = parentPaddingValues.calculateBottomPadding()
                 ))

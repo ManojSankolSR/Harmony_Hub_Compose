@@ -28,7 +28,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @Composable
-fun LoaderView(padding: PaddingValues = PaddingValues(0.dp),message: String="Setting up your musical journey...") {
+fun LoaderView(
+    backgroundColor: Color = MaterialTheme.colorScheme.surface,
+    padding: PaddingValues = PaddingValues(0.dp),
+    message: String = "Setting up your musical journey..."
+) {
     val infiniteTransition = rememberInfiniteTransition(label = "loader_view_anim")
 
     val glowAlpha by infiniteTransition.animateFloat(
@@ -53,7 +57,7 @@ fun LoaderView(padding: PaddingValues = PaddingValues(0.dp),message: String="Set
         modifier = Modifier
             .fillMaxSize()
             .padding(padding)
-            .background(MaterialTheme.colorScheme.surface),
+            .background(backgroundColor),
         contentAlignment = Alignment.Center
     ) {
         Box(
@@ -89,11 +93,15 @@ fun LoaderView(padding: PaddingValues = PaddingValues(0.dp),message: String="Set
                     shape = CircleShape,
                     color = MaterialTheme.colorScheme.primaryContainer.copy(alpha = 0.15f),
                 ) {}
-                
+
                 Box(
                     modifier = Modifier
                         .size(140.dp)
-                        .border(1.dp, MaterialTheme.colorScheme.primary.copy(alpha = 0.1f), CircleShape)
+                        .border(
+                            1.dp,
+                            MaterialTheme.colorScheme.primary.copy(alpha = 0.1f),
+                            CircleShape
+                        )
                 )
 
                 Icon(
@@ -135,9 +143,9 @@ fun LoaderView(padding: PaddingValues = PaddingValues(0.dp),message: String="Set
                 color = MaterialTheme.colorScheme.onSurfaceVariant.copy(alpha = 0.7f),
                 textAlign = TextAlign.Center
             )
-            
+
             Spacer(modifier = Modifier.height(30.dp))
-            
+
             // Subtle hint
             Text(
                 text = "Please wait a moment",

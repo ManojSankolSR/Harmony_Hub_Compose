@@ -41,6 +41,7 @@ fun ErrorView(
     message: String = "Something went wrong while loading your music.",
     paddingValues: PaddingValues?=null,
     buttonText: String="Restore Music",
+    backgroundColor: Color = MaterialTheme.colorScheme.surface
 ) {
     val infiniteTransition = rememberInfiniteTransition(label = "error_screen_anim")
     
@@ -68,7 +69,7 @@ fun ErrorView(
         modifier = Modifier
             .fillMaxSize()
             .padding(paddingValues ?: PaddingValues())
-            .background(MaterialTheme.colorScheme.surface),
+            .background(backgroundColor),
         contentAlignment = Alignment.Center
     ) {
         // Decorative Abstract Background Glows

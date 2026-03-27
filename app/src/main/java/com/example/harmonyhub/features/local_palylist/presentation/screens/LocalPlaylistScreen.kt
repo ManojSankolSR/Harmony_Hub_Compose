@@ -49,7 +49,7 @@ fun LocalPlaylistScreen(
 
         when (state) {
             is LocalPlaylistUiState.Loading -> LoaderView(
-                PaddingValues(
+                padding = PaddingValues(
                     top = padding.calculateTopPadding(),
                     bottom = paddingValues.calculateBottomPadding()
 

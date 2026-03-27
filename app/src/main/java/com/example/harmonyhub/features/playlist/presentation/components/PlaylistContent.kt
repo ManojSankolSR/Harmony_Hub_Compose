@@ -37,7 +37,7 @@ fun PlaylistContent(
         when (state) {
             is PlaylistDetailsUiState.Loading -> {
                 LoaderView(
-                    PaddingValues(
+                    padding = PaddingValues(
                         top = padding.calculateTopPadding(),
                         bottom = paddingValues.calculateBottomPadding()
 

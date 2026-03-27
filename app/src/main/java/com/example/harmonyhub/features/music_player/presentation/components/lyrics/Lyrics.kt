@@ -1,12 +1,16 @@
 package com.example.harmonyhub.features.music_player.presentation.components.lyrics
 
+import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.harmonyhub.core.presentation.components.ErrorView
+import com.example.harmonyhub.core.presentation.components.LoaderView
 import com.example.harmonyhub.features.music_player.presentation.state.LyricsUiState
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.LyricsViewModel
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
@@ -30,7 +34,7 @@ fun Lyrics(
     Card (
         modifier = modifier
             .fillMaxWidth()
-            .height(450.dp),
+            .animateContentSize(),
         shape = MaterialTheme.shapes.large
     ) {
         Box(
@@ -41,7 +45,15 @@ fun Lyrics(
         ) {
             when (val state = lyricsState) {
                 is LyricsUiState.Loading -> {
-                    CircularProgressIndicator()
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .height(450.dp)
+                    ){
+                        LoaderView(
+                            backgroundColor = Color.Transparent
+                        )
+                    }
                 }
                 is LyricsUiState.Success -> {
                     LyricsContent(
@@ -50,10 +62,12 @@ fun Lyrics(
                     )
                 }
                 is LyricsUiState.Error -> {
-                    Text(
-                        text = state.message,
-                        style = MaterialTheme.typography.bodyLarge,
-                        color = MaterialTheme.colorScheme.error
+                    ErrorView(
+                        title = state.message,
+                        message = "Something went wrong while loading lyrics.",
+                        onRefresh = {},
+                        buttonText = "Refresh",
+                        backgroundColor = Color.Transparent
                     )
                 }
             }
