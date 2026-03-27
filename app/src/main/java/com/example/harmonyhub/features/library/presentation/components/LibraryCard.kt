@@ -40,7 +40,7 @@ fun LibraryCard(
     Card(
         modifier = modifier
             .fillMaxWidth()
-            .height(150.dp)
+            .height(200.dp)
             .clickable { onClick() },
         shape = RoundedCornerShape(12.dp),
 
