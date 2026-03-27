@@ -1,5 +1,6 @@
 package com.example.harmonyhub.core.data.remote.api
 
+import com.example.harmonyhub.BuildConfig
 import com.google.gson.FieldNamingPolicy
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
@@ -10,9 +11,9 @@ import java.util.concurrent.TimeUnit
 
 object RetrofitClient {
 
-    const val BASE_URL = "https://jiosaavn-api-ts-ten.vercel.app/"
+    const val BASE_URL = BuildConfig.BASE_URL
 
-    const val CHECK_UPDATES_URL="https://harmonyhub-9e38d.web.app/update.json"
+    const val CHECK_UPDATES_URL = BuildConfig.CHECK_UPDATES_URL
 
     const val CONNECT_TIMEOUT = 30L
     const val READ_TIMEOUT = 30L
