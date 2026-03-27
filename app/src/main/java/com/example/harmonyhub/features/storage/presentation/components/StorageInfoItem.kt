@@ -1,4 +1,4 @@
-package com.example.harmonyhub.features.settings.presentation.components
+package com.example.harmonyhub.features.storage.presentation.components
 
 import androidx.compose.foundation.clickable
 import androidx.compose.material.icons.Icons

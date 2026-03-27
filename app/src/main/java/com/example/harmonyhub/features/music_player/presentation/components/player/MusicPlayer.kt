@@ -47,9 +47,7 @@ fun MusicPlayer(
         isExpanded = true;
     }
 
-
     val mediaItem=musicPlayerViewModel.playerState.collectAsState().value.currentMediaItem
-
 
 
     Box(Modifier

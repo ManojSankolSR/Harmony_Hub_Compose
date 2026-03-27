@@ -84,7 +84,7 @@ class DownloadRepository(
     }
 
 
-    suspend fun downloadSong(song: Song, quality: AudioQuality) =
+    suspend fun downloadSong(song: Song, quality: AudioQuality, onProgress: (Int) -> Unit) =
         withContext(Dispatchers.IO) {
 
             if (!networkService.isInternetAvailable()) {
@@ -104,9 +104,21 @@ class DownloadRepository(
                 throw Exception("Download failed")
             }
 
-            response.body()?.byteStream()?.use { input ->
+            val body = response.body() ?: throw Exception("Response body is null")
+            val totalBytes = body.contentLength()
+
+            body.byteStream().use { input ->
                 FileOutputStream(file).use { output ->
-                    input.copyTo(output)
+                    val buffer = ByteArray(8192)
+                    var bytesRead: Int
+                    var totalRead = 0L
+                    while (input.read(buffer).also { bytesRead = it } != -1) {
+                        output.write(buffer, 0, bytesRead)
+                        totalRead += bytesRead
+                        if (totalBytes > 0) {
+                            onProgress(((totalRead * 100) / totalBytes).toInt())
+                        }
+                    }
                 }
             }
             writeMetadata(song, file)

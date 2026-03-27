@@ -16,7 +16,7 @@ import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpda
 import com.example.harmonyhub.features.settings.presentation.components.PreferredLanguageItem
 import com.example.harmonyhub.features.settings.presentation.components.AudioQualityItem
 import com.example.harmonyhub.features.settings.presentation.components.LogoutItem
-import com.example.harmonyhub.features.settings.presentation.components.StorageInfoItem
+import com.example.harmonyhub.features.storage.presentation.components.StorageInfoItem
 import com.example.harmonyhub.features.settings.presentation.components.TopBar
 import com.example.harmonyhub.navigation.bottom_bar_nav.settings_nav.SettingsNavRoutes
 

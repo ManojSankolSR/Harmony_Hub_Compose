@@ -19,7 +19,7 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
     private val _uiStateDownloadedSongs = MutableStateFlow<DownloadedSongsUiState>(DownloadedSongsUiState.Loading)
     val uiStateDownloadedSongs = _uiStateDownloadedSongs.asStateFlow()
 
-    private val _uiStateSongsDownload = MutableStateFlow<Map<String, Double>>(emptyMap())
+    private val _uiStateSongsDownload = MutableStateFlow<Map<String, Long>>(emptyMap())
     val uiStateSongsDownload = _uiStateSongsDownload.asStateFlow()
 
     init {
@@ -52,12 +52,13 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
                         duration = StackedSnackbarDuration.Short
                     )
                 )
-                _uiStateSongsDownload.update { it->
-                    it+mapOf(song.id to 0.0)
+                _uiStateSongsDownload.update { it ->
+                    it + (song.id to 0L)
                 }
-                downloadRepository.downloadSong(song, quality)
-                _uiStateSongsDownload.update {
-                    it-song.id
+                downloadRepository.downloadSong(song, quality) { progress ->
+                    _uiStateSongsDownload.update { it ->
+                        it + (song.id to progress.toLong())
+                    }
                 }
                 getDownloadedSongs()
                 SnackBarManager.show(
@@ -75,9 +76,9 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
                         duration = StackedSnackbarDuration.Short
                     )
                 )
-            }finally {
+            } finally {
                 _uiStateSongsDownload.update {
-                    it-song.id
+                    it - song.id
                 }
             }
         }

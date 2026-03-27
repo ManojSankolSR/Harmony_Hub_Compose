@@ -33,12 +33,12 @@ fun DownloadSongButton(
     iconSize: Dp = 32.dp,
 ) {
 
-    val songsState = viewModel.uiStateDownloadedSongs.collectAsState().value
-    val downloadState = viewModel.uiStateSongsDownload.collectAsState().value
+    val songsState by viewModel.uiStateDownloadedSongs.collectAsState()
+    val downloadState by viewModel.uiStateSongsDownload.collectAsState()
     var showQualitySelector by remember { mutableStateOf(false) }
 
     val isDownloaded =
-        if (songsState is DownloadedSongsUiState.Success) songsState.songs.any { it.id == song.id } else false
+        if (songsState is DownloadedSongsUiState.Success) (songsState as DownloadedSongsUiState.Success).songs.any { it.id == song.id } else false
 
     val onDownloadClick: () -> Unit = {
         if (!isDownloaded) {
@@ -56,11 +56,14 @@ fun DownloadSongButton(
 
 
     if (downloadState.containsKey(song.id)) {
+        val progress = (downloadState[song.id] ?: 0L).toFloat() / 100f
         Box(contentAlignment = Alignment.Center, modifier = modifier.size(iconSize)) {
             CircularProgressIndicator(
+                progress = { progress },
                 modifier = Modifier.size(iconSize),
                 strokeWidth = 2.dp,
-                color = MaterialTheme.colorScheme.primary
+                color = MaterialTheme.colorScheme.primary,
+                trackColor = MaterialTheme.colorScheme.surfaceVariant
             )
         }
     } else {
