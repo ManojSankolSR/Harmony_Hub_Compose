@@ -33,23 +33,17 @@ import com.example.harmonyhub.ui.theme.PermanentMarker
 @Composable
 fun TopBar() {
 
-    CenterAlignedTopAppBar(
+    TopAppBar(
         modifier = Modifier.padding(start = 8.dp),
         navigationIcon = {Image(
             modifier = Modifier.size(30.dp),
             painter = painterResource(R.drawable.app_icon),
             contentDescription = null,
-            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.primary)
+            colorFilter = ColorFilter.tint(MaterialTheme.colorScheme.onBackground)
         )},
         title = {Text(
             "Harmony Hub ",
-            style = MaterialTheme.typography.headlineMedium.copy(fontFamily = PermanentMarker, brush = Brush.linearGradient(
-                colors = listOf(
-                    MaterialTheme.colorScheme.primary,
-                    MaterialTheme.colorScheme.tertiary,
-                    MaterialTheme.colorScheme.secondary
-                )
-            ))
+            modifier = Modifier.padding(start = 16.dp),
         )}
 
     )

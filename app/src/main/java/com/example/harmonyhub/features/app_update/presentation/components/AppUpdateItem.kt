@@ -23,7 +23,9 @@ fun AppUpdateItem(
                 contentDescription = "Check for Updates"
             )
         },
-        headlineContent = { Text("Check for Updates", style = MaterialTheme.typography.titleSmall) },
+        headlineContent = { Text("Check for Updates", style = MaterialTheme.typography.bodyMedium.copy(
+            fontWeight = FontWeight.Bold
+        )) },
         supportingContent = {
             Text(
                 "Keep Harmony Hub up to date",

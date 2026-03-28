@@ -47,7 +47,9 @@ fun LogoutItem(
                 contentDescription = "Log Out"
             )
         },
-        headlineContent = { Text("Log Out", style = MaterialTheme.typography.titleSmall) },
+        headlineContent = { Text("Log Out", style = MaterialTheme.typography.bodyMedium.copy(
+            fontWeight = FontWeight.Bold
+        )) },
         supportingContent = {
             Text(
                 "Sign out and delete all local data",

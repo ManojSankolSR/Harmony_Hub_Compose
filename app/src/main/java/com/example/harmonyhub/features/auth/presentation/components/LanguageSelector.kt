@@ -39,34 +39,45 @@ import com.example.harmonyhub.core.models.Language
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LanguageSelector(languages: List<Language>, setLanguages: (List<Language>) -> Unit) {
+fun LanguageSelector(
+    languages: List<Language>,
+    setLanguages: (List<Language>) -> Unit,
+    expand: Boolean = false,
+    showChip: Boolean = true,
+    onDismiss: () -> Unit = {}
+) {
 
-    var isVisible by remember {
+    var isVisibleInternal by remember {
         mutableStateOf(false)
     }
 
+    val isVisible = isVisibleInternal || expand
+
     fun closeBottomSheet() {
-        isVisible = false;
+        isVisibleInternal = false
+        onDismiss()
     }
 
     fun openBottomSheet() {
-        isVisible = true;
+        isVisibleInternal = true
     }
 
-    AssistChip(
-        label = {
-            Text(
-                if (languages.isEmpty()) "Select Languages"
-                else if (languages.size == 1) languages.first().name.replaceFirstChar { it.uppercaseChar() }
-                else "${languages.size} Languages",
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                style = MaterialTheme.typography.labelSmall
-            )
-        },
-        onClick = ::openBottomSheet,
-        trailingIcon = { Icon(Icons.Default.ArrowDropDown, contentDescription = "") }
-    )
+    if (showChip) {
+        AssistChip(
+            label = {
+                Text(
+                    if (languages.isEmpty()) "Select Languages"
+                    else if (languages.size == 1) languages.first().name.replaceFirstChar { it.uppercaseChar() }
+                    else "${languages.size} Languages",
+                    maxLines = 1,
+                    overflow = TextOverflow.Ellipsis,
+                    style = MaterialTheme.typography.labelSmall
+                )
+            },
+            onClick = ::openBottomSheet,
+            trailingIcon = { Icon(Icons.Default.ArrowDropDown, contentDescription = "") }
+        )
+    }
 
     if (isVisible)
         ModalBottomSheet(
@@ -82,9 +93,9 @@ fun LanguageSelector(languages: List<Language>, setLanguages: (List<Language>) -
             ) {
                 Text(
                     text = "Preferred Languages",
-                    style = MaterialTheme.typography.titleLarge.copy(
+                    style = MaterialTheme.typography.titleMedium.copy(
                         color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.W500
+                        fontWeight = FontWeight.Bold
                     ),
                     modifier = Modifier.padding(16.dp)
                 )

@@ -46,8 +46,8 @@ fun TopSearchesGrid(
         item(span = { GridItemSpan(2) }) {
             Row(
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.spacedBy(8.dp),
-                modifier = Modifier.padding(bottom = 8.dp)
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                modifier = Modifier.padding(bottom = 4.dp)
             ) {
                 Icon(
                     imageVector = Icons.Filled.Whatshot,
@@ -56,7 +56,7 @@ fun TopSearchesGrid(
                 )
                 Text(
                     text = "Trending Now",
-                    style = MaterialTheme.typography.titleLarge,
+                    style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.ExtraBold
                 )
             }

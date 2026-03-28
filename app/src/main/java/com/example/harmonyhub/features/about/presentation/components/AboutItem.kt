@@ -23,7 +23,9 @@ fun AboutItem(
                 contentDescription = "About"
             )
         },
-        headlineContent = { Text("About", style = MaterialTheme.typography.titleSmall) },
+        headlineContent = { Text("About", style = MaterialTheme.typography.bodyMedium.copy(
+            fontWeight = FontWeight.Bold
+        )) },
         supportingContent = {
             Text(
                 "Learn more about Harmony Hub",

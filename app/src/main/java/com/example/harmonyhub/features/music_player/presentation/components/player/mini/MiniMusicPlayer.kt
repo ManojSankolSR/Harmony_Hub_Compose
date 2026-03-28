@@ -47,7 +47,7 @@ fun MiniMusicPlayer(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .height(55.dp)
+            .height(50.dp)
             .clickable() {
                 expandedPlayer()
             },
@@ -73,7 +73,7 @@ fun MiniMusicPlayer(
                 ) {
                     Text(
                         currentMediaItem?.name ?: "",
-                        style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
+                        style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600),
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )

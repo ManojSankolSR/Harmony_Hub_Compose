@@ -17,7 +17,6 @@ import com.example.harmonyhub.HarmonyHub
 import com.example.harmonyhub.features.auth.presentation.viewmodel.AuthViewModel
 import com.example.harmonyhub.core.services.NetworkService
 import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpdateViewModel
-import com.example.harmonyhub.features.app_update.presentation.viewmodel.AppUpdateViewModelFactory
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModel
 import com.example.harmonyhub.features.home.presentation.viewmodel.HomeViewModelFactory
 import com.example.harmonyhub.features.like.presentation.viewmodel.LikedSongsViewModel
@@ -66,6 +65,8 @@ fun BottomBarNavGraph(
     val radioRepository = app.appContainer.radioRepository
     val songRepository = app.appContainer.songRepository
     val likedSongsRepository = app.appContainer.likedSongsRepository
+    val recommendationsRepository=app.appContainer.recommendationsRepository
+
 
 
 
@@ -75,7 +76,8 @@ fun BottomBarNavGraph(
             playerRepository,
             userRepository,
             radioRepository,
-            songRepository
+            songRepository,
+            recommendationsRepository
         )
     )
 

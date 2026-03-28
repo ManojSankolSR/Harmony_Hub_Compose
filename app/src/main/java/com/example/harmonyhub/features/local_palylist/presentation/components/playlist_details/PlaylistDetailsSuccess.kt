@@ -27,6 +27,7 @@ fun PlaylistDetailsSuccess(
     fun onClick(index: Int) {
         musicPlayerViewModel.setMediaItems(songs, index)
         musicPlayerViewModel.play()
+        musicPlayerViewModel.fetchAndAddSongRecommendationsToQueue()
     }
 
     if (songs.isEmpty()) {

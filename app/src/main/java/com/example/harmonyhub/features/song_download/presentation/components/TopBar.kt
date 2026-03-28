@@ -18,7 +18,6 @@ fun TopBar(onBackClick: () -> Unit) {
         title = {
             Text(
                 "Downloads",
-                style = MaterialTheme.typography.headlineMedium.copy(fontWeight = FontWeight.Companion.Bold)
             )
         },
         navigationIcon = {

@@ -1,9 +1,9 @@
 package com.example.harmonyhub.features.home.presentation.components
 
-import android.util.Log
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -33,59 +33,63 @@ fun MusicItemCard2(
     dataItem: MusicDataItem,
     navController: NavHostController,
     musicPlayerViewModel: MusicPlayerViewModel,
-    onPress:()-> Unit={}
+    onPress: () -> Unit = {}
 ) {
 
-    val scope= rememberCoroutineScope()
+    val scope = rememberCoroutineScope()
 
-    Log.d("MusicItemCard2", "dataItem: ${dataItem.name} ${dataItem.getImageUrl()}")
+    val subtitleText = (dataItem.subtitle ?: "").ifEmpty {
+        dataItem.type?.name?.lowercase()?.replaceFirstChar { it.uppercaseChar() } ?: ""
+    }
 
     val onMusicItemClick: () -> Unit = {
         dataItem.type?.let { type ->
             onPress()
             scope.launch {
-                MusicItemNavigator.navigate(type, navController, dataItem,musicPlayerViewModel)
+                MusicItemNavigator.navigate(type, navController, dataItem, musicPlayerViewModel)
             }
-
         }
     }
 
+    val isCircular = dataItem.type == MusicItemType.RADIO_STATION ||
+            dataItem.type == MusicItemType.RADIO ||
+            dataItem.type == MusicItemType.ARTIST
+
     Column(
-        Modifier
-            .width(135.dp)
-            .height(180.dp)
-            .clip(RoundedCornerShape(8.dp))
-            .clickable {
-                onMusicItemClick()
-            }
-            .padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp)
+        modifier = Modifier
+            .width(125.dp)
+            .clip(RoundedCornerShape(12.dp))
+            .clickable { onMusicItemClick() }
+            .padding(8.dp)
     ) {
         MusicItemImage(
             imageUrl = dataItem.getImageUrl(),
             modifier = Modifier
-                .weight(1f)
                 .fillMaxWidth()
-                .clip(
-                    if (dataItem.type == MusicItemType.RADIO_STATION || dataItem.type == MusicItemType.RADIO || dataItem.type == MusicItemType.ARTIST) CircleShape else RoundedCornerShape(
-                        8.dp
-                    )
-                ),
+                .aspectRatio(1f)
+                .clip(if (isCircular) CircleShape else RoundedCornerShape(12.dp))
         )
-        Column(Modifier.padding(horizontal = 4.dp)) {
-            Text(
-                dataItem.name ?: "",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-            Text(
-                text = (dataItem.subtitle ?: "").ifEmpty { dataItem.type?.name?.replaceFirstChar { it.uppercaseChar() } ?: "" },
-                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W400),
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis
-            )
-        }
 
+        Spacer(modifier = Modifier.height(10.dp))
+
+        Text(
+            text = dataItem.name ?: "",
+            style = MaterialTheme.typography.bodyMedium.copy(
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.onSurface
+            ),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+
+        Text(
+            text = subtitleText,
+            style = MaterialTheme.typography.labelMedium.copy(
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                fontWeight = FontWeight.Normal
+            ),
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
     }
 }

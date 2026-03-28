@@ -14,17 +14,11 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material.icons.filled.Equalizer
 import androidx.compose.material3.AssistChip
-import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ElevatedCard
-import androidx.compose.material3.ElevatedSuggestionChip
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.ListItem
-import androidx.compose.material3.ListItemColors
-import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -36,33 +30,43 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.harmonyhub.core.models.AudioQuality
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AudioQualitySelector(audioQuality: AudioQuality, setAudioQuality: (AudioQuality) -> Unit) {
+fun AudioQualitySelector(
+    audioQuality: AudioQuality,
+    setAudioQuality: (AudioQuality) -> Unit,
+    expand: Boolean = false,
+    showChip: Boolean = true,
+    onDismiss: () -> Unit = {}
+) {
 
-    var isVisible by remember {
+    var isVisibleInternal by remember {
         mutableStateOf(false)
     }
 
+    val isVisible = isVisibleInternal || expand
+
 
     fun closeBottomSheet() {
-        isVisible = false;
+        isVisibleInternal = false
+        onDismiss()
     }
 
     fun openBottomSheet() {
-        isVisible = true;
+        isVisibleInternal = true
     }
 
-    AssistChip(
-        label = { Text(audioQuality.displayName, style = MaterialTheme.typography.labelSmall) },
-        onClick = ::openBottomSheet,
-        trailingIcon = { Icon(Icons.Default.ArrowDropDown, contentDescription = "") }
-    )
+    if (showChip) {
+        AssistChip(
+            label = { Text(audioQuality.displayName, style = MaterialTheme.typography.labelSmall) },
+            onClick = ::openBottomSheet,
+            trailingIcon = { Icon(Icons.Default.ArrowDropDown, contentDescription = "") }
+        )
+    }
 
     if (isVisible)
         ModalBottomSheet(
@@ -73,9 +77,9 @@ fun AudioQualitySelector(audioQuality: AudioQuality, setAudioQuality: (AudioQual
             Column {
                 Text(
                     text = "Audio Quality",
-                    style = MaterialTheme.typography.titleLarge.copy(
+                    style = MaterialTheme.typography.titleMedium.copy(
                         color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.W500
+                        fontWeight = FontWeight.Bold
                     ),
                     modifier = Modifier.padding(16.dp)
                 )

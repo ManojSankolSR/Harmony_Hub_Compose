@@ -33,7 +33,9 @@ fun StorageInfoItem(navController: NavHostController) {
         headlineContent = {
             Text(
                 "Storage Information",
-                style = MaterialTheme.typography.titleSmall
+                style = MaterialTheme.typography.bodyMedium.copy(
+                    fontWeight = FontWeight.Bold
+                )
             )
         },
         supportingContent = {

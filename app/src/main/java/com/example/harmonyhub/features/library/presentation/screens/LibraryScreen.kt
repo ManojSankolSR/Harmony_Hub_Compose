@@ -38,7 +38,6 @@ fun LibraryScreen(
                 title = {
                     Text(
                         "Library",
-                        style = MaterialTheme.typography.headlineLarge.copy(fontWeight = FontWeight.Bold, fontFamily = PermanentMarker)
                     )
                 }
             )

@@ -2,6 +2,7 @@ package com.example.harmonyhub.di
 
 import android.content.Context
 import com.example.harmonyhub.core.data.local.db.AppDatabase
+import com.example.harmonyhub.core.data.remote.api.ApiService
 import com.example.harmonyhub.core.data.respository.SongRepository
 import com.example.harmonyhub.features.auth.data.respository.UserRepository
 import com.example.harmonyhub.core.services.NetworkService
@@ -15,6 +16,7 @@ import com.example.harmonyhub.features.music_player.data.repository.LyricsReposi
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
 import com.example.harmonyhub.features.playlist.data.respository.PlaylistRepository
 import com.example.harmonyhub.features.radio.data.repository.RadioRepository
+import com.example.harmonyhub.features.recomendations.data.repository.RecommendationsRepository
 import com.example.harmonyhub.features.serach.data.respository.SearchRepository
 import com.example.harmonyhub.features.song_download.data.repository.DownloadRepository
 import com.example.harmonyhub.features.storage.data.repository.StorageRepository
@@ -54,5 +56,7 @@ class AppContainer(val context: Context) {
     val likedSongsRepository= LikedSongsRepository(db.likedSongsDao())
 
     val appUpdateRepository= AppUpdatesRepository(networkService,context)
+
+    val recommendationsRepository = RecommendationsRepository(networkService, ApiService.recommendationsApi)
 
 }

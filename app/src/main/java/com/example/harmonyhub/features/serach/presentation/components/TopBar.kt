@@ -17,7 +17,7 @@ fun TopBar(query: String, searchViewModel: SearchViewModel, focusManager: FocusM
     Column(Modifier.padding(16.dp)) {
         Text(
             "Search",
-            style = MaterialTheme.typography.headlineLarge.copy(fontFamily = PermanentMarker),
+            style = MaterialTheme.typography.titleLarge,
             modifier = Modifier.padding(bottom = 16.dp)
         )
         SearchBar(

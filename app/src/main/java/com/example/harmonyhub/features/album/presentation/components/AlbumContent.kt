@@ -36,35 +36,41 @@ fun AlbumContent(
         topBar = {
             TopBar(navController)
         }) { padding ->
-        Box(Modifier.padding(padding)) {
-            when (state) {
-                is AlbumUiState.Loading -> {
-                    LoaderView(padding = parentPaddingValues)
-                }
 
-                is AlbumUiState.Success -> {
-                    val playlistData = state.data;
-                    AlbumSuccess(
-                        playlistData,
-                        musicPlayerViewModel,
-                        parentPaddingValues,
-                        downloadsViewModel,
-                        likedSongsViewModel = likedSongsViewModel
-                    )
-                }
-
-                is AlbumUiState.Error -> {
-                    val message = state.message
-                    ErrorView(
-                        onRefresh = ::onRefresh,
-                        message =  message,
-                        paddingValues = PaddingValues(bottom = parentPaddingValues.calculateBottomPadding())
-                    )
-
-                }
+        when (state) {
+            is AlbumUiState.Loading -> {
+                LoaderView(padding = PaddingValues(
+                    bottom = parentPaddingValues.calculateBottomPadding(),
+                    top = padding.calculateTopPadding()
+                ))
             }
 
+            is AlbumUiState.Success -> {
+                val playlistData = state.data;
+                AlbumSuccess(
+                    playlistData,
+                    musicPlayerViewModel,
+                    parentPaddingValues,
+                    downloadsViewModel,
+                    likedSongsViewModel = likedSongsViewModel,
+                    padding
+                )
+            }
 
+            is AlbumUiState.Error -> {
+                val message = state.message
+                ErrorView(
+                    onRefresh = ::onRefresh,
+                    message = message,
+                    paddingValues = PaddingValues(
+                        bottom = parentPaddingValues.calculateBottomPadding(),
+                        top = padding.calculateTopPadding()
+                    )
+                )
+
+            }
         }
+
+
     }
 }

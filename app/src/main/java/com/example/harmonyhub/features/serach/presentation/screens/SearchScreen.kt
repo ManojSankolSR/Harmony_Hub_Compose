@@ -1,9 +1,11 @@
 package com.example.harmonyhub.features.serach.presentation.screens
 
+import androidx.compose.foundation.gestures.detectTapGestures
 import androidx.compose.foundation.layout.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.input.pointer.pointerInput
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavHostController
@@ -40,7 +42,13 @@ fun SearchScreen(
     ) { padding ->
         Box(modifier = Modifier
             .padding(top = padding.calculateTopPadding())
-            .fillMaxSize()) {
+            .fillMaxSize()
+            .pointerInput(Unit) {
+                detectTapGestures {
+                    focusManager.clearFocus()
+                }
+            }
+        ) {
             if (query.isEmpty()) {
                 TopSearchesContent(parentPaddingValues,topSearchesState, navController, musicPlayerViewModel)
             } else {

@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
@@ -49,18 +50,12 @@ fun SongsListItem(
     Row(
         Modifier
             .fillMaxWidth()
-            .height(60.dp)
+            .height(55.dp)
             .padding(8.dp, vertical = 4.dp)
             .clip(RoundedCornerShape(8.dp))
-            .background(MaterialTheme.colorScheme.background)
             .then(
                 if (isSelected)
                     Modifier
-                        .border(
-                            1.dp,
-                            MaterialTheme.colorScheme.primary,
-                            RoundedCornerShape(8.dp)
-                        )
                         .background(MaterialTheme.colorScheme.primaryContainer)
                 else
                     Modifier
@@ -80,13 +75,14 @@ fun SongsListItem(
         Column(Modifier.weight(1f), verticalArrangement = Arrangement.Center) {
             Text(
                 song.name ?: "",
-                style = MaterialTheme.typography.bodyMedium.copy(fontWeight = FontWeight.W600),
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W600),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )
+            Spacer(modifier = Modifier.height(2.dp))
             Text(
                 song.subtitle ?: "",
-                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W400),
+                style = MaterialTheme.typography.bodySmall.copy(fontWeight = FontWeight.W300),
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
             )

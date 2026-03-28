@@ -61,6 +61,7 @@ fun ArtistContent(
                         onClick = {
                             musicPlayerViewModel.setMediaItems(songs, index)
                             musicPlayerViewModel.play()
+                            musicPlayerViewModel.fetchAndAddSongRecommendationsToQueue()
                         },
                         localPlaylistViewModel = localPlaylistViewModel,
                         downloadsViewModel=downloadsViewModel

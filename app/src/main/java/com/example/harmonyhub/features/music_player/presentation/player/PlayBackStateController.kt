@@ -27,6 +27,18 @@ class PlayBackStateController(
 
     }
 
+    fun addMediaItemsToQueue(songs: List<Song>, quality: AudioQuality) {
+        val mediaItems = songs.map { it.toMediaItem(quality) }
+        player.addMediaItems(mediaItems)
+        updateUiState() {
+            copy(
+                mediaItemQueue = mediaItemQueue + songs,
+                nextControlEnabled = true
+            )
+        }
+
+    }
+
     fun play() {
         player.prepare()
         player.play()
@@ -95,5 +107,7 @@ class PlayBackStateController(
             delay(500) // update every 500ms
         }
     }
+
+
 
 }

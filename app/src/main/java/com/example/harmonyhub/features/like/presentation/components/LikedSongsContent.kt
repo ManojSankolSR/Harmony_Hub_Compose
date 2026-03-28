@@ -61,6 +61,7 @@ fun LikedSongsContent(
                             state.songs.indexOf(song)
                         )
                         musicPlayerViewModel.play()
+                        musicPlayerViewModel.fetchAndAddSongRecommendationsToQueue()
                     }
                 )
             }

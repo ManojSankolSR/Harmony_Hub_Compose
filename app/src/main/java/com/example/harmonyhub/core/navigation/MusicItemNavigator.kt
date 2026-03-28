@@ -37,6 +37,7 @@ object MusicItemNavigator {
                 }else{
                     musicPlayerViewModel.setMediaItems(listOf(song))
                     musicPlayerViewModel.play()
+                    musicPlayerViewModel.fetchAndAddSongRecommendationsToQueue()
                 }
             }
 

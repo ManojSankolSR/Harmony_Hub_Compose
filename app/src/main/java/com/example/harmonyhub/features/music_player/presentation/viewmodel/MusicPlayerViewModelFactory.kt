@@ -7,18 +7,20 @@ import com.example.harmonyhub.core.data.respository.SongRepository
 import com.example.harmonyhub.features.auth.data.respository.UserRepository
 import com.example.harmonyhub.features.music_player.data.repository.PlayerRepository
 import com.example.harmonyhub.features.radio.data.repository.RadioRepository
+import com.example.harmonyhub.features.recomendations.data.repository.RecommendationsRepository
 
 class MusicPlayerViewModelFactory(
     private val application: Application,
     private val repository: PlayerRepository,
     private val userRepository: UserRepository,
     private val radioRepository: RadioRepository,
-    private val songRepository: SongRepository
+    private val songRepository: SongRepository,
+    private val recommendationsRepository: RecommendationsRepository
 ) : ViewModelProvider.Factory {
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(MusicPlayerViewModel::class.java)) {
             @Suppress("UNCHECKED_CAST")
-            return MusicPlayerViewModel(application, repository,userRepository,radioRepository,songRepository) as T
+            return MusicPlayerViewModel(application, repository,userRepository,radioRepository,songRepository,recommendationsRepository) as T
         }
         throw IllegalArgumentException("Unknown ViewModel class")
     }

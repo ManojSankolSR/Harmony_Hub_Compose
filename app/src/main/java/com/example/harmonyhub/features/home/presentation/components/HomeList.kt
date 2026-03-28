@@ -1,6 +1,7 @@
 package com.example.harmonyhub.features.home.presentation.components
 
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -36,7 +37,6 @@ fun HomeList(
     val list = data.asList();
 
     LazyColumn(
-//        Modifier.padding(padding),
         verticalArrangement = Arrangement.spacedBy(8.dp),
         contentPadding = PaddingValues(bottom = parentPadding.calculateBottomPadding(), top = padding.calculateTopPadding())
     ) {
@@ -44,28 +44,33 @@ fun HomeList(
             items = list,
         ) { colIndex, item ->
             val title = item.title ?: ""
-            if(title.isNotEmpty())
+            if(title.isNotEmpty() && !item.data.isNullOrEmpty())
                 Text(
                     title,
                     Modifier.padding(horizontal = 12.dp),
-                    style = MaterialTheme.typography.titleLarge.copy(
+                    style = MaterialTheme.typography.titleMedium.copy(
                         fontWeight = FontWeight.W500,
                         color = MaterialTheme.colorScheme.primary
                     )
                 )
-            Spacer(Modifier.height(8.dp))
+            Spacer(Modifier.height(6.dp))
             item.data?.let { dataList ->
                 if (dataList.isNotEmpty())
-                    LazyRow(
-                        contentPadding = PaddingValues(horizontal = 8.dp)
-                    ) {
-                        itemsIndexed(
-                            items = dataList
-                        ) { index, musicItem ->
-                            musicItem?.let {
-                                when (colIndex) {
-                                    0 -> MusicItemCard1(it, navController,musicPlayerViewModel)
-                                    else -> MusicItemCard2(it, navController,musicPlayerViewModel)
+                    BoxWithConstraints(){
+
+                        val parentWidth = maxWidth
+
+                        LazyRow(
+                            contentPadding = PaddingValues(horizontal = 8.dp)
+                        ) {
+                            itemsIndexed(
+                                items = dataList
+                            ) { index, musicItem ->
+                                musicItem?.let {
+                                    when (colIndex) {
+                                        0 -> MusicItemCard1(it, navController,musicPlayerViewModel,parentWidth)
+                                        else -> MusicItemCard2(it, navController,musicPlayerViewModel)
+                                    }
                                 }
                             }
                         }

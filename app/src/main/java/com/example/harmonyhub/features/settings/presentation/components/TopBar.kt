@@ -13,11 +13,7 @@ import com.example.harmonyhub.ui.theme.PermanentMarker
 fun TopBar() {
     TopAppBar(title = {
         Text(
-            "Settings",
-            style = MaterialTheme.typography.headlineLarge.copy(
-                fontWeight = FontWeight.Companion.Bold,
-                fontFamily = PermanentMarker
-            )
+            "Settings"
         )
     })
 }
