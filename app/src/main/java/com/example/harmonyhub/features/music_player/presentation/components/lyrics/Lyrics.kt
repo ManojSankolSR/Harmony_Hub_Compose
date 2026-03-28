@@ -25,11 +25,18 @@ fun Lyrics(
 
     val currentSongId = playerViewModel.playerState.collectAsStateWithLifecycle().value.currentMediaItem?.id
 
-    LaunchedEffect(currentSongId) {
+
+    val fetchLyrics: () -> Unit = {
         playerViewModel.playerState.value.currentMediaItem?.let { song ->
             lyricsViewModel.getLyrics(song.id, song.url, song.name)
         }
     }
+
+    LaunchedEffect(currentSongId) {
+        fetchLyrics()
+    }
+
+
 
     Card (
         modifier = modifier
@@ -65,7 +72,7 @@ fun Lyrics(
                     ErrorView(
                         title = state.message,
                         message = "Something went wrong while loading lyrics.",
-                        onRefresh = {},
+                        onRefresh = fetchLyrics,
                         buttonText = "Refresh",
                         backgroundColor = Color.Transparent
                     )

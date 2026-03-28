@@ -2,6 +2,12 @@
 
 **Harmony Hub** is a feature-rich, modern music streaming and management application built entirely with **Jetpack Compose**. It provides a seamless and beautiful music experience, combining online streaming with powerful local library management.
 
+<p align="center">
+  <img src="screenshots/home.png" width="30%" />
+  <img src="screenshots/music_player.png" width="30%" />
+  <img src="screenshots/search.png" width="30%" />
+</p>
+
 ---
 
 ## ✨ Key Features
@@ -19,25 +25,21 @@
 
 ## 📸 Screenshots
 
-### App Highlights
 | Home | Search | Library |
 | :---: | :---: | :---: |
-| ![Home](screenshots/home.png) | ![Search](screenshots/search.png) | ![Library](screenshots/library.png) |
+| <img src="screenshots/home.png" width="200" /> | <img src="screenshots/search.png" width="200" /> | <img src="screenshots/library.png" width="200" /> |
 
-### Player & Content
 | Music Player | Artist | Album |
 | :---: | :---: | :---: |
-| ![Music Player](screenshots/music_player.png) | ![Artist](screenshots/artist.png) | ![Album](screenshots/album.png) |
+| <img src="screenshots/music_player.png" width="200" /> | <img src="screenshots/artist.png" width="200" /> | <img src="screenshots/album.png" width="200" /> |
 
-### Features
 | Updates | Downloaded Songs | Playlist |
 | :---: | :---: | :---: |
-| ![Updates](screenshots/check_for_updates.png) | ![Downloaded Songs](screenshots/downloaded_songs.png) | ![Playlist](screenshots/playlist.png) |
+| <img src="screenshots/check_for_updates.png" width="200" /> | <img src="screenshots/downloaded_songs.png" width="200" /> | <img src="screenshots/playlist.png" width="200" /> |
 
-### Settings & Management
 | Settings | Local Playlist | Storage Details |
 | :---: | :---: | :---: |
-| ![Settings](screenshots/settings.png) | ![Local Playlist](screenshots/local_playlist.png) | ![Storage Details](screenshots/storage_details.png) |
+| <img src="screenshots/settings.png" width="200" /> | <img src="screenshots/local_playlist.png" width="200" /> | <img src="screenshots/storage_details.png" width="200" /> |
 
 ---
 

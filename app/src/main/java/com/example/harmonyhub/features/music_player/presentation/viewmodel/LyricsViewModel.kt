@@ -36,6 +36,7 @@ class LyricsViewModel(private val lyricsRepository: LyricsRepository) : ViewMode
                 _uiState.update {
                     LyricsUiState.Error(e.message ?: "No Lyrics Found")
                 }
+                lastSongId=null
             }
 
         }
