@@ -44,8 +44,7 @@ class LikedSongsViewModel(private val repository: LikedSongsRepository) : ViewMo
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
                         title = "Error",
-                        description = e.message ?: "Something went wrong",
-                        duration = StackedSnackbarDuration.Short
+                        description = e.message ?: "Something went wrong"
                     )
                 )
 
@@ -61,8 +60,7 @@ class LikedSongsViewModel(private val repository: LikedSongsRepository) : ViewMo
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
                         title = "Error",
-                        description = e.message ?: "Something went wrong",
-                        duration = StackedSnackbarDuration.Short
+                        description = e.message ?: "Something went wrong"
                     )
                 )
 

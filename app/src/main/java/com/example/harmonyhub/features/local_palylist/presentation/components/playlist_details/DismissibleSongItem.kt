@@ -82,6 +82,7 @@ fun DismissibleSongItem(
             song = song,
             viewModel = musicPlayerViewModel,
             onClick = onClick,
+            backgroundColor = MaterialTheme.colorScheme.background
         )
     }
 }

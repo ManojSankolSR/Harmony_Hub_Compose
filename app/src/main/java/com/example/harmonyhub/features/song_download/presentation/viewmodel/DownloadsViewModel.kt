@@ -1,6 +1,5 @@
 package com.example.harmonyhub.features.song_download.presentation.viewmodel
 
-import StackedSnackbarDuration
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.harmonyhub.core.models.AudioQuality
@@ -48,8 +47,7 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
                 SnackBarManager.show(
                     SnackBar.InfoSnackBar(
                         title = "Download Started",
-                        description = "Downloading ${song.name}",
-                        duration = StackedSnackbarDuration.Short
+                        description = "Downloading ${song.name}"
                     )
                 )
                 _uiStateSongsDownload.update { it ->
@@ -64,16 +62,14 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
                 SnackBarManager.show(
                     SnackBar.SuccessSnackBar(
                         title = "Download Complete",
-                        description = "${song.name} downloaded successfully",
-                        duration = StackedSnackbarDuration.Short
+                        description = "${song.name} downloaded successfully"
                     )
                 )
             } catch (e: Exception) {
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
                         title = "Download Failed",
-                        description = e.message ?: "Could not download ${song.name}",
-                        duration = StackedSnackbarDuration.Short
+                        description = e.message ?: "Could not download ${song.name}"
                     )
                 )
             } finally {
@@ -92,16 +88,14 @@ class DownloadsViewModel(private val downloadRepository: DownloadRepository): Vi
                 SnackBarManager.show(
                     SnackBar.SuccessSnackBar(
                         title = "Song Deleted",
-                        description = "${song.name} removed from downloads",
-                        duration = StackedSnackbarDuration.Short
+                        description = "${song.name} removed from downloads"
                     )
                 )
             } catch (e: Exception) {
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
                         title = "Delete Failed",
-                        description = e.message ?: "Could not delete ${song.name}",
-                        duration = StackedSnackbarDuration.Short
+                        description = e.message ?: "Could not delete ${song.name}"
                     )
                 )
             }

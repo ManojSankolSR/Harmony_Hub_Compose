@@ -145,8 +145,6 @@ dependencies {
 
 
 
-    implementation(libs.compose.stacked.snackbar)
-
     implementation(libs.waveslider)
 
     implementation(libs.androidx.palette.ktx)

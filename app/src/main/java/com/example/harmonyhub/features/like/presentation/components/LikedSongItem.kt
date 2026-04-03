@@ -85,6 +85,7 @@ fun LikedSongItem(
             viewModel = musicPlayerViewModel,
             onClick = onClick,
             downloadsViewModel = downloadsViewModel,
+            backgroundColor = MaterialTheme.colorScheme.background
         )
     }
 }

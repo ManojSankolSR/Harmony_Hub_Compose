@@ -49,6 +49,10 @@ fun MusicItemCard1(
 
     val scope = rememberCoroutineScope()
 
+    val subtitleText = (data.subtitle ?: "").ifEmpty {
+        data.type?.name?.lowercase()?.replaceFirstChar { it.uppercaseChar() } ?: ""
+    }
+
     val onMusicItemClick: () -> Unit = {
         data.type?.let { type ->
             scope.launch {
@@ -65,7 +69,7 @@ fun MusicItemCard1(
 
     ElevatedCard(
         modifier = Modifier
-            .width(parentWidth * 0.82f)
+            .width(parentWidth)
             .height(110.dp)
             .padding(horizontal = 8.dp, vertical = 6.dp),
         shape = RoundedCornerShape(16.dp),
@@ -96,7 +100,7 @@ fun MusicItemCard1(
             ) {
                 Text(
                     text = data.name ?: "",
-                    style = MaterialTheme.typography.titleMedium.copy(
+                    style = MaterialTheme.typography.titleSmall.copy(
                         fontWeight = FontWeight.Bold,
                         color = MaterialTheme.colorScheme.onSurface
                     ),
@@ -104,9 +108,6 @@ fun MusicItemCard1(
                     overflow = TextOverflow.Ellipsis
                 )
 
-                val subtitleText = (data.subtitle ?: "").ifEmpty {
-                    data.type?.name?.lowercase()?.replaceFirstChar { it.uppercaseChar() } ?: ""
-                }
 
                 if (subtitleText.isNotEmpty()) {
                     Spacer(modifier = Modifier.height(2.dp))

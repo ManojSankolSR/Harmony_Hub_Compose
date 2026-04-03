@@ -3,7 +3,6 @@ agp = "9.0.1"
 coilCompose = "3.4.0"
 coilNetworkOkhttp = "3.4.0"
 composeCharts = "0.2.5"
-composeStackedSnackbar = "1.0.4"
 converterGson = "3.0.0"
 coreKtx = "1.17.0"
 jaudiotagger = "3.0.1"
@@ -50,7 +49,6 @@ androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "
 coil-compose = { module = "io.coil-kt.coil3:coil-compose", version.ref = "coilCompose" }
 coil-network-okhttp = { module = "io.coil-kt.coil3:coil-network-okhttp", version.ref = "coilNetworkOkhttp" }
 compose-charts = { module = "io.github.ehsannarmani:compose-charts", version.ref = "composeCharts" }
-compose-stacked-snackbar = { module = "io.github.rizmaulana:compose-stacked-snackbar", version.ref = "composeStackedSnackbar" }
 converter-gson = { module = "com.squareup.retrofit2:converter-gson", version.ref = "converterGson" }
 jaudiotagger = { module = "net.jthink:jaudiotagger", version.ref = "jaudiotagger" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }

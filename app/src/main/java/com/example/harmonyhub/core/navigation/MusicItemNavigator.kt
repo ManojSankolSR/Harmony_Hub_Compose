@@ -8,7 +8,6 @@ import com.example.harmonyhub.features.home.data.remote.models.MusicDataItem
 import com.example.harmonyhub.features.home.data.remote.models.MusicItemType
 import com.example.harmonyhub.features.home.data.remote.models.toSong
 import com.example.harmonyhub.features.music_player.presentation.viewmodel.MusicPlayerViewModel
-import com.example.harmonyhub.navigation.auth_nav.AuthNavRoutes
 import com.example.harmonyhub.navigation.bottom_bar_nav.AlbumDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.ArtistDetailsScreen
 import com.example.harmonyhub.navigation.bottom_bar_nav.PlaylistDetailScreen
@@ -52,11 +51,8 @@ object MusicItemNavigator {
             MusicItemType.SHOW -> {
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
-                        "Not Implemented",
-                        "Implementation is still in progress",
-                        null,
-                        null,
-                        StackedSnackbarDuration.Short
+                        title = "Not Implemented",
+                        description = "Implementation is still in progress"
                     )
                 )
             }
@@ -64,11 +60,8 @@ object MusicItemNavigator {
             MusicItemType.CHANNEL -> {
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
-                        "Not Implemented",
-                        "Implementation is still in progress",
-                        null,
-                        null,
-                        StackedSnackbarDuration.Short
+                        title = "Not Implemented",
+                        description = "Implementation is still in progress"
                     )
                 )
             }
@@ -76,11 +69,8 @@ object MusicItemNavigator {
             MusicItemType.SEASON-> {
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
-                        "Not Implemented",
-                        "Implementation is still in progress",
-                        null,
-                        null,
-                        StackedSnackbarDuration.Short
+                        title = "Not Implemented",
+                        description = "Implementation is still in progress"
                     )
                 )
             }
@@ -88,11 +78,8 @@ object MusicItemNavigator {
             MusicItemType.EPISODE -> {
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
-                        "Not Implemented",
-                        "Implementation is still in progress",
-                        null,
-                        null,
-                        StackedSnackbarDuration.Short
+                        title = "Not Implemented",
+                        description = "Implementation is still in progress"
                     )
                 )
             }

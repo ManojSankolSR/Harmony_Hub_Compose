@@ -1,6 +1,5 @@
 package com.example.harmonyhub.features.local_palylist.presentation.viewmodel
 
-import StackedSnackbarDuration
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.harmonyhub.core.models.SnackBar
@@ -67,8 +66,7 @@ class LocalPlaylistViewModel(private val repository: LocalPlaylistRepository) : 
             SnackBarManager.show(
                 SnackBar.SuccessSnackBar(
                     title = "Playlist Created",
-                    description = "Playlist '$name' has been created successfully",
-                    duration = StackedSnackbarDuration.Short
+                    description = "Playlist '$name' has been created successfully"
                 )
             )
         }
@@ -80,8 +78,7 @@ class LocalPlaylistViewModel(private val repository: LocalPlaylistRepository) : 
             SnackBarManager.show(
                 SnackBar.SuccessSnackBar(
                     title = "Song Added",
-                    description = "'${song.name}' has been added to '${playlist.name}' successfully",
-                    duration = StackedSnackbarDuration.Short
+                    description = "'${song.name}' has been added to '${playlist.name}' successfully"
                 )
             )
         }
@@ -93,8 +90,7 @@ class LocalPlaylistViewModel(private val repository: LocalPlaylistRepository) : 
             SnackBarManager.show(
                 SnackBar.SuccessSnackBar(
                     title = "Playlist Deleted",
-                    description = "Playlist '${playlist.name}' has been deleted",
-                    duration = StackedSnackbarDuration.Short
+                    description = "Playlist '${playlist.name}' has been deleted"
                 )
             )
         }
@@ -106,8 +102,7 @@ class LocalPlaylistViewModel(private val repository: LocalPlaylistRepository) : 
             SnackBarManager.show(
                 SnackBar.SuccessSnackBar(
                     title = "Song Removed",
-                    description = "Song removed from playlist",
-                    duration = StackedSnackbarDuration.Short
+                    description = "Song removed from playlist"
                 )
             )
         }

@@ -79,7 +79,10 @@ fun DownloadedSongItem(
         SongsListItem(
             song = song,
             viewModel = musicPlayerViewModel,
-            onClick = onClick
+            onClick = onClick,
+
+            backgroundColor = MaterialTheme.colorScheme.background
+
         )
     }
 }

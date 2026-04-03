@@ -1,6 +1,5 @@
 package com.example.harmonyhub.features.app_update.presentation.viewmodel
 
-import StackedSnackbarDuration
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.harmonyhub.BuildConfig
@@ -40,8 +39,7 @@ class AppUpdateViewModel(
                 SnackBarManager.show(
                     SnackBar.ErrorSnackBar(
                         "Unable To Check For Updates",
-                        e.message ?: "Some error occurred",
-                        duration = StackedSnackbarDuration.Short
+                        e.message ?: "Some error occurred"
                     )
                 )
             }
